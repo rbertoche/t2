@@ -20,13 +20,14 @@ Diagrama UML do modelo fisico da implementacao de grafo
                 =================    owns    =========    
 */
 
+#include "graph.h"
+
 // Graph definition
 struct graph {
 	LIS_tppLista nodes;
 	int nOfNodes;
 	int nOfLinks;
 };
-typedef struct graph Graph;
 
 // Node definition
 typedef struct {
@@ -38,4 +39,34 @@ typedef struct {
 typedef struct {
 	Node * head;  // node com o qual ha’ relacao
 } Link;
+
+
+Graph *graphNew (FDelData fdd)
+{
+}
+void graphDel (Graph *g)
+{
+}
+enum graphRet graphCCurrent (Graph *g, Node *newCurrent)
+{
+}
+enum graphRet graphNewNode (Graph *g, void *data)
+{
+}
+enum graphRet graphDelNode (Graph *g)
+{
+}
+enum graphRet graphAddLink (Graph *g, Node *n)
+{
+}
+enum graphRet graphRemLink (Graph *g, Node *n)
+{
+}
+void *graphGetData (Graph *g)
+{
+}
+void *graphGetSuccessor (Graph *g)
+{
+}
+
 
