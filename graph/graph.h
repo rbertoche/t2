@@ -3,6 +3,30 @@
 
 #include "../lista/lista.h"
 
+/***************************************************************************
+*
+*	$MCD Módulo de definição: Graph	
+*
+*	Arquivo gerado:		graph.h
+*
+*	Autores: rlb
+*
+*	$HA Histórico de evolução:
+*		Vide repositorio Git
+*
+*	$ED Descrição do módulo
+*
+*	Implementa um grafo simples permitindo:
+*		* Vertices paralelos ou repetidos;
+*		* Lacos ou loops;
+*		* Grafos disconexos
+*	A implementacao e' feita atraves de um digrafo simetrico
+*		(para cada seta ha' igual no sentido oposto).
+*
+*	Cada vertice contem um ponteiro generico nao nulo.
+*
+***************************************************************************/
+ 
 
 /***********************************************************************
 *	$TC Tipo de Dados: Graph
@@ -90,6 +114,7 @@ enum graphRet graphCCurrent (Graph *g, Node *newCurrent);
 *	$FV Valor retornado
 *		graphOk
 *		graphInvalidGraph
+*		graphNullData
 *
 ***********************************************************************/
 enum graphRet graphNewNode (Graph *g, void *data);
