@@ -42,11 +42,12 @@ typedef struct graph Graph;
 *		Condicoes de retorno das funcoes Graph
 ***********************************************************************/
 enum graphRet {
-   graphOk,
-   graphInvalidGraph,
-   graphInvalidCurrentNode,
-   graphInvalidArgNode,
-   graphInvalidLink,
+	graphOk,
+	graphInvalidGraph,
+	graphInvalidCurrentNode,
+	graphInvalidArgNode,
+	graphInvalidLink,
+	graphNullData
 };
 
 
