@@ -1,0 +1,8 @@
+# swap and backup files
+*~
+*.swp
+*.orig
+
+# C build files
+*.o
+
