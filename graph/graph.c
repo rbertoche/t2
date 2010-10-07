@@ -32,6 +32,7 @@ typedef struct {
 struct graph {
 	LIS_tppLista nodes;
 	Node * currentNode;
+	FDelData delData;
 	int nOfNodes;
 	int nOfLinks;
 };
@@ -42,14 +43,39 @@ typedef struct {
 } Link;
 
 
+
+
 Graph *graphNew (FDelData fdd)
 {
+	Graph *g;
+	g = (Graph *) malloc(sizeof(Graph));
+	g->nodes = LIS_CriarLista(delNode);
+	if (!g->nodes){
+		return NULL;
+	}
+	g->delData = fdd;
+	g->currentNode = NULL;
+	g->nOfNodes = 0;
+	g->nOfLinks = 0;
+	return g;
 }
+
 void graphDel (Graph *g)
 {
+	/* Deleta o unico recurso diretamente possuido por Graph */
+	LIS_DestruirLista( g->nodes );
+	free(g);
+	return;
 }
+
 enum graphRet graphCCurrent (Graph *g, Node *newCurrent)
 {
+	if (!g){
+		return graphInvalidGraph;
+	}if (!newCurrent){
+		return graphInvalidArgNode;
+	}
+	g->currentNode = newCurrent;
 }
 enum graphRet graphNewNode (Graph *g, void *data)
 {

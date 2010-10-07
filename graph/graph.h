@@ -64,7 +64,8 @@ enum graphRet {
 *		Cria um novo grafo vazio e retorna um ponteiro para tal.
 *
 *	$FV Valor retornado
-*		Ponteiro para novo grafo
+*		Ponteiro para novo grafo ou para NULL caso algum problema
+*			tenha ocorrido
 *
 ***********************************************************************/
 typedef void (*FDelData)(void *data);
@@ -81,6 +82,8 @@ Graph *graphNew (FDelData fdd);
 *	$ED Descricao da funcao
 *		Se foi passada uma funcao em graphNew(), esta e’ chamada 
 *			para excluir ‘data’.
+*
+*	Ha uma assertiva de entrada: g e um ponteiro pra um Graph valido
 *
 ***********************************************************************/
 void graphDel (Graph *g);
