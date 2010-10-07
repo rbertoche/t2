@@ -51,15 +51,14 @@ enum graphRet {
 	graphMemoryError
 };
 
-
 /***********************************************************************
 *
 *	$FC Funcao: Graph New
 *
 *	$EP Parametros
-*		$P fdd - ponteiro para funcao usado para deletar ‘data’.
-*			A funcao deve retornar ‘void’ e receber ‘void *’.
-*			Caso queira que o grafo nao delete ‘data’, passe ‘NULL’.
+*		$P fdd - ponteiro para funcao usado para deletar 'data'.
+*			A funcao deve retornar 'void' e receber 'void *'.
+*			Caso queira que o grafo nao delete 'data', passe 'NULL'.
 * 
 *	$ED Descrição da função
 *		Cria um novo grafo vazio e retorna um ponteiro para tal.
@@ -78,11 +77,11 @@ Graph *graphNew (FDelData fdd);
 *	$FC Metodo: Graph Delete
 *
 * 	$EP Parametros
-*		$P g - Ponteiro para o ‘Graph’ a ser manipulado
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
 *
 *	$ED Descricao da funcao
-*		Se foi passada uma funcao em graphNew(), esta e’ chamada 
-*			para excluir ‘data’.
+*		Se foi passada uma funcao em graphNew(), esta e' chamada 
+*			para excluir 'data'.
 *
 *	Ha uma assertiva de entrada: g e um ponteiro pra um Graph valido
 *
@@ -94,8 +93,8 @@ void graphDel (Graph *g);
 *
 *	$FC Metodo: Graph Change Current
 *	$EP Parametros
-*		$P g - Ponteiro para o ‘Graph’ a ser manipulado
-*		$P newCurrent - Ponteiro para o ‘Node’ que sera’ current
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
+*		$P newCurrent - Ponteiro para o 'Node' que sera' current
 *
 *	$FV Valor retornado
 *		graphOk
@@ -110,11 +109,11 @@ enum graphRet graphCCurrent (Graph *g, Node *newCurrent);
 *
 *	$FC Metodo: Graph New Node
 *	$EP Parametros
-*		$P g - Ponteiro para o ‘Graph’ a ser manipulado
-*		$P data - Ponteiro generico para ‘data’ que o novo ‘Node’ 
-*			possuira’
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
+*		$P data - Ponteiro generico para 'data' que o novo 'Node' 
+*			possuira'
 *	$ED Descricao da funcao
-*		Aloca novo ‘Node’; ‘currentNode’ vira esse novo ‘Node’.
+*		Aloca novo 'Node'; 'currentNode' vira esse novo 'Node'.
 *
 *	$FV Valor retornado
 *		graphOk
@@ -126,7 +125,7 @@ enum graphRet graphNewNode (Graph *g, void *data);
 
 
 /***********************************************************************
-*		As proximas funcoes manipulam sempre o ‘currentNode’
+*		As proximas funcoes manipulam sempre o 'currentNode'
 *
 ***********************************************************************/
 
@@ -135,12 +134,12 @@ enum graphRet graphNewNode (Graph *g, void *data);
 *	$FC Metodo: Graph Delete Node
 *
 * 	$EP Parametros
-*		$P g - Ponteiro para o ‘Graph’ a ser manipulado
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
 *
 *	$ED Descricao da funcao
-*		Deleta ‘currentNode’. ‘currentNode’ se torna‘Null’.
-*		Se foi passada uma funcao em graphNew(), esta e’ chamada 
-*			para excluir ‘currentNode->data’.
+*		Deleta 'currentNode'. 'currentNode' se torna'Null'.
+*		Se foi passada uma funcao em graphNew(), esta e' chamada 
+*			para excluir 'currentNode->data'.
 *
 *	$FV Valor retornado
 *		graphOk
@@ -155,11 +154,11 @@ enum graphRet graphDelNode (Graph *g);
 *	$FC Metodo: Graph Add Link
 *
 * 	$EP Parametros
-*		$P g - Ponteiro para o ‘Graph’ a ser manipulado
-*		$P n - Ponteiro para o ‘Node’ a ser head do novo link
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
+*		$P n - Ponteiro para o 'Node' a ser head do novo link
 *
 *	$ED Descricao da funcao
-*		Cria um link entre ‘currentNode’ e ‘n’
+*		Cria um link entre 'currentNode' e 'n'
 *
 *	$FV Valor retornado
 *		graphOk
@@ -175,11 +174,11 @@ enum graphRet graphAddLink (Graph *g, Node *n);
 *	$FC Metodo: Graph Add Link
 *
 * 	$EP Parametros
-*		$P g - Ponteiro para o ‘Graph’ a ser manipulado
-*		$P n - Ponteiro para o ‘Node’ head do link a ser apagado
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
+*		$P n - Ponteiro para o 'Node' head do link a ser apagado
 *
 *	$ED Descricao da funcao
-*		Apaga um link entre ‘currentNode’ e ‘n’
+*		Apaga um link entre 'currentNode' e 'n'
 *
 *	$FV Valor retornado
 *		graphOk
@@ -198,10 +197,10 @@ enum graphRet graphRemLink (Graph *g, Node *n);
 *	$FC Metodo: Graph Get Data
 *
 * 	$EP Parametros
-*		$P g - Ponteiro para o ‘Graph’ a ser manipulado
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
 *
 *	$FV Valor retornado
-*		Ponteiro ‘currentNode->data’
+*		Ponteiro 'currentNode->data'
 *
 ***********************************************************************/
 void *graphGetData (Graph *g);
@@ -212,13 +211,13 @@ void *graphGetData (Graph *g);
 *	$FC Metodo: Graph Get Data
 *
 * 	$EP Parametros
-*		$P g - Ponteiro para o ‘Graph’ a ser manipulado
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
 *	$ED Descricao da funcao
-*		Retorna data do proximo ‘head’ entre os links de ‘currentNode’
+*		Retorna data do proximo 'head' entre os links de 'currentNode'
 *		FIXME:lembrar de tirar isso: 
 *			Pra usar dentro de for ou do foreach
 *	$FV Valor retornado
-*		Ponteiro para ‘data’ do sucessor ou para ‘NULL’
+*		Ponteiro para 'data' do sucessor ou para 'NULL'
 *
 ***********************************************************************/
 void *graphGetSuccessor (Graph *g);
