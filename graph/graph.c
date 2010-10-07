@@ -26,6 +26,7 @@ Diagrama UML do modelo fisico da implementacao de grafo
 typedef struct {
 	LIS_tppLista links;
 	void * data;
+	FDelData delData;
 } Node;
 
 // Graph definition
@@ -49,6 +50,8 @@ Graph *graphNew (FDelData fdd)
 {
 	Graph *g;
 	g = (Graph *) malloc(sizeof(Graph));
+	if (g!)
+		return NULL;
 	g->nodes = LIS_CriarLista(delNode);
 	if (!g->nodes){
 		return NULL;
@@ -70,18 +73,50 @@ void graphDel (Graph *g)
 
 enum graphRet graphCCurrent (Graph *g, Node *newCurrent)
 {
-	if (!g){
+	if (!g)
 		return graphInvalidGraph;
-	}if (!newCurrent){
+	if (!newCurrent)
 		return graphInvalidArgNode;
-	}
 	g->currentNode = newCurrent;
+	return graphOk;
 }
 enum graphRet graphNewNode (Graph *g, void *data)
 {
+	Node *n;
+	if (!g)
+		return graphInvalidGraph;
+	if (!data)
+		return graphNullData;
+	n = (Node *) malloc(sizeof(Node));
+	if (!n)
+		return graphMemoryError;
+	n->links = LIS_CriarLista(delLink);
+	n->data = data;
+	n->delNode = g->delNode;
+	IrFinalLista( g->nodes );
+	if (!LIS_InserirElementoApos( g->nodes , n)){
+		free( n );
+		return graphMemoryError;
+	}
+	g->nOfNodes++;
+	g->currentNode = n;
+	return graphOk;
 }
 enum graphRet graphDelNode (Graph *g)
 {
+	if (!g)
+		return graphInvalidGraph;
+	if (!g->currentNode)
+		return graphInvalidCurrentNode
+	delNode(g->currentNode);
+	g->currentNode=0;
+	
+}
+void delNode (void *n)
+{
+	/* typecast para acessar ponteiro pra funcao */
+	(*( ((Node *)n)->DelData)) (n->data);
+	LIS_DestruirLista (n->links);
 }
 enum graphRet graphAddLink (Graph *g, Node *n)
 {

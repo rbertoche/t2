@@ -47,7 +47,8 @@ enum graphRet {
 	graphInvalidCurrentNode,
 	graphInvalidArgNode,
 	graphInvalidLink,
-	graphNullData
+	graphNullData,
+	graphMemoryError
 };
 
 
