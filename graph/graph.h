@@ -80,13 +80,13 @@ Graph *graphNew (FDelData fdd);
 *		$P g - Ponteiro para o 'Graph' a ser manipulado
 *
 *	$ED Descricao da funcao
-*		Se foi passada uma funcao em graphNew(), esta e' chamada 
+*		Se foi passada uma funcao em GraphNew(), esta e' chamada
 *			para excluir 'data'.
 *
 *	Ha uma assertiva de entrada: g e um ponteiro pra um Graph valido
 *
 ***********************************************************************/
-void graphDel (Graph *g);
+void GraphDel (Graph *g);
 
 
 /***********************************************************************
@@ -102,7 +102,7 @@ void graphDel (Graph *g);
 *		graphInvalidArgNode
 *
 ***********************************************************************/
-enum graphRet graphCCurrent (Graph *g, Node *newCurrent);
+enum graphRet GraphCCurrent (Graph *g, Node *newCurrent);
 
 
 /***********************************************************************
@@ -121,7 +121,7 @@ enum graphRet graphCCurrent (Graph *g, Node *newCurrent);
 *		graphNullData
 *
 ***********************************************************************/
-enum graphRet graphNewNode (Graph *g, void *data);
+enum graphRet GraphNewNode (Graph *g, void *data);
 
 
 /***********************************************************************
@@ -138,7 +138,7 @@ enum graphRet graphNewNode (Graph *g, void *data);
 *
 *	$ED Descricao da funcao
 *		Deleta 'currentNode'. 'currentNode' se torna'Null'.
-*		Se foi passada uma funcao em graphNew(), esta e' chamada 
+*		Se foi passada uma funcao em GraphNew(), esta e' chamada
 *			para excluir 'currentNode->data'.
 *
 *	$FV Valor retornado
@@ -147,7 +147,7 @@ enum graphRet graphNewNode (Graph *g, void *data);
 *		graphInvalidCurrentNode
 *
 ***********************************************************************/
-enum graphRet graphDelNode (Graph *g);
+enum graphRet GraphDelNode (Graph *g);
 
 /***********************************************************************
 *
@@ -167,7 +167,7 @@ enum graphRet graphDelNode (Graph *g);
 *		graphInvalidArgNode
 *
 ***********************************************************************/
-enum graphRet graphAddLink (Graph *g, Node *n);
+enum graphRet GraphAddLink (Graph *g, Node *n);
 
 /***********************************************************************
 *
@@ -188,8 +188,8 @@ enum graphRet graphAddLink (Graph *g, Node *n);
 *		graphInvalidLink
 *
 ***********************************************************************/
-enum graphRet graphRemLink (Graph *g, Node *n);
-//melhor graphRMLink?
+enum graphRet GraphRemLink (Graph *g, Node *n);
+//melhor GraphRMLink?
 
 
 /***********************************************************************
@@ -203,7 +203,7 @@ enum graphRet graphRemLink (Graph *g, Node *n);
 *		Ponteiro 'currentNode->data'
 *
 ***********************************************************************/
-void *graphGetData (Graph *g);
+void *GraphGetData (Graph *g);
 
 
 /***********************************************************************
@@ -220,7 +220,7 @@ void *graphGetData (Graph *g);
 *		Ponteiro para 'data' do sucessor ou para 'NULL'
 *
 ***********************************************************************/
-void *graphGetSuccessor (Graph *g);
+void *GraphGetSuccessor (Graph *g);
 
 
 #endif /* GRAORE_ */

@@ -46,7 +46,7 @@ struct node {
 };
 
 
-Graph *graphNew (FDelData fdd)
+Graph *GraphNew (FDelData fdd)
 {
 	Graph *g;
 	g = (Graph *) malloc(sizeof(Graph));
@@ -63,7 +63,7 @@ Graph *graphNew (FDelData fdd)
 	return g;
 }
 
-void graphDel (Graph *g)
+void GraphDel (Graph *g)
 {
 	/* Deleta o unico recurso diretamente possuido por Graph */
 	LIS_DestruirLista( g->nodes );
@@ -71,7 +71,7 @@ void graphDel (Graph *g)
 	return;
 }
 
-enum graphRet graphCCurrent (Graph *g, Node *newCurrent)
+enum graphRet GraphCCurrent (Graph *g, Node *newCurrent)
 {
 	if (!g)
 		return graphInvalidGraph;
@@ -80,7 +80,7 @@ enum graphRet graphCCurrent (Graph *g, Node *newCurrent)
 	g->currentNode = newCurrent;
 	return graphOk;
 }
-enum graphRet graphNewNode (Graph *g, void *data)
+enum graphRet GraphNewNode (Graph *g, void *data)
 {
 	Node *n;
 	if (!g)
@@ -102,7 +102,7 @@ enum graphRet graphNewNode (Graph *g, void *data)
 	g->currentNode = n;
 	return graphOk;
 }
-enum graphRet graphDelNode (Graph *g)
+enum graphRet GraphDelNode (Graph *g)
 {
 	if (!g)
 		return graphInvalidGraph;
@@ -118,16 +118,16 @@ void delNode (void *n)
 	(*( ((Node *)n)->DelData)) (n->data);
 	LIS_DestruirLista (n->links);
 }
-enum graphRet graphAddLink (Graph *g, Node *n)
+enum graphRet GraphAddLink (Graph *g, Node *n)
 {
 }
-enum graphRet graphRemLink (Graph *g, Node *n)
+enum graphRet GraphRemLink (Graph *g, Node *n)
 {
 }
-void *graphGetData (Graph *g)
+void *GraphGetData (Graph *g)
 {
 }
-void *graphGetSuccessor (Graph *g)
+void *GraphGetSuccessor (Graph *g)
 {
 }
 
