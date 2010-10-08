@@ -64,7 +64,6 @@ Graph *GraphNew (FDelData fdd)
 
 void GraphDel (Graph *g)
 {
-	LIS_tpCondRet ret;
 	/* Esse codigo tende a ser replicado: 
          * Varre toda uma lista aplicando uma funcao */
 	IrInicioLista ( g->nodes );
