@@ -1,25 +1,27 @@
 /*
 
 Diagrama UML do modelo fisico da implementacao de grafo
-'owns' significa atrelamento de tempo de vida.
+'owns' significa atrelamento de tempo de vida, 
+responsabilidade pelo desalocamento
 
-   =========  1    owns     1  =================       
-   | Graph | --------------->  | List of Nodes |       
-   =========                   =================       
-          \ 1       owns              | 1              
-           \--------------------\     |		       
-                            0..*|     | lists          
-                                \/    \/ 0..*          
-    ========  1    owns    1   =================       
-    | Data | <---------------  |  Node         |       
-    | -??? |                   =================       
-    ========                    | 1          /\        
-                                | owns        | 1      
-                                | 1           | links to  
-                               \/             | 0..*      
-                =================  1   0..*  =========    
-                | List of Links |----------->| Link  |    
-                =================    owns    =========    
+          =========  1 owns 1  =================          |
+          | Graph | -------->  | List of Nodes |          |
+          =========            =================          |
+                  1\    owns          | 1                 |
+                    \-------\         |                   |
+                             \        | lists             |
+                         0..* \       |                   |
+                              \/      \/ 0..*             |
+    ========                   =================          |
+    | Data |  1    owns    1   |  Node         |          |
+    | -??? |  <--------------- =================          |
+    ========                    | 1          /\           |
+                                | owns        | 0..*      |
+                                | 1           | links to  |
+                               \/             | 0..*      |
+                               =================          |
+                               | List of Links |          |
+                               =================          |
 */
 
 #include "graph.h"
@@ -35,16 +37,10 @@ struct graph {
 	int nOfLinks;
 };
 
-// Link definition
-struct link {
-	Node * head;  // node com o qual ha’ relacao
-};
-
 // Node definition
 struct node {
 	LIS_tppLista links;
 	void * data;
-	FDelData delData;
 };
 
 
@@ -67,8 +63,16 @@ Graph *GraphNew (FDelData fdd)
 
 void GraphDel (Graph *g)
 {
-	/* Deleta o unico recurso diretamente possuido por Graph */
+	LIS_tpCondRet ret;
+	/* Esse codigo tende a ser replicado: 
+         * Varre toda uma lista aplicando uma funcao */
+	IrInicioLista ( g->nodes );
+	do {
+		delNode( g, (Node*) LIS_ObterValor ( g->nodes ) );
+	} while ( LIS_AvancarElementoCorrente ( g->nodes )
+		==  LisCondRetOk )
 	LIS_DestruirLista( g->nodes );
+
 	free(g);
 	return;
 }
@@ -92,9 +96,8 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 	n = (Node *) malloc(sizeof(Node));
 	if (!n)
 		return graphMemoryError;
-	n->links = LIS_CriarLista(delLink);
+	n->links = LIS_CriarLista(NULL);
 	n->data = data;
-	n->delNode = g->delNode;
 	IrFinalLista( g->nodes );
 	if (!LIS_InserirElementoApos( g->nodes , n)){
 		free( n );
