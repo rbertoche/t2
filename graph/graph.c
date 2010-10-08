@@ -1,13 +1,15 @@
 /*
 
 Diagrama UML do modelo fisico da implementacao de grafo
+'owns' significa atrelamento de tempo de vida.
 
    =========  1    owns     1  =================       
    | Graph | --------------->  | List of Nodes |       
    =========                   =================       
-                                      | 1              
-                                      | owns           
-                                     \/ 0..*           
+          \ 1       owns              | 1              
+           \--------------------\     |		       
+                            0..*|     | lists          
+                                \/    \/ 0..*          
     ========  1    owns    1   =================       
     | Data | <---------------  |  Node         |       
     | -??? |                   =================       
@@ -114,8 +116,26 @@ enum graphRet GraphDelNode (Graph *g)
 }
 void delNode (void *n)
 {
-	/* typecast para acessar ponteiro pra funcao */
-	(*( ((Node *)n)->DelData)) (n->data);
+/* Essa funcao sera' passada na construcao da lista 'nodes'
+ * pois a lista precisa apagar os nos.
+ * Problema: Para apagar os nos e' necessario chamar (*g->delData).
+ * Como trazer esse ponteiro ate aqui sem mudar a assinatura da
+ * funcao?
+ * 
+ * 1 - O modulo pode ter armazenado internamente todos os grafos
+ * e ter uma funcao que procura um determinado no em todos os grafos
+ * e o apaga. Essa funcao pode ser passada pra lista 'nodes'.
+ * 
+ * 2 - Cada no' pode possuir um ponteiro para o destrutor de data.
+ * Assim, delNode pode executar:  (*n->DelData) (n->data);
+ *
+ * 3 - Nao delegar a responsabilidade de apagar os nos a lista 'nodes':
+ * Passar NULL na sua construcao e adicionar codigo para apagar 'data' em
+ * todas as funcoes que podem apagar nos. 
+ * 
+ * Eu escolho o numero 3.
+ */
+
 	LIS_DestruirLista (n->links);
 }
 enum graphRet GraphAddLink (Graph *g, Node *n)
