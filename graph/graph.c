@@ -26,6 +26,7 @@ responsabilidade pelo desalocamento
 
 #include "graph.h"
 
+typedef struct graph Graph;
 typedef struct node Node;
 // Graph definition
 struct graph {

@@ -29,12 +29,11 @@
  
 
 /***********************************************************************
-*	$TC Tipo de Dados: Graph
+*	$TC Tipo de Dados: pGraph
 *	$ED Descrição do tipo
-*		Tipo responsavel pela abstracao de conter o grafo.
+*		Identificador do grafo dentro e fora do modulo.
 ***********************************************************************/
-typedef struct graph Graph;
-
+typedef Graph * pGraph;
 
 /***********************************************************************
 *	$TC Tipo de Dados: graphRet
