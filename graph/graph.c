@@ -27,7 +27,6 @@ responsabilidade pelo desalocamento
 #include "graph.h"
 
 typedef struct node Node;
-typedef struct link Link;
 // Graph definition
 struct graph {
 	LIS_tppLista nodes;
