@@ -24,6 +24,8 @@
 *		(para cada seta ha' igual no sentido oposto).
 *
 *	Cada vertice contem um ponteiro generico nao nulo.
+*	Nao ha' suporte para armazenar o mesmo ponteiro em mais de um no'.
+*	O ponteiro e' o unica forma de identificar um no' para o cliente.
 *
 ***************************************************************************/
  
@@ -68,7 +70,7 @@ enum graphRet {
 *
 ***********************************************************************/
 typedef void (*FDelData)(void *data);
-Graph *graphNew (FDelData fdd);
+Graph *GraphNew (FDelData fdd);
 
 
 /***********************************************************************
@@ -93,7 +95,8 @@ void GraphDel (Graph *g);
 *	$FC Metodo: Graph Change Current
 *	$EP Parametros
 *		$P g - Ponteiro para o 'Graph' a ser manipulado
-*		$P newCurrent - Ponteiro para o 'Node' que sera' current
+*		$P newCurrent - Ponteiro para o 'data' contido no 'Node' 
+*			que sera' current
 *
 *	$FV Valor retornado
 *		graphOk
@@ -101,7 +104,7 @@ void GraphDel (Graph *g);
 *		graphInvalidArgNode
 *
 ***********************************************************************/
-enum graphRet GraphCCurrent (Graph *g, Node *newCurrent);
+enum graphRet GraphCCurrent (Graph *g, void *newCurrent);
 
 
 /***********************************************************************
@@ -154,10 +157,11 @@ enum graphRet GraphDelNode (Graph *g);
 *
 * 	$EP Parametros
 *		$P g - Ponteiro para o 'Graph' a ser manipulado
-*		$P n - Ponteiro para o 'Node' a ser head do novo link
+*		$P d - Ponteiro para o 'data' do 'Node' a ser ligado
+*			ao 'currentNode'
 *
 *	$ED Descricao da funcao
-*		Cria um link entre 'currentNode' e 'n'
+*		Cria um link entre 'currentNode' e o 'Node' que contem 'd'
 *
 *	$FV Valor retornado
 *		graphOk
@@ -166,18 +170,18 @@ enum graphRet GraphDelNode (Graph *g);
 *		graphInvalidArgNode
 *
 ***********************************************************************/
-enum graphRet GraphAddLink (Graph *g, Node *n);
+enum graphRet GraphAddLink (Graph *g, void *d);
 
 /***********************************************************************
 *
-*	$FC Metodo: Graph Add Link
+*	$FC Metodo: Graph Rem Link
 *
 * 	$EP Parametros
 *		$P g - Ponteiro para o 'Graph' a ser manipulado
-*		$P n - Ponteiro para o 'Node' head do link a ser apagado
+*		$P d - Ponteiro para o 'Node' head do link a ser apagado
 *
 *	$ED Descricao da funcao
-*		Apaga um link entre 'currentNode' e 'n'
+*		Apaga um link entre 'currentNode' e o 'Node' contendo 'd'
 *
 *	$FV Valor retornado
 *		graphOk
@@ -187,7 +191,7 @@ enum graphRet GraphAddLink (Graph *g, Node *n);
 *		graphInvalidLink
 *
 ***********************************************************************/
-enum graphRet GraphRemLink (Graph *g, Node *n);
+enum graphRet GraphRemLink (Graph *g, void *n);
 //melhor GraphRMLink?
 
 
@@ -215,6 +219,10 @@ void *GraphGetData (Graph *g);
 *		Retorna data do proximo 'head' entre os links de 'currentNode'
 *		FIXME:lembrar de tirar isso: 
 *			Pra usar dentro de for ou do foreach
+*		FIXME:lembrar de tirar isso: 
+*			Essa permite fazer busca entre 'amigos'. Precisamos
+*		de um outro que permita fazer busca entre todos os nos.
+*
 *	$FV Valor retornado
 *		Ponteiro para 'data' do sucessor ou para 'NULL'
 *
