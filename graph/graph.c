@@ -1,3 +1,4 @@
+#include <stdlib.h>
 /*
 
 Diagrama UML do modelo fisico da implementacao de grafo
@@ -25,10 +26,12 @@ responsabilidade pelo desalocamento
 */
 
 #include "graph.h"
+#include "../lista/lista.h"
+
 
 typedef struct graph Graph;
 typedef struct node Node;
-// Graph definition
+/* Graph definition */
 struct graph {
 	LIS_tppLista nodes;
 	Node * currentNode;
@@ -37,18 +40,19 @@ struct graph {
 	int nOfLinks;
 };
 
-// Node definition
+/* Node definition */
 struct node {
 	LIS_tppLista links;
 	void * data;
 };
 
+void delNode (Graph *g, void *n);
 
 Graph *GraphNew (FDelData fdd)
 {
 	Graph *g;
 	g = (Graph *) malloc(sizeof(Graph));
-	if (g!)
+	if (!g)
 		return NULL;
 	/* Atencao, NULL abaixo esta correto. O Dono dos nodes e' o graph */
 	g->nodes = LIS_CriarLista(NULL);
@@ -69,15 +73,17 @@ void GraphDel (Graph *g)
 	IrInicioLista ( g->nodes );
 	do {
 		delNode( g, (Node*) LIS_ObterValor ( g->nodes ) );
-	} while ( LIS_AvancarElementoCorrente ( g->nodes )
-		==  LisCondRetOk )
+	} while ( LIS_AvancarElementoCorrente ( g->nodes , 1)
+		== 0 );
+/*	== LIS_CondRetOk ) FIXME: isso nao tava compilando, nao entendi.*/
+
 	LIS_DestruirLista( g->nodes );
 
 	free(g);
 	return;
 }
 
-enum graphRet GraphCCurrent (Graph *g, Node *newCurrent)
+enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 {
 	if (!g)
 		return graphInvalidGraph;
@@ -112,9 +118,10 @@ enum graphRet GraphDelNode (Graph *g)
 	if (!g)
 		return graphInvalidGraph;
 	if (!g->currentNode)
-		return graphInvalidCurrentNode
+		return graphInvalidCurrentNode;
 	delNode(g,g->currentNode);
-	g->currentNode = NULL;	
+	g->currentNode = NULL;
+	return graphOk;
 }
 /* Houve um problema aqui: Como deletar Node?
  *
@@ -138,29 +145,29 @@ enum graphRet GraphDelNode (Graph *g)
  * Eu escolho o numero 3.
  */
 
-// inline e' pra dar erro ao passar ponteiro da funcao
-inline void delNode (Graph *g,Node *n)
+void delNode (Graph *g, void *n_)
 {
+	Node * n=n_;
 	LIS_DestruirLista( n->links );
 	( *g->delData )( n->data );		
 }	
 	
 
-
-
-
-
-enum graphRet GraphAddLink (Graph *g, Node *n)
+enum graphRet GraphAddLink (Graph *g, void *n)
 {
+return graphOk;
 }
-enum graphRet GraphRemLink (Graph *g, Node *n)
+enum graphRet GraphRemLink (Graph *g, void *n)
 {
+return graphOk;
 }
 void *GraphGetData (Graph *g)
 {
+return NULL;
 }
 void *GraphGetSuccessor (Graph *g)
 {
+return NULL;
 }
 
 

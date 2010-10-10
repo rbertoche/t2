@@ -1,16 +1,18 @@
-//#include    <string.h>
 #include    <stdio.h>
 #include    <malloc.h>
 
-//#include    "tst_espc.h"
+#include    <string.h>
+/*
 
-//#include    "generico.h"
-//#include    "lerparm.h"
-
+#include    "../lista/lista.h"
+*/
 #include    "graph.h"
+#include    "../arcab/tst_espc.h"
+#include    "../arcab/generico.h"
+#include    "../arcab/lerparm.h"
 
-static const int MAXGRAPHS = 10;
-static const int MAXDATAS = 10;
+enum { MAXGRAPHS = 10 };
+enum { MAXDATAS = 10 };
 
 static pGraph vGraph[ MAXGRAPHS ];
 static char * vData[ MAXDATAS ];
@@ -29,15 +31,15 @@ static const char GRAPHGETSUCC_CMD        [ ] = "=GraphGetSuccessor"  ;
 
 static const char NEWDATA_CMD             [ ] = "=NewData"            ;
 
-void NewData ( char data )
+void *NewData ( char data )
 {
 	char *ret;
 	ret = (char*) malloc (sizeof(char));
 	DataAlocCount++;
 	*ret = data;
-	return red;
+	return ret;
 }
-void DelData ( char * pdata )
+void DelData ( void * pdata )
 {
 	free (pdata);
 	DataAlocCount--;
@@ -45,7 +47,8 @@ void DelData ( char * pdata )
 
 TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 {
-	      if(! strcmp( CmdTeste == 		GRAPHNEW_CMD) ){
+	int argc, iGraph, iData;
+	if(! strcmp( CmdTeste , 		GRAPHNEW_CMD) ){
 
       		argc = LER_LerParametros ( "i", &iGraph );
 		
@@ -55,7 +58,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
             	return TST_CompararPonteiroNulo( 1 , vGraph[iGraph],
 			"Erro: Ponteiro para novo grafo e' nulo." );
 
-	}else if(! strcmp( CmdTeste == 		GRAPHDEL_CMD) ){
+	}else if(! strcmp( CmdTeste , 		GRAPHDEL_CMD) ){
 
       		argc = LER_LerParametros ( "i", &iGraph );
 		
@@ -66,18 +69,19 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 
             	return TST_CondRetOK;
 		
-	}else if(! strcmp( CmdTeste == 		GRAPHCCUR_CMD) ){
+	}else if(! strcmp( CmdTeste , 		GRAPHCCUR_CMD) ){
 
 		
 
-	}else if(! strcmp( CmdTeste == 		GRAPHNEWNODE_CMD) ){
-	}else if(! strcmp( CmdTeste == 		GRAPHDELNODE_CMD) ){
-	}else if(! strcmp( CmdTeste == 		GRAPHADDLINK_CMD) ){
-	}else if(! strcmp( CmdTeste == 		GRAPHREMLINK_CMD) ){
-	}else if(! strcmp( CmdTeste == 		GRAPHGETDATA_CMD) ){
-	}else if(! strcmp( CmdTeste == 		GRAPHGETSUCC_CMD) ){
+	}else if(! strcmp( CmdTeste , 		GRAPHNEWNODE_CMD) ){
+	}else if(! strcmp( CmdTeste , 		GRAPHDELNODE_CMD) ){
+	}else if(! strcmp( CmdTeste , 		GRAPHADDLINK_CMD) ){
+	}else if(! strcmp( CmdTeste , 		GRAPHREMLINK_CMD) ){
+	}else if(! strcmp( CmdTeste , 		GRAPHGETDATA_CMD) ){
+	}else if(! strcmp( CmdTeste , 		GRAPHGETSUCC_CMD) ){
 	}
-	
+
+        return TST_CondRetNaoConhec;
 }
 
 

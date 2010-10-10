@@ -1,4 +1,5 @@
-#ifndef( GRAORE_ )
+
+#ifndef GRAORE_
 #define GRAORE_
 
 #include "../lista/lista.h"
@@ -35,7 +36,7 @@
 *	$ED Descrição do tipo
 *		Identificador do grafo dentro e fora do modulo.
 ***********************************************************************/
-typedef Graph * pGraph;
+typedef struct graph *pGraph;
 
 /***********************************************************************
 *	$TC Tipo de Dados: graphRet
@@ -70,7 +71,7 @@ enum graphRet {
 *
 ***********************************************************************/
 typedef void (*FDelData)(void *data);
-Graph *GraphNew (FDelData fdd);
+pGraph GraphNew (FDelData fdd);
 
 
 /***********************************************************************
@@ -87,7 +88,7 @@ Graph *GraphNew (FDelData fdd);
 *	Ha uma assertiva de entrada: g e um ponteiro pra um Graph valido
 *
 ***********************************************************************/
-void GraphDel (Graph *g);
+void GraphDel (pGraph g);
 
 
 /***********************************************************************
@@ -104,7 +105,7 @@ void GraphDel (Graph *g);
 *		graphInvalidArgNode
 *
 ***********************************************************************/
-enum graphRet GraphCCurrent (Graph *g, void *newCurrent);
+enum graphRet GraphCCurrent (pGraph g, void *newCurrent);
 
 
 /***********************************************************************
@@ -123,7 +124,7 @@ enum graphRet GraphCCurrent (Graph *g, void *newCurrent);
 *		graphNullData
 *
 ***********************************************************************/
-enum graphRet GraphNewNode (Graph *g, void *data);
+enum graphRet GraphNewNode (pGraph g, void *data);
 
 
 /***********************************************************************
@@ -149,7 +150,7 @@ enum graphRet GraphNewNode (Graph *g, void *data);
 *		graphInvalidCurrentNode
 *
 ***********************************************************************/
-enum graphRet GraphDelNode (Graph *g);
+enum graphRet GraphDelNode (pGraph g);
 
 /***********************************************************************
 *
@@ -170,7 +171,7 @@ enum graphRet GraphDelNode (Graph *g);
 *		graphInvalidArgNode
 *
 ***********************************************************************/
-enum graphRet GraphAddLink (Graph *g, void *d);
+enum graphRet GraphAddLink (pGraph g, void *d);
 
 /***********************************************************************
 *
@@ -191,8 +192,8 @@ enum graphRet GraphAddLink (Graph *g, void *d);
 *		graphInvalidLink
 *
 ***********************************************************************/
-enum graphRet GraphRemLink (Graph *g, void *n);
-//melhor GraphRMLink?
+enum graphRet GraphRemLink (pGraph g, void *n);
+/* melhor GraphRMLink? */
 
 
 /***********************************************************************
@@ -206,7 +207,7 @@ enum graphRet GraphRemLink (Graph *g, void *n);
 *		Ponteiro 'currentNode->data'
 *
 ***********************************************************************/
-void *GraphGetData (Graph *g);
+void *GraphGetData (pGraph g);
 
 
 /***********************************************************************
@@ -227,7 +228,7 @@ void *GraphGetData (Graph *g);
 *		Ponteiro para 'data' do sucessor ou para 'NULL'
 *
 ***********************************************************************/
-void *GraphGetSuccessor (Graph *g);
+void *GraphGetSuccessor (pGraph g);
 
 
 #endif /* GRAORE_ */
