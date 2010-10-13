@@ -125,9 +125,9 @@ enum graphRet GraphDelNode (Graph *g)
 }
 /* Houve um problema aqui: Como deletar Node?
  *
- * A lista 'nodes' poderia deletar 'node' com uma função que ela recebe por
+ * A lista 'nodes' poderia deletar 'node' com uma funcao que ela recebe por
  * ponteiro, de assinatura void foo (void *). Mas pra deletar 'node' voce
- * precisa deletar 'data', e pra isso você precisa do ponteiro de funcao
+ * precisa deletar 'data', e pra isso voce precisa do ponteiro de funcao
  * que esta em cada instancia de graph. Como a funcao passada para a lista
  * 'nodes' vai chamar essa funcao?
  *
