@@ -213,7 +213,7 @@ void *GraphGetData (pGraph g);
 
 /***********************************************************************
 *
-*	$FC Metodo: Graph Get Data
+*	$FC Metodo: Graph Get Successor
 *
 * 	$EP Parametros
 *		$P g - Ponteiro para o 'Graph' a ser manipulado
