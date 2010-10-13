@@ -47,38 +47,150 @@ void DelData ( void * pdata )
 
 TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 {
-	int argc, iGraph, iData;
+	int argc, Ret, ExpectedRet, iGraph, iData;
+
 	if(! strcmp( CmdTeste , 		GRAPHNEW_CMD) ){
+
 
       		argc = LER_LerParametros ( "i", &iGraph );
 		
-		if ( ! argc != 1 || argc < 0 || argc > MAXGRAPHS)
+		if ( argc != 1 
+			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
 		vGraph[iGraph] = GraphNew ( DelData );
             	return TST_CompararPonteiroNulo( 1 , vGraph[iGraph],
 			"Erro: Ponteiro para novo grafo e' nulo." );
 
+
 	}else if(! strcmp( CmdTeste , 		GRAPHDEL_CMD) ){
+
 
       		argc = LER_LerParametros ( "i", &iGraph );
 		
-		if ( ! argc != 1 || argc < 0 || argc > MAXGRAPHS)
+		if ( argc != 1 
+			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
 		GraphDel ( vGraph[iGraph] );
 		vGraph[iGraph] = NULL;
 
             	return TST_CondRetOK;
-		
+
+
 	}else if(! strcmp( CmdTeste , 		GRAPHCCUR_CMD) ){
 
+
+      		argc = LER_LerParametros ( "iii", &iGraph, &iData,
+			&ExpectedRet);
 		
+		if ( argc != 3 
+			|| iGraph < 0 || iGraph > MAXGRAPHS
+			|| iData  < 0 || iData  > MAXDATAS )
+			return TST_CondRetParm;
+		Ret = GraphCCurrent ( vGraph[iGraph],  vData[iData] );
+
+		
+		return TST_CompararInt( ExpectedRet , Ret ,
+			"Erro: Condicao de retorno errada em CCurent.");
+
 
 	}else if(! strcmp( CmdTeste , 		GRAPHNEWNODE_CMD) ){
+
+
+      		argc = LER_LerParametros ( "iii", &iGraph, &iData,
+			&ExpectedRet);
+		
+		if ( argc != 3
+			|| iGraph < 0 || iGraph > MAXGRAPHS
+			|| iData  < 0 || iData  > MAXDATAS )
+			return TST_CondRetParm;
+		Ret = GraphNewNode ( vGraph[iGraph],  &vData[iData] );
+
+		
+		return TST_CompararInt( ExpectedRet , Ret ,
+			"Erro: Condicao de retorno errada em NewNode.");
+
+
 	}else if(! strcmp( CmdTeste , 		GRAPHDELNODE_CMD) ){
+
+
+		argc = LER_LerParametros ( "ii", &iGraph,
+			&ExpectedRet);
+		
+		if ( argc != 2 
+			|| iGraph < 0 || iGraph > MAXGRAPHS)
+			return TST_CondRetParm;
+		Ret = GraphDelNode ( vGraph[iGraph],  &vData[iData] );
+
+		
+		return TST_CompararInt( ExpectedRet , Ret ,
+			"Erro: Condicao de retorno errada em DelNode.");
+
+
 	}else if(! strcmp( CmdTeste , 		GRAPHADDLINK_CMD) ){
+
+
+      		argc = LER_LerParametros ( "iii", &iGraph, &iData,
+			&ExpectedRet);
+		
+		if ( argc != 3 
+			|| iGraph < 0 || iGraph > MAXGRAPHS
+			|| iData  < 0 || iData  > MAXDATAS )
+			return TST_CondRetParm;
+		Ret = GraphAddLink ( vGraph[iGraph],  vData[iData] );
+
+		
+		return TST_CompararInt( ExpectedRet , Ret ,
+			"Erro: Condicao de retorno errada em AddLink.");
+
+
 	}else if(! strcmp( CmdTeste , 		GRAPHREMLINK_CMD) ){
+
+
+      		argc = LER_LerParametros ( "iii", &iGraph, &iData,
+			&ExpectedRet);
+		
+		if ( argc != 3 
+			|| iGraph < 0 || iGraph > MAXGRAPHS
+			|| iData  < 0 || iData  > MAXDATAS )
+			return TST_CondRetParm;
+		Ret = GraphRemLink ( vGraph[iGraph],  vData[iData] );
+
+		
+		return TST_CompararInt( ExpectedRet , Ret ,
+			"Erro: Condicao de retorno errada em RemLink.");
+
 	}else if(! strcmp( CmdTeste , 		GRAPHGETDATA_CMD) ){
+
+
+      		argc = LER_LerParametros ( "ii", &iGraph, &iData);
+		
+		if ( argc != 3 
+			|| iGraph < 0 || iGraph > MAXGRAPHS
+			|| iData  < 0 || iData  > MAXDATAS )
+			return TST_CondRetParm;
+		vData[iData] = GraphGetData ( vGraph[iGraph]);
+
+		return TST_CompararPonteiroNulo( 1 , vData[iData],
+			"Erro: GetData retornou NULL. Ainda assim, NULL\
+			foi armazenado" );
+		
+	
 	}else if(! strcmp( CmdTeste , 		GRAPHGETSUCC_CMD) ){
+
+
+		argc = LER_LerParametros ( "ii", &iGraph, &iData);
+		
+		if ( argc != 3 
+			|| iGraph < 0 || iGraph > MAXGRAPHS
+			|| iData  < 0 || iData  > MAXDATAS )
+			return TST_CondRetParm;
+		vData[iData] = GraphGetSuccessor ( vGraph[iGraph] );
+
+		return TST_CompararPonteiroNulo( 1 , vData[iData],
+			"Erro: GetSuccessor retornou NULL. Ainda assim, NULL\
+			foi armazenado" );
+
+
 	}
 
         return TST_CondRetNaoConhec;
