@@ -100,7 +100,7 @@ void GraphDel (Graph *g)
 enum graphRet searchData(Graph *g, void *data)
 {
 	LIS_tppLista l;
-	do{
+	do{	
 		l = LIS_ObterValor(g->nodes);
 		if(data == LIS_ObterValor(l)){
 			return graphOk;
@@ -118,7 +118,7 @@ enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 		return graphInvalidArgNode;
 	g->currentNode = LIS_ObterValor(g->nodes);
 	return graphOk;
-}
+} 
 
 enum graphRet GraphNewNode (Graph *g, void *data)
 {

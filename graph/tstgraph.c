@@ -27,7 +27,11 @@ static const char GRAPHDELNODE_CMD        [ ] = "=GraphDelNode"       ;
 static const char GRAPHADDLINK_CMD        [ ] = "=GraphAddLink"       ;
 static const char GRAPHREMLINK_CMD        [ ] = "=GraphRemLink"       ;
 static const char GRAPHGETDATA_CMD        [ ] = "=GraphGetData"       ;
-static const char GRAPHGETSUCC_CMD        [ ] = "=GraphGetSuccessor"  ;
+
+static const char GRAPHNODESSTART_CMD     [ ] = "=GraphNodesStart"    ;
+static const char GRAPHLINKSSTART_CMD     [ ] = "=GraphLinksStart"    ;
+static const char GRAPHNODESGETNEXT_CMD   [ ] = "=GraphNodesGetNext"  ;
+static const char GRAPHLINKSGETNEXT_CMD   [ ] = "=GraphLinksGetNext"  ;
 
 static const char NEWDATA_CMD             [ ] = "=NewData"            ;
 
@@ -113,17 +117,14 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 	}else if(! strcmp( CmdTeste , 		GRAPHDELNODE_CMD) ){
 
 
-		argc = LER_LerParametros ( "ii", &iGraph,
-			&ExpectedRet);
-		
+		argc = LER_LerParametros ( "i", &iGraph);
 		if ( argc != 2 
 			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
-		Ret = GraphDelNode ( vGraph[iGraph],  &vData[iData] );
+		GraphDelNode ( vGraph[iGraph] );
 
 		
-		return TST_CompararInt( ExpectedRet , Ret ,
-			"Erro: Condicao de retorno errada em DelNode.");
+		return TST_CondRetOK;
 
 
 	}else if(! strcmp( CmdTeste , 		GRAPHADDLINK_CMD) ){
@@ -164,7 +165,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 
       		argc = LER_LerParametros ( "ii", &iGraph, &iData);
 		
-		if ( argc != 3 
+		if ( argc != 2
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
@@ -174,22 +175,56 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			"Erro: GetData retornou NULL. Ainda assim, NULL\
 			foi armazenado" );
 		
-	
-	}else if(! strcmp( CmdTeste , 		GRAPHGETSUCC_CMD) ){
 
+	}else if (! strcmp( CmdTeste ,		GRAPHNODESSTART_CMD) ){
+
+      		argc = LER_LerParametros ( "i", &iGraph );
+		
+		if ( argc != 1
+			|| iGraph < 0 || iGraph > MAXGRAPHS)
+			return TST_CondRetParm;
+		GraphNodesStart ( vGraph[iGraph] );
+
+            	return TST_CondRetOK;
+		
+	}else if (! strcmp( CmdTeste ,		GRAPHLINKSSTART_CMD) ){
+
+      		argc = LER_LerParametros ( "i", &iGraph );
+		
+		if ( argc != 1
+			|| iGraph < 0 || iGraph > MAXGRAPHS)
+			return TST_CondRetParm;
+		GraphLinksStart ( vGraph[iGraph] );
+
+            	return TST_CondRetOK;
+
+	}else if (! strcmp( CmdTeste ,		GRAPHNODESGETNEXT_CMD) ){
 
 		argc = LER_LerParametros ( "ii", &iGraph, &iData);
 		
-		if ( argc != 3 
+		if ( argc != 2 
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		vData[iData] = GraphGetSuccessor ( vGraph[iGraph] );
+		vData[iData] = GraphNodesGetNext ( vGraph[iGraph] );
 
 		return TST_CompararPonteiroNulo( 1 , vData[iData],
-			"Erro: GetSuccessor retornou NULL. Ainda assim, NULL\
+			"Erro: GraphNodesGetNext retornou NULL. Ainda assim, NULL\
 			foi armazenado" );
 
+	}else if (! strcmp( CmdTeste ,		GRAPHLINKSGETNEXT_CMD) ){
+
+		argc = LER_LerParametros ( "ii", &iGraph, &iData);
+		
+		if ( argc != 2 
+			|| iGraph < 0 || iGraph > MAXGRAPHS
+			|| iData  < 0 || iData  > MAXDATAS )
+			return TST_CondRetParm;
+		vData[iData] = GraphLinksGetNext ( vGraph[iGraph] );
+
+		return TST_CompararPonteiroNulo( 1 , vData[iData],
+			"Erro: GraphLinksGetNext retornou NULL. Ainda assim, NULL\
+			foi armazenado" );
 
 	}
 
