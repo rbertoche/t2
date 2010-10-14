@@ -193,6 +193,13 @@ void delNode (Graph *g, void *n_)
 	free (n);
 }
 
+void delLink (Link *l)
+{
+	LIS_ProcurarValor(l->n2->links,l->n1);
+	LIS_ExcluirElemento(l->n2->links);
+	LIS_ProcurarValor(l->n1->links,l->n2);
+	LIS_ExcluirElemento(l->n1->links);
+}
 
 enum graphRet linkTwoNodes(Node *n1, Node *n2)
 {
