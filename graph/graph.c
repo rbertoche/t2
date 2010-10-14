@@ -6,7 +6,7 @@ Diagrama UML do modelo fisico da implementacao de grafo
 responsabilidade pelo desalocamento
 
 ================  1 owns 1  ======================     |
-| struct Graph | -------->  | list of list Nodes |     |
+| struct Graph |  ------->  | list of list Nodes |     |
 ================            ======================     |
                                    | 1                 |
                                    | owns              |
@@ -17,10 +17,10 @@ responsabilidade pelo desalocamento
                                    |  1                |
                                    |  owns             |
                                    \/ 1                |
-       ========             =================          |
-       | Data |  1 owns 1   |  struct Node  |          |
-       | -??? |  <--------  =================          |
-       ========              | 1          /\           |
+        ========            =================          |
+        | Data |  1 owns 1  |  struct Node  |          |
+        | -??? |  <-------  =================          |
+        ========             | 1          /\           |
                              | owns        | 0..*      |
                              | 1           | links to  |
                             \/             | 0..*      |
@@ -39,7 +39,7 @@ typedef struct node Node;
 /* Graph definition */
 struct graph {
 	LIS_tppLista nodes;
-	Node * currentNode;
+	LIS_tppLista currentNode;
 	FDelData delData;
 	int nOfNodes;
 	int nOfLinks;
@@ -47,8 +47,9 @@ struct graph {
 
 /* Node definition */
 struct node {
-	LIS_tppLista links;
 	void * data;
+	LIS_tppLista links;
+	FDelData delData;
 };
 
 void delNode (Graph *g, void *n);
