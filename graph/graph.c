@@ -128,7 +128,7 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 		return graphMemoryError;
 	}
 
-	if (!LIS_InserirElementoApos( ln, n )){
+	if (LIS_CondRetOK != LIS_InserirElementoApos( ln, n )){
 		free (n);
 		LIS_DestruirLista( ln );
 		return graphMemoryError;
@@ -178,19 +178,49 @@ void delNode (Graph *g, void *n_)
 	LIS_DestruirLista( n->links );
 	( *g->delData )( n->data );
 	free (n);
-}	
-	
+}
+
+
+enum graphRet linkTwoNodes(Node *n1, Node *n2)
+{
+	Link *l1,*l2;
+	l1 = (Link*) malloc (sizeof(Link));
+	l2 = (Link*) malloc (sizeof(Link));
+	l1->n1=n1;
+	l1->n2=n2;
+	l2->n1=n2;
+	l2->n2=n1;
+	if( LIS_CondRetOK == LIS_ProcurarValor(n1->links,n2)
+		|| LIS_CondRetOK == LIS_ProcurarValor(n1->links,n2) )
+		return graphInvalidLink; /* Assertiva: Nao repetir links */
+
+	if( LIS_CondRetOK != LIS_InserirElementoApos( n1->links,l1 ) )
+		return graphMemoryError;
+	if( LIS_CondRetOK != LIS_InserirElementoApos( n2->links,l2 ) ){
+		LIS_ExcluirElemento(n1->links);
+		return graphMemoryError;
+	}
+	return graphOk;
+}
+
 enum graphRet GraphAddLink (Graph *g, void *n)
 {
+	Node *n1, *n2;
 	if (!g)
 		return graphInvalidGraph;
 	if (!n)
 		return graphNullData;
-	if (LIS_ProcurarValor (g->nodes, n) == LIS_CondRetOK)
-		return graphInvalidLink;
+	if (!g->currentNode)
+		return graphInvalidCurrentNode;
+	n1 = LIS_ObterValor(g->currentNode);
+	if (n1)
+		return graphInvalidCurrentNode;
 
-	LIS_InserirElementoApos (g->nodes, n);
-	return graphOk;
+	if (LIS_ProcurarValor (g->nodes, n) == LIS_CondRetOK)
+		return graphInvalidArgNode;
+	n2 = LIS_ObterValor(LIS_ObterValor(g->nodes));
+
+	return linkTwoNodes(n1,n2);
 }
 
 enum graphRet GraphRemLink (Graph *g, void *d)
@@ -224,7 +254,9 @@ void *GraphGetData (Graph *g)
 	if (!g || !g->currentNode)
 		return NULL;
 
-	return LIS_ObterValor (g->currentNode);
+	if (LIS_CondRetOK != LIS_ProcurarValor (g->nodes, g->currentNode ))
+		return NULL; /* Nao achou */
+	return LIS_ObterValor ( LIS_ObterValor (g->nodes) );
 }
 
 void GraphListStart (pGraphList l)
@@ -251,6 +283,6 @@ pGraphList GraphGetNodes (pGraph g)
 {
 	if (!g || !g->currentNode)
 		return NULL;
-	return ((Node *)LIS_ObterValor (g->currentNode))->links;
+	return g->nodes;
 }
 
