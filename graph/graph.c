@@ -97,13 +97,26 @@ void GraphDel (Graph *g)
 	return;
 }
 
+enum graphRet searchData(Graph *g, void *data)
+{
+	LIS_tppLista l;
+	do{
+		l = LIS_ObterValor(g->nodes);
+		if(data == LIS_ObterValor(l)){
+			return graphOk;
+		}
+	} while(LIS_CondRetOK == LIS_AvancarElementoCorrente (g->nodes, 1));
+	return graphInvalidArgNode;
+}
 enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 {
 	if (!g)
 		return graphInvalidGraph;
 	if (!newCurrent)
 		return graphInvalidArgNode;
-	g->currentNode = newCurrent;
+	if (graphOk != searchData(g,newCurrent))
+		return graphInvalidArgNode;
+	g->currentNode = LIS_ObterValor(g->nodes);
 	return graphOk;
 }
 
@@ -216,7 +229,7 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 	if (n1)
 		return graphInvalidCurrentNode;
 
-	if (LIS_ProcurarValor (g->nodes, n) == LIS_CondRetOK)
+	if (searchData (g, n) == graphOk)
 		return graphInvalidArgNode;
 	n2 = LIS_ObterValor(LIS_ObterValor(g->nodes));
 
@@ -251,38 +264,50 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 
 void *GraphGetData (Graph *g)
 {
+	return LIS_ObterValor ( g->currentNode );
+}
+
+void GraphNodesStart (Graph *g)
+{
+	IrInicioLista ( g->nodes );
+}
+
+void GraphLinksStart (Graph *g)
+{
+	IrInicioLista ( ((Node *)LIS_ObterValor (g->currentNode))->links );
+}
+
+void *GraphNodesGetNext (Graph *g)
+{
+	static void *old;
+	void *ret;
+	LIS_tppLista l;
 	if (!g || !g->currentNode)
 		return NULL;
-
-	if (LIS_CondRetOK != LIS_ProcurarValor (g->nodes, g->currentNode ))
-		return NULL; /* Nao achou */
-	return LIS_ObterValor ( LIS_ObterValor (g->nodes) );
-}
-
-void GraphListStart (pGraphList l)
-{
-	IrInicioLista (l);
-}
-
-void *GraphListGetNext (pGraphList l)
-{
-	void *ret = LIS_ObterValor (l);
-	if (LIS_AvancarElementoCorrente (l, 1) != LIS_CondRetOK)
+	l = g->nodes;
+	ret = LIS_ObterValor (LIS_ObterValor(l));
+	if (LIS_AvancarElementoCorrente (l, 1) == LIS_CondRetListaVazia)
 		return NULL;
+	if (ret == old)
+		return NULL;
+	old = LIS_ObterValor (LIS_ObterValor(l));
 	return ret;
 }
 
-pGraphList GraphGetLinks (pGraph g)
+void *GraphLinksGetNext (Graph *g)
 {
+	static void *old;
+	void *ret;
+	LIS_tppLista l;
 	if (!g || !g->currentNode)
 		return NULL;
-	return ((Node *)LIS_ObterValor (g->currentNode))->links;
-}
-
-pGraphList GraphGetNodes (pGraph g)
-{
-	if (!g || !g->currentNode)
+	l = ((Node *)LIS_ObterValor (g->currentNode))->links;
+	ret = LIS_ObterValor (l);
+	if (LIS_AvancarElementoCorrente (l, 1) == LIS_CondRetListaVazia)
 		return NULL;
-	return g->nodes;
+	if (ret == old)
+		return NULL;
+	old = LIS_ObterValor (l);
+	return ret;
 }
 

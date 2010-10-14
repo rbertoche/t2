@@ -1,9 +1,3 @@
-
-#ifndef GRAORE_
-#define GRAORE_
-
-#include "../lista/lista.h"
-
 /***************************************************************************
 *
 *	$MCD Módulo de definição: Graph
@@ -31,6 +25,10 @@
 ***************************************************************************/
 
 
+#ifndef GRAORE_
+#define GRAORE_
+
+#include "../lista/lista.h"
 
 
 
@@ -41,15 +39,6 @@
 ***********************************************************************/
 typedef struct graph *pGraph;
 
-
-/***********************************************************************
-*	$TC Tipo de Dados: pGraphList
-*	$ED Descrição do tipo
-*		Identificador das listas 'inalteraveis' de Graph.
-*		Nao e' possivel alterar nada alem do no' corrente
-*		nestas listas. 
-***********************************************************************/
-typedef struct LIS_tagLista *pGraphList;
 
 /***********************************************************************
 *	$TC Tipo de Dados: graphRet
@@ -219,60 +208,68 @@ void *GraphGetData (pGraph g);
 
 /***********************************************************************
 *
-*	$FC Metodo: Graph List Start
+*	$FC Metodo: Graph Nodes Start
 *
 * 	$EP Parametros
-*		$P l - Ponteiro para o 'GraphList' a ser manipulado
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
 *
 *	$ED Descricao da Funcao
-*		Garante que o proximo elemento lido por GraphListGetNext
-*		e' o primeiro da lista.
+*		Garante que o proximo elemento lido por GraphNodesGetNext
+*		e' o primeiro da lista de nodes do grafo.
 *
 ***********************************************************************/
-void GraphListStart(pGraphList l);
+void GraphNodesStart(pGraph g);
 
 /***********************************************************************
 *
-*	$FC Metodo: Graph List Get Next
+*	$FC Metodo: Graph Links Start
 *
 * 	$EP Parametros
-*		$P l - Ponteiro para o 'GraphList' a ser manipulado
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
+*
+*	$ED Descricao da Funcao
+*		Garante que o proximo elemento lido por GraphLinksGetNext
+*		e' o primeiro da lista de links do 'currentNode' do grafo.
+*
+***********************************************************************/
+void GraphLinksStart (pGraph g);
+
+/***********************************************************************
+*
+*	$FC Metodo: Graph Nodes Get Next
+*
+* 	$EP Parametros
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
 *
 *	$ED Descricao da Funcao
 *		Pega o 'data' do elemento atual e avanca um elemento na
-*		lista.
+*		lista de nodes do 'Graph'.
 *
 *	$FV Valor retornado
-*		Ponteiro 'data' do proximo no da lista l ou NULL
+*		Ponteiro 'data' do proximo no da lista de nodes ou NULL
 *		Caso a lista tenha terminado.
 *
 ***********************************************************************/
-void *GraphListGetNext(pGraphList l);
+void *GraphNodesGetNext (pGraph g);
 
 /***********************************************************************
 *
-*	$FC Metodo: Graph Get Links
+*	$FC Metodo: Graph Links Get Next
 *
 * 	$EP Parametros
 *		$P g - Ponteiro para o 'Graph' a ser manipulado
 *
+*	$ED Descricao da Funcao
+*		Pega o 'data' do elemento atual e avanca um elemento na
+*		lista de links do 'currentNode'.
+*
 *	$FV Valor retornado
-*		Ponteiro para lista de links do 'currentNode'
+*		Ponteiro 'data' do proximo no da lista de links ou NULL
+*		Caso a lista tenha terminado.
 *
 ***********************************************************************/
-pGraphList GraphGetLinks(pGraph g);
+void *GraphLinksGetNext (pGraph g);
 
-/***********************************************************************
-*
-*	$FC Metodo: Graph Get Nodes
-*
-* 	$EP Parametros
-*		$P g - Ponteiro para o 'Graph' a ser manipulado
-*
-*	$FV Valor retornado
-*		Ponteiro para lista de nodes do 'Graph'
-*
-***********************************************************************/
-pGraphList GraphGetNodes(pGraph g);
+
 #endif /* GRAORE_ */
 
