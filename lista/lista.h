@@ -329,7 +329,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *                      elemento corrente inclusive para o fim da lista
 *                      e que contém o ponteiro procurado
 *
-*     LIS_CondRetNaoEncontrou - se o ponteiro não foi encontrado
+*     LIS_CondRetNaoAchou - se o ponteiro não foi encontrado
 *                      O elemento corrente continua o mesmo
 *     LIS_CondRetListaVazia   - se a lista estiver vazia
 *

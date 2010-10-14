@@ -38,6 +38,16 @@
 ***********************************************************************/
 typedef struct graph *pGraph;
 
+
+/***********************************************************************
+*	$TC Tipo de Dados: pGraphList
+*	$ED Descrição do tipo
+*		Identificador das listas 'inalteraveis' de Graph.
+*		Nao e' possivel alterar nada alem do no' corrente
+*		nestas listas. 
+***********************************************************************/
+typedef struct LIS_tagLista *pGraphList;
+
 /***********************************************************************
 *	$TC Tipo de Dados: graphRet
 *	$ED Descrição do tipo
@@ -176,7 +186,7 @@ enum graphRet GraphAddLink (pGraph g, void *d);
 
 /***********************************************************************
 *
-*	$FC Metodo: Graph Rem Link
+*	$FC Metodo: Graph Remove Link
 *
 * 	$EP Parametros
 *		$P g - Ponteiro para o 'Graph' a ser manipulado
@@ -213,64 +223,65 @@ void *GraphGetData (pGraph g);
 
 /***********************************************************************
 *
-*	$FC Metodo: Graph Get Successor
+*	$FC Metodo: Graph List Start
 *
 * 	$EP Parametros
-*		$P g - Ponteiro para o 'Graph' a ser manipulado
-*	$ED Descricao da funcao
-*		Retorna data do proximo 'head' entre os links de 
-*		'currentNode'
+*		$P l - Ponteiro para o 'GraphList' a ser manipulado
+*
+*	$ED Descricao da Funcao
+*		Garante que o proximo elemento lido por GraphListGetNext
+*		e' o primeiro da lista.
+*
+***********************************************************************/
+void GraphListStart(pGraphList l);
+
+/***********************************************************************
+*
+*	$FC Metodo: Graph List Get Next
+*
+* 	$EP Parametros
+*		$P l - Ponteiro para o 'GraphList' a ser manipulado
+*
+*	$ED Descricao da Funcao
+*		Pega o 'data' do elemento atual e avanca um elemento na
+*		lista.
 *
 *	$FV Valor retornado
-*		Ponteiro para 'data' do proximo 'linkado' ou, ao fim da 
-*		lista, para 'NULL'
+*		Ponteiro 'data' do proximo no da lista l ou NULL
+*		Caso a lista tenha terminado.
 *
 ***********************************************************************/
-void *GraphGetSuccessor (pGraph g);
+void *GraphListGetNext(pGraphList l);
 
 /***********************************************************************
 *
-*	$FC Metodo: Graph Iterator Start
+*	$FC Metodo: Graph Get Links
 *
 * 	$EP Parametros
-*		$P g - Ponteiro para o 'Graph' a ser manipulado
-*	$ED Descricao da funcao
-*		Garante que a proxima chamada de GraphSearchNext retornara
-*		'data' do primeiro Node, e que GraphSearchNext so retornara 
-*		NULL depois de ter percorrido todos os Nodes.
-*
-***********************************************************************/
-void GraphIterStart(pGraph g);
-
-/***********************************************************************
-*
-*	$FC Metodo: Graph Iterator Next
-*
-* 	$EP Parametros
-*		$P g - Ponteiro para o 'Graph' a ser manipulado
-*	$ED Descricao da funcao
-*		Retorna 'data' do proximo Node a na iteracao. Use junto com
-*		GraphIterStart.
+*		$P l - Ponteiro para o 'GraphList' a ser manipulado
 *
 *	$FV Valor retornado
-*		Ponteiro para 'data' do proximo node ou, ao fim da lista, 
-*		para 'NULL'
+*		Ponteiro para lista de links do 'currentNode'
 *
 ***********************************************************************/
-void *GraphIterNext (pGraph g);
+pGraphList GraphGetLinks(pGraph g);
 
 /***********************************************************************
 *
-*	$FC Metodo: Graph Iterator Set Current
+*	$FC Metodo: Graph Get Links
 *
 * 	$EP Parametros
-*		$P g - Ponteiro para o 'Graph' a ser manipulado
-*	$ED Descricao da funcao
-*		Modifica 'currentNode' para o ultimo 'Node' consultado
-*		com GraphIterNext.
+*		$P l - Ponteiro para o 'GraphList' a ser manipulado
+*
+*	$ED Descricao da Funcao
+*		Pega o 'data' do elemento atual e avanca um elemento na
+*		lista.
+*
+*	$FV Valor retornado
+*		Ponteiro 'data' do proximo no da lista l ou NULL
+*		Caso a lista tenha terminado.
 *
 ***********************************************************************/
-void GraphIterSetCurrent (pGraph g);
-
+pGraphList GraphGetNodes(pGraph g);
 #endif /* GRAORE_ */
 
