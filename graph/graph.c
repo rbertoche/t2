@@ -170,25 +170,28 @@ void *GraphGetData (Graph *g)
 {
 	return NULL;
 }
-void GraphListStart(pGraphList l)
+
+void GraphListStart (pGraphList l)
 {
+	LIS_IrInicioLista (l);
 }
-void *GraphListGetNext(pGraphList l)
+
+void *GraphListGetNext (pGraphList l)
 {
-	return NULL;
+	if (LIS_AvancarElementoCorrente (l) != LIS_CondRetOK)
+		return NULL;
+	return LIS_ObterValor (l);
 }
-pGraphList GraphGetLinks(pGraph g)
+
+pGraphList GraphGetLinks (pGraph g)
 {
+	return ((Node *)LIS_ObterValor (g->currentNode))->links;
 }
-pGraphList GraphGetNodes(pGraph g)
+
+pGraphList GraphGetNodes (pGraph g)
 {
 	if (!g || !g->currentNode)
 		return NULL;
 	return g->currentNode->data;
 }
 
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
