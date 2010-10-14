@@ -8,15 +8,15 @@ responsabilidade pelo desalocamento
 ================  1 owns 1  ======================     |
 | struct Graph |  ------->  | list of list Nodes |     |
 ================            ======================     |
-                                   | 1                 |
-                                   | owns              |
-                                   \/ 0..*             |
-                            =================          |
-                            |  list Node    |          |
-                            =================          |
-                                   |  1                |
-                                   |  owns             |
-                                   \/ 1                |
+                1 \                | 1                 |
+                   \               | owns              |
+                    \              \/ 0..*             |
+                     \      =================          |
+                 owns \     |  list Node    |          |
+                       \    =================          |
+                        \          |  1                |
+                    0..* \         |  lists            |
+                          \|       \/ 1                |
         ========            =================          |
         | Data |  1 owns 1  |  struct Node  |          |
         | -??? |  <-------  =================          |
@@ -36,6 +36,7 @@ responsabilidade pelo desalocamento
 
 typedef struct graph Graph;
 typedef struct node Node;
+typedef struct link Link;
 /* Graph definition */
 struct graph {
 	LIS_tppLista nodes;
@@ -52,7 +53,14 @@ struct node {
 	FDelData delData;
 };
 
+/* Link definition */
+struct link {
+	Node * n1;
+	Node * n2;
+};
+
 void delNode (Graph *g, void *n);
+void delLink (Link *n);
 
 Graph *GraphNew (FDelData fdd)
 {
@@ -60,8 +68,7 @@ Graph *GraphNew (FDelData fdd)
 	g = (Graph *) malloc(sizeof(Graph));
 	if (!g)
 		return NULL;
-	/* Atencao, NULL abaixo esta correto. O Dono dos nodes e' o graph */
-	g->nodes = LIS_CriarLista(NULL);
+	g->nodes = LIS_CriarLista((FDelData) LIS_DestruirLista );
 	if (!g->nodes){
 		return NULL;
 	}
@@ -78,10 +85,11 @@ void GraphDel (Graph *g)
          * Varre toda uma lista aplicando uma funcao */
 	IrInicioLista ( g->nodes );
 	do {
-		delNode( g, (Node*) LIS_ObterValor ( g->nodes ) );
+		g->currentNode = LIS_ObterValor( g->nodes );
+		GraphDelNode( g );
 	} while ( LIS_AvancarElementoCorrente ( g->nodes , 1)
-		== 0 );
-/*	== LIS_CondRetOk ) FIXME: isso nao tava compilando, nao entendi.*/
+	== LIS_CondRetOK );
+/*		== 0 ); */
 
 	LIS_DestruirLista( g->nodes );
 
@@ -101,33 +109,66 @@ enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 enum graphRet GraphNewNode (Graph *g, void *data)
 {
 	Node *n;
+	LIS_tppLista ln;
+/* Inicio do bloco de codigo com tratamento de excecao */
 	if (!g)
 		return graphInvalidGraph;
 	if (!data)
 		return graphNullData;
+
 	n = (Node *) malloc(sizeof(Node));
 	if (!n)
 		return graphMemoryError;
-	n->links = LIS_CriarLista(NULL);
-	n->data = data;
-	IrFinalLista( g->nodes );
-	if ( LIS_CondRetOK != LIS_InserirElementoApos( g->nodes , n) ){
-		free( n );
+
+	ln = LIS_CriarLista(NULL);
+	/* Para que ln possa se tornar heterogeneo, uso NULL */
+	if (!ln){
+		free (n);
 		return graphMemoryError;
 	}
+
+	if (!LIS_InserirElementoApos( ln, n )){
+		free (n);
+		LIS_DestruirLista( ln );
+		return graphMemoryError;
+	}
+
+	n->links = LIS_CriarLista( (FDelData) delLink );
+	if (!n->links){
+		free (n);
+		LIS_DestruirLista( ln );
+		return graphMemoryError;
+	}
+
+	IrFinalLista( g->nodes );
+	if ( LIS_CondRetOK != LIS_InserirElementoApos( g->nodes , ln) ){
+		LIS_DestruirLista( n->links );
+		free (n);
+		LIS_DestruirLista( ln );
+		return graphMemoryError;
+	}
+/* Fim do bloco de codigo com tratamento de excecao */
+
+	n->data = data;
 	g->nOfNodes++;
-	g->currentNode = n;
+	g->currentNode = ln;
 	return graphOk;
 }
-enum graphRet GraphDelNode (Graph *g)
+void GraphDelNode (Graph *g)
 {
+	Node *n;
+/* assertiva caso nao retornasse void (Change Current ja' testou isso):
 	if (!g)
 		return graphInvalidGraph;
-	if (!g->currentNode)
+*/
+	n = (Node *) LIS_ObterValor(g->currentNode);
+/* assertiva caso nao retornasse void (Change Current ja' testou isso):
+	if (!n)
 		return graphInvalidCurrentNode;
-	delNode(g,g->currentNode);
+*/
+	delNode(g,n);
+	LIS_DestruirLista(g->currentNode);
 	g->currentNode = NULL;
-	return graphOk;
 }
 
 void delNode (Graph *g, void *n_)
@@ -135,6 +176,7 @@ void delNode (Graph *g, void *n_)
 	Node * n=n_;
 	LIS_DestruirLista( n->links );
 	( *g->delData )( n->data );
+	free (n);
 }	
 	
 enum graphRet GraphAddLink (Graph *g, void *n)

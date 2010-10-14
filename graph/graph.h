@@ -160,7 +160,7 @@ enum graphRet GraphNewNode (pGraph g, void *data);
 *		graphInvalidCurrentNode
 *
 ***********************************************************************/
-enum graphRet GraphDelNode (pGraph g);
+void GraphDelNode (pGraph g);
 
 /***********************************************************************
 *
