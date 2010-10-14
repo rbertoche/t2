@@ -10,6 +10,7 @@ err         =  .
 [Modulos]
 tstgraph
 graph
+lista
 
 [BuildInicio]
 /OUT:TestGraph.exe

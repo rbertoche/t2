@@ -6,4 +6,15 @@
 
 # C build files
 *.o
+*.a
+
+# Arcabouco/windows temp files
+
+*.log
+*.err
+*.make
+*.build
+*.list
+*.obj
+*.exe
 
