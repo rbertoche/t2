@@ -2,7 +2,7 @@
 /*
 
 Diagrama UML do modelo fisico da implementacao de grafo
-'owns' significa atrelamento de tempo de vida, 
+'owns' significa atrelamento de tempo de vida,
 responsabilidade pelo desalocamento
 
 ================  1 owns 1  ======================     |
@@ -73,7 +73,7 @@ Graph *GraphNew (FDelData fdd)
 
 void GraphDel (Graph *g)
 {
-	/* Esse codigo tende a ser replicado: 
+	/* Esse codigo tende a ser replicado:
          * Varre toda uma lista aplicando uma funcao */
 	IrInicioLista ( g->nodes );
 	do {
@@ -133,7 +133,7 @@ void delNode (Graph *g, void *n_)
 {
 	Node * n=n_;
 	LIS_DestruirLista( n->links );
-	( *g->delData )( n->data );		
+	( *g->delData )( n->data );
 }	
 	
 enum graphRet GraphAddLink (Graph *g, void *n)
@@ -187,3 +187,8 @@ pGraphList GraphGetNodes(pGraph g)
 	return g->currentNode->data;
 }
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes

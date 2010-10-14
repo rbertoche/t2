@@ -6,7 +6,7 @@
 
 /***************************************************************************
 *
-*	$MCD Módulo de definição: Graph	
+*	$MCD Módulo de definição: Graph
 *
 *	Arquivo gerado:		graph.h
 *
@@ -29,7 +29,10 @@
 *	O ponteiro e' o unica forma de identificar um no' para o cliente.
 *
 ***************************************************************************/
- 
+
+
+
+
 
 /***********************************************************************
 *	$TC Tipo de Dados: pGraph
@@ -71,7 +74,7 @@ enum graphRet {
 *		$P fdd - ponteiro para funcao usado para deletar 'data'.
 *			A funcao deve retornar 'void' e receber 'void *'.
 *			Caso queira que o grafo nao delete 'data', passe 'NULL'.
-* 
+*
 *	$ED Descrição da função
 *		Cria um novo grafo vazio e retorna um ponteiro para tal.
 *
@@ -82,7 +85,6 @@ enum graphRet {
 ***********************************************************************/
 typedef void (*FDelData)(void *data);
 pGraph GraphNew (FDelData fdd);
-
 
 /***********************************************************************
 *
@@ -100,13 +102,12 @@ pGraph GraphNew (FDelData fdd);
 ***********************************************************************/
 void GraphDel (pGraph g);
 
-
 /***********************************************************************
 *
 *	$FC Metodo: Graph Change Current
 *	$EP Parametros
 *		$P g - Ponteiro para o 'Graph' a ser manipulado
-*		$P newCurrentNode - Ponteiro para o 'data' contido no 
+*		$P newCurrentNode - Ponteiro para o 'data' contido no
 *		'Node' que sera' current
 *
 *	$FV Valor retornado
@@ -118,13 +119,12 @@ void GraphDel (pGraph g);
 ***********************************************************************/
 enum graphRet GraphCCurrent (pGraph g, void *newCurrentData);
 
-
 /***********************************************************************
 *
 *	$FC Metodo: Graph New Node
 *	$EP Parametros
 *		$P g - Ponteiro para o 'Graph' a ser manipulado
-*		$P data - Ponteiro generico para 'data' que o novo 'Node' 
+*		$P data - Ponteiro generico para 'data' que o novo 'Node'
 *		possuira'
 *	$ED Descricao da funcao
 *		Aloca novo 'Node'; 'currentNode' vira esse novo 'Node'.
@@ -136,7 +136,6 @@ enum graphRet GraphCCurrent (pGraph g, void *newCurrentData);
 *
 ***********************************************************************/
 enum graphRet GraphNewNode (pGraph g, void *data);
-
 
 /***********************************************************************
 *		As proximas funcoes manipulam sempre o 'currentNode'
@@ -204,8 +203,6 @@ enum graphRet GraphAddLink (pGraph g, void *d);
 *
 ***********************************************************************/
 enum graphRet GraphRemLink (pGraph g, void *n);
-/* melhor GraphRMLink? */
-
 
 /***********************************************************************
 *
@@ -219,7 +216,6 @@ enum graphRet GraphRemLink (pGraph g, void *n);
 *
 ***********************************************************************/
 void *GraphGetData (pGraph g);
-
 
 /***********************************************************************
 *
