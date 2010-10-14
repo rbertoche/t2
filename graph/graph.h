@@ -202,7 +202,7 @@ enum graphRet GraphAddLink (pGraph g, void *d);
 *		graphInvalidLink
 *
 ***********************************************************************/
-enum graphRet GraphRemLink (pGraph g, void *n);
+enum graphRet GraphRemLink (pGraph g, void *d);
 
 /***********************************************************************
 *

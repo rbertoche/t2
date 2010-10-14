@@ -106,6 +106,7 @@ enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 	g->currentNode = newCurrent;
 	return graphOk;
 }
+
 enum graphRet GraphNewNode (Graph *g, void *data)
 {
 	Node *n;
@@ -188,46 +189,61 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 	if (LIS_ProcurarValor (g->nodes, n) == LIS_CondRetOK)
 		return graphInvalidLink;
 
-	LIS_InserirElementoApos (g->nodes);
+	LIS_InserirElementoApos (g->nodes, n);
 	return graphOk;
 }
 
-enum graphRet GraphRemLink (Graph *g, void *n)
+enum graphRet GraphRemLink (Graph *g, void *d)
 {
+	Node *curr = NULL;
 	if (!g)
 		return graphInvalidGraph;
-	if (!n)
+	if (!d)
 		return graphNullData;
-	if (LIS_ProcurarValor (g->currentNode->links, n)
-			== LIS_CondRetNaoAchou)
-		return graphInvalidLink;
 
-	if (LIS_ProcurarValor (g->nodes, g->currentNode))
-	LIS_ObterValor (g->nodes, g->currentNode);
+	curr = LIS_ObterValor (g->currentNode);
 
-	LIS_ExcluirElemento (g->currentNode->links);
+	IrInicioLista (curr->links);
+	do{
+		Node *n2 = LIS_ObterValor (curr->links);
+		if (n2->data == d){
+			/* deleta de curr -> n2 */
+			LIS_ExcluirElemento (curr->links);
+			IrInicioLista (curr->links);
+			LIS_ProcurarValor (curr->links, n2);
+			break;
+		}
+	}while (LIS_AvancarElementoCorrente(curr->links, 1)
+			== LIS_CondRetOK);
+
 	return graphOk;
 }
 
 void *GraphGetData (Graph *g)
 {
-	return NULL;
+	if (!g || !g->currentNode)
+		return NULL;
+
+	return LIS_ObterValor (g->currentNode);
 }
 
 void GraphListStart (pGraphList l)
 {
-	LIS_IrInicioLista (l);
+	IrInicioLista (l);
 }
 
 void *GraphListGetNext (pGraphList l)
 {
-	if (LIS_AvancarElementoCorrente (l) != LIS_CondRetOK)
+	void *ret = LIS_ObterValor (l);
+	if (LIS_AvancarElementoCorrente (l, 1) != LIS_CondRetOK)
 		return NULL;
-	return LIS_ObterValor (l);
+	return ret;
 }
 
 pGraphList GraphGetLinks (pGraph g)
 {
+	if (!g || !g->currentNode)
+		return NULL;
 	return ((Node *)LIS_ObterValor (g->currentNode))->links;
 }
 
@@ -235,6 +251,6 @@ pGraphList GraphGetNodes (pGraph g)
 {
 	if (!g || !g->currentNode)
 		return NULL;
-	return g->currentNode->data;
+	return ((Node *)LIS_ObterValor (g->currentNode))->links;
 }
 
