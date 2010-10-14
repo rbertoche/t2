@@ -1,0 +1,24 @@
+\documentclass{article}
+
+% The following is needed in order to make the code compatible
+% with both latex/dvips and pdflatex.
+\ifx\pdftexversion\undefined
+\usepackage[dvips]{graphicx}
+\else
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsRule{*}{mps}{*}{}
+\fi
+
+\title{T2 modular}
+\author{Marcelo Politzer Couto, Raphael Bertoche}
+
+\begin{document}
+
+\maketitle
+
+\section{Overview}
+
+\subsection{Architecture}
+\includegraphics{arch.1}
+
+\end{document}
