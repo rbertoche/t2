@@ -136,30 +136,54 @@ void delNode (Graph *g, void *n_)
 	( *g->delData )( n->data );		
 }	
 	
-
 enum graphRet GraphAddLink (Graph *g, void *n)
 {
-return graphOk;
+	if (!g)
+		return graphInvalidGraph;
+	if (!n)
+		return graphNullData;
+	if (LIS_ProcurarValor (g->nodes, n) == LIS_CondRetOK)
+		return graphInvalidLink;
+
+	LIS_InserirElementoApos (g->nodes);
+	return graphOk;
 }
+
 enum graphRet GraphRemLink (Graph *g, void *n)
 {
-return graphOk;
+	if (!g)
+		return graphInvalidGraph;
+	if (!n)
+		return graphNullData;
+	if (LIS_ProcurarValor (g->currentNode->links, n)
+			== LIS_CondRetNaoAchou)
+		return graphInvalidLink;
+
+	if (LIS_ProcurarValor (g->nodes, g->currentNode))
+	LIS_ObterValor (g->nodes, g->currentNode);
+
+	LIS_ExcluirElemento (g->currentNode->links);
+	return graphOk;
 }
+
 void *GraphGetData (Graph *g)
 {
-return NULL;
+	return NULL;
 }
 void GraphListStart(pGraphList l)
 {
 }
 void *GraphListGetNext(pGraphList l)
 {
+	return NULL;
 }
 pGraphList GraphGetLinks(pGraph g)
 {
 }
 pGraphList GraphGetNodes(pGraph g)
 {
+	if (!g || !g->currentNode)
+		return NULL;
+	return g->currentNode->data;
 }
-
 

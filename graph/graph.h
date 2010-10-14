@@ -258,7 +258,7 @@ void *GraphListGetNext(pGraphList l);
 *	$FC Metodo: Graph Get Links
 *
 * 	$EP Parametros
-*		$P l - Ponteiro para o 'GraphList' a ser manipulado
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
 *
 *	$FV Valor retornado
 *		Ponteiro para lista de links do 'currentNode'
@@ -268,18 +268,13 @@ pGraphList GraphGetLinks(pGraph g);
 
 /***********************************************************************
 *
-*	$FC Metodo: Graph Get Links
+*	$FC Metodo: Graph Get Nodes
 *
 * 	$EP Parametros
-*		$P l - Ponteiro para o 'GraphList' a ser manipulado
-*
-*	$ED Descricao da Funcao
-*		Pega o 'data' do elemento atual e avanca um elemento na
-*		lista.
+*		$P g - Ponteiro para o 'Graph' a ser manipulado
 *
 *	$FV Valor retornado
-*		Ponteiro 'data' do proximo no da lista l ou NULL
-*		Caso a lista tenha terminado.
+*		Ponteiro para lista de nodes do 'Graph'
 *
 ***********************************************************************/
 pGraphList GraphGetNodes(pGraph g);
