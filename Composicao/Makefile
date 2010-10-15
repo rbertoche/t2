@@ -38,7 +38,7 @@ all:$(ALLTARGS)
 %.o: $(SRC)/%.c $(ALLDEPS)
 	$(CC) -c -o $@ $(CFLAGS) $<
 
-testlista: $(LISTAOBJ)
+testelista: $(LISTAOBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS) 
 
 testgraph: $(GRAPHOBJ)

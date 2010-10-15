@@ -10,56 +10,56 @@ CFLAGS= -I. -ansi -Wall -g -O0 $(MORECFLAGS)
 LFLAGS= -lm
 
 ALLDEPS = \
-CESPDIN.H\
-EXBESTAT.H\
-GERAALT.H\
-INTRPCNT.H\
-TABSIMB.H\
-TST_ESPC.H\
-CONTA.H\
-GENERICO.H\
-INTRPCED.H\
-LERPARM.H\
-TESTALT.H
+cespdin.h\
+exbestat.h\
+geraalt.h\
+intrpcnt.h\
+tabsimb.h\
+tst_espc.h\
+conta.h\
+generico.h\
+intrpced.h\
+lerparm.h\
+testalt.h
 
 CRIALIBOBJ = \
-CESPDIN.o\
-GERAALT.o\
-INTRPCNT.o\
-PRINCIP.o\
-CONTA.o\
-GENERICO.o\
-INTRPCED.o\
-LERPARM.o\
-TABSIMB.o
+cespdin.o\
+geraalt.o\
+intrpcnt.o\
+princip.o\
+conta.o\
+generico.o\
+intrpced.o\
+lerparm.o\
+tabsimb.o
 
 ALEATORIOOBJ = \
 $(CRIALIBOBJ)\
-TESTALT.o
+testalt.o
 
 CONTADORESOBJ = \
 $(CRIALIBOBJ)\
-TESTCNT.o
+testcnt.o
 
 CEDOBJ = \
 $(CRIALIBOBJ)\
-TESTCED.o
+testced.o
 
 GENOBJ = \
 $(CRIALIBOBJ)\
-TESTGEN.o
+testgen.o
 
 LEROBJ = \
 $(CRIALIBOBJ)\
-TESTLER.o
+testler.o
 	
 TBSOBJ = \
 $(CRIALIBOBJ)\
-TESTTBS.o
+testtbs.o
 
 PERMUTAOBJ = \
-GERAALT.o\
-GERAPERMUTACAO.o
+geraalt.o\
+gerapermutacao.o
 
 ALLTARGS = \
 libArcaboucoTeste.a\
@@ -77,7 +77,7 @@ libArcaboucoTeste.a: $(CRIALIBOBJ)
 
 all:$(ALLTARGS)
 
-%.o: %.C $(ALLDEPS)
+%.o: %.c $(ALLDEPS)
 	$(CC) -c -o $@ $(CFLAGS) $<
 
 TesteAleatorio: $(ALEATORIOOBJ)
