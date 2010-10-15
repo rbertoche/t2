@@ -19,10 +19,6 @@ Class.gman ("GraphManager") ()
 
 Class.user ("user")
 (
-	"- Name : string",
-	"- Tel : string",
-	"- nick : string",
-	"- passwd : string",
 )
 (
 	"appendMsg (msg : Msg) void",
