@@ -108,7 +108,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		Ret = GraphNewNode ( vGraph[iGraph],  &vData[iData] );
+		Ret = GraphNewNode ( vGraph[iGraph],  vData[iData] );
 
 		
 		return TST_CompararInt( ExpectedRet , Ret ,
@@ -248,7 +248,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
 
-		return TST_CompararInt( c , *vData[iData] ,
+		return TST_CompararInt( c , *(char*)vData[iData] ,
 			"Erro: Char diferente do esperado.");
 
 	}

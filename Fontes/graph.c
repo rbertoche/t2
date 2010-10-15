@@ -44,6 +44,8 @@ struct graph {
 	FDelData delData;
 	int nOfNodes;
 	int nOfLinks;
+	void *nodesOld;
+	void *linksOld;
 };
 
 /* Node definition */
@@ -99,10 +101,11 @@ void GraphDel (Graph *g)
 
 enum graphRet searchData(Graph *g, void *data)
 {
-	LIS_tppLista l;
+	Node* n;
+	IrInicioLista(g->nodes);
 	do{	
-		l = LIS_ObterValor(g->nodes);
-		if(data == LIS_ObterValor(l)){
+		n = LIS_ObterValor(LIS_ObterValor(g->nodes));
+		if(data == n->data){
 			return graphOk;
 		}
 	} while(LIS_CondRetOK == LIS_AvancarElementoCorrente (g->nodes, 1));
@@ -236,7 +239,7 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 	if (!n1)
 		return graphInvalidCurrentNode;
 
-	if (searchData (g, n) == graphOk)
+	if (searchData (g, n) != graphOk)
 		return graphInvalidArgNode;
 	n2 = LIS_ObterValor(LIS_ObterValor(g->nodes));
 
@@ -278,48 +281,49 @@ void *GraphGetData (Graph *g)
 
 void GraphNodesStart (Graph *g)
 {
+	g->nodesOld = NULL;
 	IrInicioLista ( g->nodes );
 }
 
 void GraphLinksStart (Graph *g)
 {
+	g->linksOld = NULL;
 	IrInicioLista ( ((Node *)LIS_ObterValor (g->currentNode))->links );
 }
 
 void *GraphNodesGetNext (Graph *g)
 {
-	static void *old;
 	void *ret;
 	LIS_tppLista l;
 	if (!g || !g->currentNode)
 		return NULL;
-	l = g->nodes;
-	ret = ((Node*)LIS_ObterValor (LIS_ObterValor(l)))->data;
-	if (LIS_AvancarElementoCorrente (l, 1) == LIS_CondRetListaVazia)
+	l = LIS_ObterValor(g->nodes);
+	if (!l)
 		return NULL;
-	if (ret == old)
+	ret = ((Node*)LIS_ObterValor (l))->data;
+	if (g->nodesOld == ret){ /* Se esse dado ja' repitiu, ja terminou a lista */
 		return NULL;
-	old = ((Node*)LIS_ObterValor (LIS_ObterValor(l)))->data;
+	}
+	g->nodesOld = ret;
+	LIS_AvancarElementoCorrente (l, 1);
 	return ret;
 }
 
 void *GraphLinksGetNext (Graph *g)
 {
-	static void *old;
 	void *ret;
 	LIS_tppLista l;
 	if (!g || !g->currentNode)
 		return NULL;
 	l = ((Node*)LIS_ObterValor (g->currentNode))->links;
-	ret = LIS_ObterValor (l);
-	if (!ret)
+	if (!LIS_ObterValor(l))
 		return NULL;
-	ret = ((Node*) ret)->data;
-	if (LIS_AvancarElementoCorrente (l, 1) == LIS_CondRetListaVazia)
+	ret = ((Link*)LIS_ObterValor(l))->n2->data;
+	if (g->linksOld == ret){ /* Se esse dado ja' repitiu, ja terminou a lista */
 		return NULL;
-	if (ret == old)
-		return NULL;
-	old = ((Node*) LIS_ObterValor (l))->data;
+	}
+	g->linksOld = ret;
+	LIS_AvancarElementoCorrente (l, 1);
 	return ret;
 }
 
