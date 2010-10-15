@@ -49,7 +49,7 @@
 =GraphNodesGetNext	g0	d9
 =recuperar
 
-== Cria node c0
+== Criar node c0
 =NewData		d0	c0
 =GraphNewNode		g0	d0	Ok
 
@@ -57,9 +57,13 @@
 =GraphGetData		g0	d9
 =CmpData		d9	c0
 
-== Cria node c1
+== Criar node c1
 =NewData		d1	c1
 =GraphNewNode		g0	d1	Ok
+
+== Verificar se c1 esta armazenado
+=GraphGetData		g0	d9
+=CmpData		d9	c1
 
 == Verificar se a lista de links veio vazia
 =GraphLinksStart	g0	
@@ -68,9 +72,9 @@
 
 == Cria link entre c1 e c0
 =GraphAddLink		g0	d0	Ok
-=GraphLinksStart	g0	
 
 == Verifica se o link esta ok
+=GraphLinksStart	g0
 =GraphLinksGetNext	g0	d9
 =CmpData		d9	c0
 =GraphLinksGetNext
@@ -80,9 +84,35 @@
 =GraphCCurrent		g0	d0	Ok
 
 == Verifica se o link ficou reciproco
+=GraphLinksStart	g0
 =GraphLinksGetNext	g0	d9
 =CmpData		d9	c1
 =GraphLinksGetNext
 =recuperar
+
+== Criar node c2
+=NewData		d2	c2
+=GraphNewNode		g0	d2	Ok
+
+== Criar node c3
+=NewData		d3	c3
+=GraphNewNode		g0	d3	Ok
+
+== Cria link entre c3 e c1
+=GraphAddLink		g0	d1	Ok
+
+== Verifica se o link esta ok
+=GraphLinksStart	g0
+=GraphLinksGetNext	g0	d9
+=CmpData		d9	c1
+=GraphLinksGetNext
+=recuperar
+
+== Verifica se o numero de links de c1 e' 2
+=GraphLinksStart	g0
+=GraphLinksGetNext	g0	d9
+=GraphLinksGetNext	g0	d9
+=recuperar
+
 
 // fim
