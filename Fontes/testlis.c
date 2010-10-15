@@ -106,10 +106,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
           numLidos   = -1 ,
           CondRetEsp = -1  ;
 
-      TST_tpCondRet CondRet ;
-
       char   StringDado[  DIM_VALOR ] ;
-      char * pDado ;
 
       int ValEsp = -1 ;
 
