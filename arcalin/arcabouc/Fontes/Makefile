@@ -7,6 +7,7 @@
 CC=gcc
 CXX=g++
 CFLAGS= -I. -ansi -Wall -g -O0 $(MORECFLAGS)
+LFLAGS= -lm
 
 ALLDEPS = \
 CESPDIN.H\
@@ -80,25 +81,25 @@ all:$(ALLTARGS)
 	$(CC) -c -o $@ $(CFLAGS) $<
 
 TesteAleatorio: $(ALEATORIOOBJ)
-	$(CC) -o $@ $^  $(CFLAGS)	
+	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
 
 TesteContadores: $(CONTADORESOBJ)
-	$(CC) -o $@ $^  $(CFLAGS)
+	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
 
 TesteControleEspaco: $(CEDOBJ)
-	$(CC) -o $@ $^  $(CFLAGS)	
+	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
 	
 TesteFuncoes: $(GENOBJ)
-	$(CC) -o $@ $^  $(CFLAGS)	
+	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
 	
 TesteLerParametros: $(LEROBJ)
-	$(CC) -o $@ $^  $(CFLAGS)	
+	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
 	
 TesteTabelaSimbolos: $(TBSOBJ)
-	$(CC) -o $@ $^  $(CFLAGS)	
+	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
 	
 GeraPermutacao: $(PERMUTAOBJ)
-	$(CC) -o $@ $^  $(CFLAGS)
+	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
 	
 
 
