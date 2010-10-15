@@ -1,8 +1,8 @@
 // Script:    TesteLista.script
-// Autor:     Arndt von Staa
-// Data:      02/abr/2008
-// Propósito: Testar superficialmente o módulo lista genérica duplamente encadeada
-//
+// Autor:     Marcelo Politzer Couto
+// Data:      15/out/2010
+// Propósito: Testar superficialmente o módulo lista genérica duplamente
+// encadeada manipulando (nome, telefone, endereco).
 
 == Inicializar valores
 =declararparm   lista0  int 0
