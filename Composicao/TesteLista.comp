@@ -1,0 +1,26 @@
+# Composicao do programa de teste de uma lista gen�rica duplamente encadeada
+# Este exemplo utiliza o arcabou�o completo 
+
+[Diretorios]
+
+Nome        =  TesteLista
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+def         =  ..\Tabelas
+
+[Modulos]
+TestLis
+Lista
+
+[BuildInicio]
+/OUT:..\Produto\TesteLista.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[BuildFim]
+ArcaboucoTeste.lib
+
+[Fim]

@@ -28,9 +28,6 @@
 #ifndef GRAORE_
 #define GRAORE_
 
-#include "../lista/lista.h"
-
-
 
 /***********************************************************************
 *	$TC Tipo de Dados: pGraph

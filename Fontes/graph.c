@@ -31,7 +31,7 @@ responsabilidade pelo desalocamento
 */
 
 #include "graph.h"
-#include "../lista/lista.h"
+#include "lista.h"
 
 
 typedef struct graph Graph;

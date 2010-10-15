@@ -16,7 +16,7 @@ O       = /Ox /D_CRT_SECURE_NO_DEPRECATE
 !ENDIF
 
 OPT     = /c /J /W4 /nologo
-INCLUDE = $(INCLUDE);$(PDEFAULT);..\arcab;..\lista;..\graph
+INCLUDE = $(INCLUDE);$(PDEFAULT)
 
 [Limpa]
    if exist $(Ferr)\$(NOME).err  del $(Ferr)\$(NOME).err
