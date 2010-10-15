@@ -11,6 +11,10 @@ Class.gman ("GraphManager") ()
 (
 	"+ login (nick : string, passwd : string) : CondRet",
 	"+ logout () : void",
+	"+ send (msg : string) : CondRet",
+	"+ receive (msg : string) : void",
+	"+ reply (msg : string) : CondRet",
+	"+ show_log () : void",
 );
 
 Class.user ("user")
@@ -67,12 +71,13 @@ Class.list ("list") ()
 );
 
 beginfig(1);
-topToBottom (25)(cli, graph, list);
+topToBottom (25)(cli, gman, graph, list);
 leftToRight (25)(graph, msg);
 topToBottom (25)( user, msg);
-drawObjects (cli, graph, list, user, msg);
-clink(associationUni)(cli, graph);
-clink(associationUni)(cli, user);
+drawObjects (cli, gman, graph, list, user, msg);
+clink(associationUni)(cli, gman);
+clink(associationUni)(gman, graph);
+clink(associationUni)(gman, user);
 clink(associationUni)(graph, list);
 clink(associationUni)(user, msg);
 endfig;
