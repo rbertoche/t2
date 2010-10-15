@@ -9,4 +9,6 @@ clean:
 	$(RM) $(HTML) $(GRAPH)
 pdf:
 	mpost arch.mp
-	pdflatex graph.tex
+	mpost example.mp
+	latex graph.tex
+	dvipdf graph.dvi

@@ -2,12 +2,15 @@
 
 % The following is needed in order to make the code compatible
 % with both latex/dvips and pdflatex.
-\ifx\pdftexversion\undefined
-\usepackage[dvips]{graphicx}
-\else
-\usepackage[pdftex]{graphicx}
-\DeclareGraphicsRule{*}{mps}{*}{}
-\fi
+%\ifx\pdftexversion\undefined
+%\usepackage[dvips]{graphicx}
+%\else
+% \usepackage[pdftex]{graphicx}
+% \DeclareGraphicsRule{*}{mps}{*}{}
+% \fi
+
+\usepackage{graphics}
+\usepackage{graphicx}
 
 \title{T2 modular}
 \author{Marcelo Politzer, Raphael Bertoche}
@@ -19,13 +22,17 @@
 \section{Requisitos}
 
 \begin{list}{*}{}
-\item O usuario vai possuir uma lista de amigos dentre os participantes.
-\item O sistema precisa passar mensagens entre os participantes.
-\item As mensagens recebidas precisam de alguma forma de resposta.
-\item Log de mensagens enviadas e recebidas.
+\item O usuário vai possuir uma lista de amigos dentre os participantes.
+\item O usuário pode passar mensagens entre os participantes.
+\item As mensagens precisam poder ser respondidas.
+\item As mensagens precisam poder ficar salvas.
+\item O usuário deve poder adicionar pessoas a sua lista de amigo pelo nome.
 \end{list}
 
-\subsection{Architecture}
+\subsection{Arquitetura}
 \includegraphics{arch.1}
+
+\subsection{Exemplo}
+\includegraphics{example.1}
 
 \end{document}

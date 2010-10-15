@@ -17,27 +17,22 @@ Class.gman ("GraphManager") ()
 	"+ show_log () : void",
 );
 
+Class.msg ("msg")
+(
+)
+(
+	"+ New (m : string, from : string, to : string) : Msg",
+	"+ GetSender (msg : Msg) : string",
+	"+ GetccList (msg : Msg) : List",
+);
+
 Class.user ("user")
 (
 )
 (
-	"appendMsg (msg : Msg) void",
-	"allMsg() void",
-	"delMsg() void",
-);
-
-Class.msg ("msg")
-(
-	"- mensagem : string",
-	"- orig : string",
-	"- dest : string",
-	"- cc : List",
-	"- refcount : int",
-)
-(
-	"+ New (msg : string, orig : string, dest : string) : Msg",
-	"+ GetSender (msg : Msg) : string",
-	"+ GetccList (msg : Msg) : List",
+	"+ appendMsg (msg : Msg) void",
+	"+ allMsg() void",
+	"+ delMsg() void",
 );
 
 Class.graph ("graph") ()
@@ -71,8 +66,8 @@ Class.list ("list") ()
 
 beginfig(1);
 topToBottom (25)(cli, gman, graph, list);
-leftToRight (25)(graph, msg);
-topToBottom (25)( user, msg);
+leftToRight (25)( graph, msg);
+topToBottom (100)( msg, user);
 drawObjects (cli, gman, graph, list, user, msg);
 clink(associationUni)(cli, gman);
 clink(associationUni)(gman, graph);
