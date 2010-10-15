@@ -7,9 +7,9 @@
 #include    "../lista/lista.h"
 */
 #include    "graph.h"
-#include    "../arcab/tst_espc.h"
-#include    "../arcab/generico.h"
-#include    "../arcab/lerparm.h"
+#include    "tst_espc.h"
+#include    "generico.h"
+#include    "lerparm.h"
 
 enum { MAXGRAPHS = 10 };
 enum { MAXDATAS = 10 };
