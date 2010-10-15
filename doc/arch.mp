@@ -25,6 +25,9 @@ Class.user ("user")
 	"- passwd : string",
 )
 (
+	"appendMsg (msg : Msg) void",
+	"allMsg() void",
+	"delMsg() void",
 );
 
 Class.msg ("msg")
@@ -80,6 +83,8 @@ clink(associationUni)(gman, graph);
 clink(associationUni)(gman, user);
 clink(associationUni)(graph, list);
 clink(associationUni)(user, msg);
+clink(associationUni)(user, list);
+clink(associationUni)(gman, msg);
 endfig;
 
 end
