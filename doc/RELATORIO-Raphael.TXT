@@ -1,0 +1,17 @@
+05/10/2010|4|Estudar			|Pensar em arquitetura, esboçar interfaces
+07/10/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces
+07/10/2010|3|codificar modulo		|Comecar algumas tentativas de implementacao do grafo
+08/10/2010|3|codificar modulo		|Comecar algumas tentativas de implementacao do grafo
+09/10/2010|3|codificar modulo		|Comecar a implementar modulo de testes
+10/10/2010|3|codificar modulo		|Revisao para compilar com -ansi
+13/10/2010|3|revisar projeto		|revisao da organizacao das pastas.
+13/10/2010|1|revisar projeto		|Compilar com o nmake
+13/10/2010|3|Estudar			|Solucionar problemas na implementacao com 
+						mudanca na arquitetura
+14/10/2010|6|Estudar			|Tempo perdido com mais problemas com a arquitetura
+14/10/2010|3|codificar modulo		|Ajustar o modulo para nova arquitetura
+14/10/2010|2|redigir script de teste	|Scripts de teste do grafo
+15/10/2010|3|codificar modulo		|Consertos no modulo para passar no teste
+15/10/2010|1|revisar script de teste	|do grafo
+15/10/2010|1|revisar projeto		|Modelos e desenhos pedidos
+
