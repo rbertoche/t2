@@ -59,6 +59,7 @@ struct node {
 struct link {
 	Node * n1;
 	Node * n2;
+	Link * brother;
 };
 
 void delNode (Graph *g, void *n);
@@ -83,8 +84,6 @@ Graph *GraphNew (FDelData fdd)
 
 void GraphDel (Graph *g)
 {
-	/* Esse codigo tende a ser replicado:
-         * Varre toda uma lista aplicando uma funcao */
 	IrInicioLista ( g->nodes );
 	do {
 		g->currentNode = LIS_ObterValor( g->nodes );
@@ -99,16 +98,16 @@ void GraphDel (Graph *g)
 	return;
 }
 
-enum graphRet searchData(Graph *g, void *data)
+enum graphRet searchData(LIS_tppLista l, void *data)
 {
 	Node* n;
-	IrInicioLista(g->nodes);
+	IrInicioLista(l);
 	do{	
-		n = LIS_ObterValor(LIS_ObterValor(g->nodes));
+		n = LIS_ObterValor(LIS_ObterValor(l));
 		if(data == n->data){
 			return graphOk;
 		}
-	} while(LIS_CondRetOK == LIS_AvancarElementoCorrente (g->nodes, 1));
+	} while(LIS_CondRetOK == LIS_AvancarElementoCorrente (l, 1));
 	return graphInvalidArgNode;
 }
 enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
@@ -117,7 +116,7 @@ enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 		return graphInvalidGraph;
 	if (!newCurrent)
 		return graphInvalidArgNode;
-	if (graphOk != searchData(g,newCurrent))
+	if (graphOk != searchData(g->nodes,newCurrent))
 		return graphInvalidArgNode;
 	g->currentNode = LIS_ObterValor(g->nodes);
 	return graphOk;
@@ -150,7 +149,7 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 		return graphMemoryError;
 	}
 
-	n->links = LIS_CriarLista( (FDelData) delLink );
+	n->links = LIS_CriarLista( NULL );
 	if (!n->links){
 		free (n);
 		LIS_DestruirLista( ln );
@@ -167,6 +166,7 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 /* Fim do bloco de codigo com tratamento de excecao */
 
 	n->data = data;
+	n->delData = g->delData;
 	g->nOfNodes++;
 	g->currentNode = ln;
 	return graphOk;
@@ -184,7 +184,6 @@ void GraphDelNode (Graph *g)
 		return graphInvalidCurrentNode;
 */
 	delNode(g,n);
-	LIS_DestruirLista(g->currentNode);
 	g->currentNode = NULL;
 }
 
@@ -198,9 +197,9 @@ void delNode (Graph *g, void *n_)
 
 void delLink (Link *l)
 {
-	LIS_ProcurarValor(l->n2->links,l->n1);
+	LIS_ProcurarValor(l->n2->links,l->brother);
 	LIS_ExcluirElemento(l->n2->links);
-	LIS_ProcurarValor(l->n1->links,l->n2);
+	LIS_ProcurarValor(l->n1->links,l);
 	LIS_ExcluirElemento(l->n1->links);
 }
 
@@ -211,12 +210,16 @@ enum graphRet linkTwoNodes(Node *n1, Node *n2)
 	l2 = (Link*) malloc (sizeof(Link));
 	l1->n1=n1;
 	l1->n2=n2;
+	l1->brother=l2;
 	l2->n1=n2;
 	l2->n2=n1;
+	l2->brother=l1;
 	if( LIS_CondRetOK == LIS_ProcurarValor(n1->links,n2)
 		|| LIS_CondRetOK == LIS_ProcurarValor(n1->links,n2) )
 		return graphInvalidLink; /* Assertiva: Nao repetir links */
 
+	IrFinalLista(n1->links);
+	IrFinalLista(n2->links);
 	if( LIS_CondRetOK != LIS_InserirElementoApos( n1->links,l1 ) )
 		return graphMemoryError;
 	if( LIS_CondRetOK != LIS_InserirElementoApos( n2->links,l2 ) ){
@@ -239,7 +242,7 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 	if (!n1)
 		return graphInvalidCurrentNode;
 
-	if (searchData (g, n) != graphOk)
+	if (searchData (g->nodes, n) != graphOk)
 		return graphInvalidArgNode;
 	n2 = LIS_ObterValor(LIS_ObterValor(g->nodes));
 
@@ -248,28 +251,29 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 
 enum graphRet GraphRemLink (Graph *g, void *d)
 {
-	Node *curr = NULL;
+	Node *curr;
+	Link *l;
 	if (!g)
 		return graphInvalidGraph;
 	if (!d)
 		return graphNullData;
-
+	if (!g->currentNode)
+		return graphInvalidCurrentNode;
 	curr = LIS_ObterValor (g->currentNode);
+
 
 	IrInicioLista (curr->links);
 	do{
-		Node *n2 = LIS_ObterValor (curr->links);
-		if (n2->data == d){
+		l = (Link*)LIS_ObterValor (curr->links);
+		if (l->n2->data == d){
 			/* deleta de curr -> n2 */
-			LIS_ExcluirElemento (curr->links);
-			IrInicioLista (curr->links);
-			LIS_ProcurarValor (curr->links, n2);
-			break;
+			delLink(l);
+			return graphOk;
 		}
 	}while (LIS_AvancarElementoCorrente(curr->links, 1)
 			== LIS_CondRetOK);
 
-	return graphOk;
+	return graphInvalidArgNode;
 }
 
 void *GraphGetData (Graph *g)

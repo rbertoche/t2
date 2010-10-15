@@ -11,6 +11,7 @@
 =declararparm   c2      char  'n'
 =declararparm   c3      char  'u'
 =declararparm   c4      char  'x'
+=declararparm   c5      char  '1'
 
 =declararparm   g0      int 0
 =declararparm   g1      int 1
@@ -108,11 +109,88 @@
 =GraphLinksGetNext
 =recuperar
 
-== Verifica se o numero de links de c1 e' 2
+== Verifica se o numero de links de c3 e' 1
 =GraphLinksStart	g0
 =GraphLinksGetNext	g0	d9
 =GraphLinksGetNext	g0	d9
 =recuperar
+== Verifica se os links estao corretos
+=GraphLinksStart	g0
+=GraphLinksGetNext	g0	d9
+=CmpData		d9	c1
 
+== Testa o CCurrent indo pra no vazio
+=GraphCCurrent		g0	d2	Ok
+=GraphLinksStart	g0
+=GraphLinksGetNext	g0	d9
+=recuperar
+
+== Cria link entre c2 e c1
+=GraphAddLink		g0	d1	Ok
+
+== Verifica o numero de links em c1
+=GraphCCurrent		g0	d1	Ok
+=GraphLinksStart	g0
+=GraphLinksGetNext	g0	d9
+=GraphLinksGetNext	g0	d9
+=GraphLinksGetNext	g0	d9
+=GraphLinksGetNext	g0	d9
+=recuperar
+
+== Verifica conteudo de links em c1
+=GraphLinksStart	g0
+=GraphLinksGetNext	g0	d9
+=CmpData		d9	c0
+=GraphLinksGetNext	g0	d9
+=CmpData		d9	c3
+=GraphLinksGetNext	g0	d9
+=CmpData		d9	c2
+=GraphLinksGetNext	g0	d9
+=recuperar
+
+== Verifica se remocao de link esta' funcionando
+=GraphRemLink		g0	d0	Ok
+=GraphLinksStart	g0
+=GraphLinksGetNext	g0	d9
+=GraphLinksGetNext	g0	d9
+=GraphLinksGetNext	g0	d9
+=recuperar
+
+== Verifica o numero de links em c2
+=GraphCCurrent		g0	d2	Ok
+=GraphLinksStart	g0
+=GraphLinksGetNext	g0	d9
+
+== Criar grafo 1
+=GraphNew		g1
+
+== Criar node c4
+=NewData		d4	c4
+=GraphNewNode		g1	d4	Ok
+
+== Criar node c5
+=NewData		d5	c5
+=GraphNewNode		g1	d5	Ok
+
+== Verificar se c5 esta armazenado
+=GraphGetData		g1	d9
+=CmpData		d9	c5
+
+== Cria link entre c5 e c4
+=GraphAddLink		g1	d4	Ok
+
+== Verifica se o link esta ok
+=GraphLinksStart	g1
+=GraphLinksGetNext	g1	d9
+=CmpData		d9	c4
+=GraphLinksGetNext
+=recuperar
+
+
+
+== Deleta grafo 0
+=GraphDel		g0
+== Deleta grafo 1
+=GraphDel		g1
 
 // fim
