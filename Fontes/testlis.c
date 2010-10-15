@@ -36,14 +36,23 @@ static const char RESET_LISTA_CMD         [ ] = "=resetteste"     ;
 static const char CRIAR_LISTA_CMD         [ ] = "=criarlista"     ;
 static const char DESTRUIR_LISTA_CMD      [ ] = "=destruirlista"  ;
 static const char ESVAZIAR_LISTA_CMD      [ ] = "=esvaziarlista"  ;
+
 static const char INS_ELEM_ANTES_CMD      [ ] = "=inselemantes"   ;
 static const char INS_ELEM_APOS_CMD       [ ] = "=inselemapos"    ;
+static const char OBTER_NOME_CMD          [ ] = "=obternomeelem"  ;
+static const char OBTER_TEL_CMD           [ ] = "=obtertelelem"   ;
+static const char OBTER_ENDER_CMD         [ ] = "=obterenderlem"  ;
 static const char OBTER_VALOR_CMD         [ ] = "=obtervalorelem" ;
 static const char EXC_ELEM_CMD            [ ] = "=excluirelem"    ;
 static const char IR_INICIO_CMD           [ ] = "=irinicio"       ;
 static const char IR_FIM_CMD              [ ] = "=irfinal"        ;
 static const char AVANCAR_ELEM_CMD        [ ] = "=avancarelem"    ;
 
+struct user {
+	char nome[255];
+	char tel[255];
+	char ender[255];
+};
 
 #define TRUE  1
 #define FALSE 0
@@ -79,13 +88,14 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 *     =criarlista                   inxLista
 *     =destruirlista                inxLista
 *     =esvaziarlista                inxLista
-*     =inselemantes                 inxLista  string  CondRetEsp
-*     =inselemapos                  inxLista  string  CondRetEsp
-*     =obtervalorelem               inxLista  string  CondretPonteiro
-*     =excluirelem                  inxLista  CondRetEsp
+*     =inselemantes                 inxLista string string string CondRetEsp
+*     =inselemapos                  inxLista string string string CondRetEsp
+*     =obtervalorelem               inxLista string string string CondretPonteiro
+*
+*     =excluirelem                  inxLista CondRetEsp
 *     =irinicio                     inxLista
 *     =irfinal                      inxLista
-*     =avancarelem                  inxLista  numElem CondRetEsp
+*     =avancarelem                  inxLista numElem CondRetEsp
 *
 ***********************************************************************/
 
@@ -190,33 +200,28 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
          else if ( strcmp( ComandoTeste , INS_ELEM_ANTES_CMD ) == 0 )
          {
+            struct user *u = (struct user*) malloc (sizeof (struct user));
+	    LIS_tpCondRet lret;
+	    if (!u)
+		    return TST_CondRetMemoria;
 
-            numLidos = LER_LerParametros( "isi" ,
-                       &inxLista , StringDado , &CondRetEsp ) ;
+            numLidos = LER_LerParametros( "isssi" ,
+                       &inxLista , u->nome, u->tel, u->ender , &CondRetEsp ) ;
 
-            if ( ( numLidos != 3 )
+            if ( ( numLidos != 5 )
               || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
-            if ( pDado == NULL )
+            lret = LIS_InserirElementoAntes( vtListas[ inxLista ] , u ) ;
+
+            if ( lret != LIS_CondRetOK )
             {
-               return TST_CondRetMemoria ;
+               free( u ) ;
             } /* if */
 
-            strcpy( pDado , StringDado ) ;
-
-
-            CondRet = LIS_InserirElementoAntes( vtListas[ inxLista ] , pDado ) ;
-
-            if ( CondRet != LIS_CondRetOK )
-            {
-               free( pDado ) ;
-            } /* if */
-
-            return TST_CompararInt( CondRetEsp , CondRet ,
+            return TST_CompararInt( CondRetEsp , lret ,
                      "Condicao de retorno errada ao inserir antes."                   ) ;
 
          } /* fim ativa: Testar inserir elemento antes */
@@ -225,35 +230,29 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
          else if ( strcmp( ComandoTeste , INS_ELEM_APOS_CMD ) == 0 )
          {
+            struct user *u = (struct user *)malloc (sizeof (struct user));
+	    LIS_tpCondRet lret;
+	    if (!u)
+		    return TST_CondRetMemoria;
 
-            numLidos = LER_LerParametros( "isi" ,
-                       &inxLista , StringDado , &CondRetEsp ) ;
+            numLidos = LER_LerParametros( "isssi",
+                       &inxLista, u->nome, u->tel, u->ender, &CondRetEsp ) ;
 
-            if ( ( numLidos != 3 )
+            if ( ( numLidos != 5 )
               || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
-            if ( pDado == NULL )
+            lret = LIS_InserirElementoApos( vtListas[ inxLista ] , u ) ;
+
+            if ( lret != LIS_CondRetOK )
             {
-               return TST_CondRetMemoria ;
+               free( u ) ;
             } /* if */
 
-            strcpy( pDado , StringDado ) ;
-
-
-            CondRet = LIS_InserirElementoApos( vtListas[ inxLista ] , pDado ) ;
-
-            if ( CondRet != LIS_CondRetOK )
-            {
-               free( pDado ) ;
-            } /* if */
-
-            return TST_CompararInt( CondRetEsp , CondRet ,
-                     "Condicao de retorno errada ao inserir apos."                   ) ;
-
+            return TST_CompararInt( CondRetEsp , lret,
+                     "Condicao de retorno errada ao inserir antes.") ;
          } /* fim ativa: Testar inserir elemento apos */
 
       /* Testar excluir simbolo */
@@ -277,10 +276,9 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
          } /* fim ativa: Testar excluir simbolo */
 
       /* Testar obter valor do elemento corrente */
-
-         else if ( strcmp( ComandoTeste , OBTER_VALOR_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , OBTER_NOME_CMD ) == 0 )
          {
-
+            struct user *u;
             numLidos = LER_LerParametros( "isi" ,
                        &inxLista , StringDado , &ValEsp ) ;
 
@@ -290,23 +288,83 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            pDado = ( char * ) LIS_ObterValor( vtListas[ inxLista ] ) ;
+            u = (struct user*) LIS_ObterValor( vtListas[ inxLista ] ) ;
 
             if ( ValEsp == 0 )
             {
-               return TST_CompararPonteiroNulo( 0 , pDado ,
+               return TST_CompararPonteiroNulo( 0 , u,
                          "Valor não deveria existir." ) ;
             } /* if */
 
-            if ( pDado == NULL )
+            if ( u == NULL )
             {
-               return TST_CompararPonteiroNulo( 1 , pDado ,
+               return TST_CompararPonteiroNulo( 1 , u,
                          "Dado tipo um deveria existir." ) ;
             } /* if */
 
-            return TST_CompararString( StringDado , pDado ,
-                         "Valor do elemento errado." ) ;
+            return TST_CompararString( StringDado , u->nome,
+                         "Valor nome do elemento esta' errado." ) ;
+         } /* fim ativa: Testar obter valor do elemento corrente */
 
+      /* Testar obter valor do elemento corrente */
+         else if ( strcmp( ComandoTeste, OBTER_TEL_CMD ) == 0 )
+         {
+            struct user *u;
+            numLidos = LER_LerParametros( "isi" ,
+                       &inxLista , StringDado , &ValEsp ) ;
+
+            if ( ( numLidos != 3 )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            u = (struct user*) LIS_ObterValor( vtListas[ inxLista ] ) ;
+
+            if ( ValEsp == 0 )
+            {
+               return TST_CompararPonteiroNulo( 0 , u,
+                         "Valor não deveria existir." ) ;
+            } /* if */
+
+            if ( u == NULL )
+            {
+               return TST_CompararPonteiroNulo( 1 , u,
+                         "Dado tipo um deveria existir." ) ;
+            } /* if */
+
+            return TST_CompararString( StringDado , u->tel,
+                         "Valor nome do elemento esta' errado." ) ;
+         } /* fim ativa: Testar obter valor do elemento corrente */
+   	 /* Testar obter valor do elemento corrente */
+         else if ( strcmp( ComandoTeste , OBTER_ENDER_CMD ) == 0 )
+         {
+            struct user *u;
+            numLidos = LER_LerParametros( "isi" ,
+                       &inxLista , StringDado , &ValEsp ) ;
+
+            if ( ( numLidos != 3 )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            u = (struct user*) LIS_ObterValor( vtListas[ inxLista ] ) ;
+
+            if ( ValEsp == 0 )
+            {
+               return TST_CompararPonteiroNulo( 0 , u,
+                         "Valor não deveria existir." ) ;
+            } /* if */
+
+            if ( u == NULL )
+            {
+               return TST_CompararPonteiroNulo( 1 , u,
+                         "Dado tipo um deveria existir." ) ;
+            } /* if */
+
+            return TST_CompararString( StringDado , u->ender,
+                         "Valor nome do elemento esta' errado." ) ;
          } /* fim ativa: Testar obter valor do elemento corrente */
 
       /* Testar ir para o elemento inicial */
