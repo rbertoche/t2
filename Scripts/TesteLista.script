@@ -1,0 +1,122 @@
+// Script:    TesteLista.script
+// Autor:     Arndt von Staa
+// Data:      02/abr/2008
+// Propósito: Testar superficialmente o módulo lista genérica duplamente encadeada
+//
+
+== Inicializar valores
+=declararparm   lista0  int 0
+=declararparm   lista1  int 1
+=declararparm   lista2  int 2
+
+=declararparm   nome0    string  "abcdefg"
+=declararparm   nome1    string  "qwerty"
+=declararparm   nome2    string  "xxx"
+=declararparm   nome3    string  "xpto"
+
+=declararparm   tel0    string  "0123456789"
+=declararparm   tel1    string  "1234567890"
+=declararparm   tel2    string  "2345678901"
+=declararparm   tel3    string  "3456789012"
+
+=declararparm   ender0  string  "abcd"
+=declararparm   ender1  string  "bcda"
+=declararparm   ender2  string  "cdab"
+=declararparm   ender3  string  "dabc"
+
+=declararparm   OK             int  0
+=declararparm   ListaVazia     int  1
+=declararparm   FimLista       int  2
+=declararparm   NaoAchou       int  3
+=declararparm   FaltouMemoria  int  4
+
+=declararparm   pNULL          int  0
+=declararparm   pNaoNULL       int  1
+
+== Criar a lista 0
+=criarlista      lista0 
+
+== Verificar ObterValor relativo a lista vazia
+=obternomeelem  lista0   "???"     pNULL
+
+== Inserir elemento em lista vazia
+=inselemantes    lista0   nome0 tel0 ender0  OK
+=obternomeelem  lista0   nome0   pNaoNULL
+
+== Inserir elemento após primeiro
+=inselemapos     lista0   nome1 tel1 ender1  OK
+=obternomeelem  lista0   nome1   pNaoNULL
+
+== Inserir elemento antes do último
+=inselemantes    lista0   nome2 tel2 ender2  OK
+=obternomeelem  lista0   nome2   pNaoNULL
+
+== Excluir elemento do meio
+=obternomeelem  lista0   nome2   pNaoNULL
+=excluirelem     lista0             OK
+
+== Excluir elemento do início
+=obternomeelem  lista0   nome0   pNaoNULL
+=excluirelem     lista0             OK
+
+== Excluir elemento final, único 
+=obternomeelem  lista0   nome1   pNaoNULL
+=excluirelem     lista0             OK
+
+== Ver se a lista ficou vazia
+=obternomeelem  lista0   "???"     pNULL
+
+== Destruir a lista
+=destruirlista   lista0
+
+== Criar uma lista com dois elementos
+=criarlista      lista1 
+=inselemapos     lista1   nome0  tel0 ender0  OK
+=inselemapos     lista1   nome1  tel1 ender1  OK
+
+== Esvaziar a lista e ver se ficou vazia
+=esvaziarlista   lista1
+=obternomeelem  lista1   "???"     pNULL
+
+== Destruir a lista
+=destruirlista   lista1
+
+== Criar uma lista com quatro elementos
+=criarlista      lista2 
+=inselemapos     lista2   nome0  tel0 ender0  OK
+=inselemapos     lista2   nome1  tel1 ender1  OK
+=inselemapos     lista2   nome2  tel2 ender2  OK
+=inselemapos     lista2   nome3  tel3 ender3  OK
+
+== Verificar a lista de trás para diante
+=obternomeelem  lista2   nome3   pNaoNULL
+=avancarelem     lista2   -1     OK
+=obternomeelem  lista2   nome2   pNaoNULL
+=avancarelem     lista2   -1     OK
+=obternomeelem  lista2   nome1   pNaoNULL
+=avancarelem     lista2   -1     OK
+=obternomeelem  lista2   nome0   pNaoNULL
+=avancarelem     lista2   -1     FimLista
+
+== Verificar a lista de frente para trás
+=obternomeelem  lista2   nome0   pNaoNULL
+=avancarelem     lista2   1      OK
+=obternomeelem  lista2   nome1   pNaoNULL
+=avancarelem     lista2   1      OK
+=obternomeelem  lista2   nome2   pNaoNULL
+=avancarelem     lista2   1      OK
+=obternomeelem  lista2   nome3   pNaoNULL
+=avancarelem     lista2   1      FimLista
+
+== Verificar a lista andando demais de trás para diante
+=avancarelem     lista2   -10     FimLista
+=obternomeelem  lista2   nome0   pNaoNULL
+
+== Verificar a lista andando demais de frente para trás
+=avancarelem     lista2   10     FimLista
+=obternomeelem  lista2   nome3   pNaoNULL
+
+== Destruir a lista
+=destruirlista   lista2
+
+// fim
