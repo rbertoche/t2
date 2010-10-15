@@ -34,6 +34,7 @@ static const char GRAPHNODESGETNEXT_CMD   [ ] = "=GraphNodesGetNext"  ;
 static const char GRAPHLINKSGETNEXT_CMD   [ ] = "=GraphLinksGetNext"  ;
 
 static const char NEWDATA_CMD             [ ] = "=NewData"            ;
+static const char CMPDATA_CMD             [ ] = "=CmpData"            ;
 
 void *NewData ( char data )
 {
@@ -226,7 +227,33 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			"Erro: GraphLinksGetNext retornou NULL. Ainda assim, NULL\
 			foi armazenado" );
 
+	}else if (! strcmp( CmdTeste ,		NEWDATA_CMD) ){
+		char c;
+
+		argc = LER_LerParametros ( "ic", &iData, &c);
+
+		if ( argc != 2
+			|| iData  < 0 || iData  > MAXDATAS )
+			return TST_CondRetParm;
+		vData[iData] = NewData ( c );
+
+		return TST_CondRetOK;
+
+	}else if (! strcmp( CmdTeste ,		CMPDATA_CMD) ){
+		char c;
+
+		argc = LER_LerParametros ( "ic", &iData, &c);
+
+		if ( argc != 2
+			|| iData  < 0 || iData  > MAXDATAS )
+			return TST_CondRetParm;
+
+		return TST_CompararInt( c , *vData[iData] ,
+			"Erro: Char diferente do esperado.");
+
 	}
+
+
 
         return TST_CondRetNaoConhec;
 }

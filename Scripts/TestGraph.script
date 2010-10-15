@@ -1,0 +1,88 @@
+// Script:    TesteLista.script
+// Autor:     Arndt von Staa
+// Data:      02/abr/2008
+// Propósito: Testar superficialmente o módulo lista genérica duplamente encadeada
+//
+
+== Inicializar valores
+
+=declararparm   c0      char  'l'
+=declararparm   c1      char  'i'
+=declararparm   c2      char  'n'
+=declararparm   c3      char  'u'
+=declararparm   c4      char  'x'
+
+=declararparm   g0      int 0
+=declararparm   g1      int 1
+=declararparm   g2      int 2
+=declararparm   g3      int 3
+=declararparm   g4      int 4
+
+=declararparm   d0      int 0
+=declararparm   d1      int 1
+=declararparm   d2      int 2
+=declararparm   d3      int 3
+=declararparm   d4      int 4
+=declararparm   d5      int 5
+=declararparm   d6      int 6
+=declararparm   d7      int 7
+=declararparm   d8      int 8
+=declararparm   d9      int 9
+
+=declararparm   Ok                  int 0
+=declararparm   InvalidGraph        int 1
+=declararparm   InvalidCurrentNode  int 2
+=declararparm   InvalidArgNode      int 3
+=declararparm   InvalidLink         int 4
+=declararparm   NullData            int 5
+=declararparm   MemoryError         int 6
+
+== Criar o grafo 0
+=GraphNew		g0
+
+== Verificar GetData relativo a grafo vazio
+=GraphGetData		g0	d0
+=recuperar
+
+== Verificar que a lista de nodes veio vazia
+=GraphNodesStart	g0	
+=GraphNodesGetNext	g0	d9
+=recuperar
+
+== Cria node c0
+=NewData		d0	c0
+=GraphNewNode		g0	d0	Ok
+
+== Verificar se c0 esta armazenado
+=GraphGetData		g0	d9
+=CmpData		d9	c0
+
+== Cria node c1
+=NewData		d1	c1
+=GraphNewNode		g0	d1	Ok
+
+== Verificar se a lista de links veio vazia
+=GraphLinksStart	g0	
+=GraphLinksGetNext	g0	d9
+=recuperar
+
+== Cria link entre c1 e c0
+=GraphAddLink		g0	d0	Ok
+=GraphLinksStart	g0	
+
+== Verifica se o link esta ok
+=GraphLinksGetNext	g0	d9
+=CmpData		d9	c0
+=GraphLinksGetNext
+=recuperar
+
+== Muda o currentNode pra c0
+=GraphCCurrent		g0	d0	Ok
+
+== Verifica se o link ficou reciproco
+=GraphLinksGetNext	g0	d9
+=CmpData		d9	c1
+=GraphLinksGetNext
+=recuperar
+
+// fim

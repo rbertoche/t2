@@ -233,7 +233,7 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 	if (!g->currentNode)
 		return graphInvalidCurrentNode;
 	n1 = LIS_ObterValor(g->currentNode);
-	if (n1)
+	if (!n1)
 		return graphInvalidCurrentNode;
 
 	if (searchData (g, n) == graphOk)
@@ -271,7 +271,9 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 
 void *GraphGetData (Graph *g)
 {
-	return LIS_ObterValor ( g->currentNode );
+	if (g->currentNode)
+		return ((Node *)LIS_ObterValor ( g->currentNode ))->data;
+	return NULL;
 }
 
 void GraphNodesStart (Graph *g)
@@ -292,12 +294,12 @@ void *GraphNodesGetNext (Graph *g)
 	if (!g || !g->currentNode)
 		return NULL;
 	l = g->nodes;
-	ret = LIS_ObterValor (LIS_ObterValor(l));
+	ret = ((Node*)LIS_ObterValor (LIS_ObterValor(l)))->data;
 	if (LIS_AvancarElementoCorrente (l, 1) == LIS_CondRetListaVazia)
 		return NULL;
 	if (ret == old)
 		return NULL;
-	old = LIS_ObterValor (LIS_ObterValor(l));
+	old = ((Node*)LIS_ObterValor (LIS_ObterValor(l)))->data;
 	return ret;
 }
 
@@ -308,13 +310,16 @@ void *GraphLinksGetNext (Graph *g)
 	LIS_tppLista l;
 	if (!g || !g->currentNode)
 		return NULL;
-	l = ((Node *)LIS_ObterValor (g->currentNode))->links;
+	l = ((Node*)LIS_ObterValor (g->currentNode))->links;
 	ret = LIS_ObterValor (l);
+	if (!ret)
+		return NULL;
+	ret = ((Node*) ret)->data;
 	if (LIS_AvancarElementoCorrente (l, 1) == LIS_CondRetListaVazia)
 		return NULL;
 	if (ret == old)
 		return NULL;
-	old = LIS_ObterValor (l);
+	old = ((Node*) LIS_ObterValor (l))->data;
 	return ret;
 }
 

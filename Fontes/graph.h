@@ -82,8 +82,7 @@ pGraph GraphNew (FDelData fdd);
 *	$ED Descricao da funcao
 *		Se foi passada uma funcao em GraphNew(), esta e' chamada
 *		para excluir 'data'.
-*
-*	Ha uma assertiva de entrada: g e um ponteiro pra um Graph valido
+*		g deve ser um ponteiro pra um Graph valido
 *
 ***********************************************************************/
 void GraphDel (pGraph g);
