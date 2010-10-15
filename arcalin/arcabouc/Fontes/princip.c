@@ -26,7 +26,7 @@
 #include   <stdio.h>
 #include   <string.h>
 
-#include   "GENERICO.H"
+#include   "generico.h"
 
 #define  DIM_PARM_BUFFER   250
 #define  DIM_NOME_ARQUIVO  250

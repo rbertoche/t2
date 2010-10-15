@@ -12,7 +12,7 @@
 #include    <math.h>
 #include    <time.h>
 
-#include    "GERAALT.H"
+#include    "geraalt.h"
 
 #define     DIM_VET           100 
 #define     DIM_PARM_BUFFER   100 

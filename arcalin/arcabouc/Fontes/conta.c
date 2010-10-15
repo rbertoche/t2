@@ -25,15 +25,15 @@
 #include    <time.h>
 #include    <malloc.h>
 
-#include    "GENERICO.H"
-#include    "TABSIMB.H"
+#include    "generico.h"
+#include    "tabsimb.h"
 
 #ifdef _DEBUG
    #include   "CESPDIN.H"
 #endif
 
 #define CONTA_OWN
-#include "CONTA.H"
+#include "conta.h"
 #undef CONTA_OWN
 
 #define   ARQUIVO_ACUMULADOR      1

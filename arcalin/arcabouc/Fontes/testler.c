@@ -32,10 +32,10 @@
 #include     <stdarg.h>
 #include     <ctype.h>
 
-#include    "TST_ESPC.H"
+#include    "tst_espc.h"
 
-#include    "GENERICO.H"
-#include    "LERPARM.H"
+#include    "generico.h"
+#include    "lerparm.h"
 
 static const char LER_PARM_CIS_CMD[ ]      = "=lerparm-cis:" ;
 static const char LER_PARM_SS_CMD[ ]       = "=lerparm-ss:" ;

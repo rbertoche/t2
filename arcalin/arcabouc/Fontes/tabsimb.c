@@ -27,7 +27,7 @@
 #include   <malloc.h>
 
 #define TABSIMB_OWN
-#include "TABSIMB.H"
+#include "tabsimb.h"
 #undef TABSIMB_OWN
 
 #ifdef _DEBUG

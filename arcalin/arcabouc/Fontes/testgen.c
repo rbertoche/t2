@@ -23,10 +23,10 @@
 #include    <string.h>
 #include    <stdio.h>
 
-#include    "TST_ESPC.H"
+#include    "tst_espc.h"
 
-#include    "GENERICO.H"
-#include    "LERPARM.H"
+#include    "generico.h"
+#include    "lerparm.h"
 
 static const char ESPAC_CMD     [ ] = "=espaco"       ;
 static const char BOOL_CMD      [ ] = "=compararbool" ;

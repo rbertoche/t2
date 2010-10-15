@@ -24,7 +24,7 @@
 #include <time.h>
 
 #define GERAALT_OWN
-#include "GERAALT.H"
+#include "geraalt.h"
 #undef GERAALT_OWN
 
 /*****  Código das funções exportadas pelo módulo  *****/

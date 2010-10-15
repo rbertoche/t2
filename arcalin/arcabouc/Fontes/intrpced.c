@@ -24,12 +24,12 @@
 #include    <stdio.h>
 
 #define INTRPCED_OWN
-#include "INTRPCED.H"
+#include "intrpced.h"
 #undef INTRPCED_OWN
 
-#include    "GENERICO.H"
-#include    "CESPDIN.H"
-#include    "LERPARM.H"
+#include    "generico.h"
+#include    "cespdin.h"
+#include    "lerparm.h"
 
 #define     COMENTARIO  "!!!"
 

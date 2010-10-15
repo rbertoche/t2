@@ -23,11 +23,11 @@
 #include    <string.h>
 #include    <stdio.h>
 
-#include    "TST_ESPC.H"
+#include    "tst_espc.h"
 
-#include    "GENERICO.H"
-#include    "LERPARM.H"
-#include    "CONTA.H"
+#include    "generico.h"
+#include    "lerparm.h"
+#include    "conta.h"
 
 #define     DIM_MSG             500
 #define     DIM_NOME_ARQ        500

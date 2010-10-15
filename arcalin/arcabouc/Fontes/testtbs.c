@@ -24,11 +24,11 @@
 #include    <stdio.h>
 #include    <malloc.h>
 
-#include    "TST_ESPC.H"
+#include    "tst_espc.h"
 
-#include    "GENERICO.H"
-#include    "TABSIMB.H"
-#include    "LERPARM.H"
+#include    "generico.h"
+#include    "tabsimb.h"
+#include    "lerparm.h"
 
 #ifdef _DEBUG
    #include   "CESPDIN.H"

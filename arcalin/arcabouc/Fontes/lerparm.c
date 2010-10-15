@@ -27,11 +27,11 @@
 #include  <ctype.h>
 #include  <malloc.h>
 
-#include  "GENERICO.H"
-#include  "TABSIMB.H"
+#include  "generico.h"
+#include  "tabsimb.h"
 
 #define LerParm_OWN
-#include "LERPARM.H"
+#include "lerparm.h"
 #undef LerParm_OWN
 
 #define            ID_TIPO_NOME            'n'
@@ -973,7 +973,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
       while ( LER_InxBuffer < LER_TamBuffer )
       {
          if ( (isalnum(LER_Buffer[ LER_InxBuffer ]) || (( LER_Buffer[ LER_InxBuffer ]) == '_')))
-         //if ( __iscsym( LER_Buffer[ LER_InxBuffer ] ))
+         /* if ( __iscsym( LER_Buffer[ LER_InxBuffer ] )) */
          {
             Parm[ inxParm ] = LER_Buffer[ LER_InxBuffer ] ;
 

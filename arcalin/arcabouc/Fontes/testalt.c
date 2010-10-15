@@ -26,12 +26,12 @@
 #include    <string.h>
 #include    <math.h>
 
-#include    "TST_ESPC.H"
+#include    "tst_espc.h"
 
-#include    "GENERICO.H"
-#include    "LERPARM.H"
+#include    "generico.h"
+#include    "lerparm.h"
 
-#include    "GERAALT.H"
+#include    "geraalt.h"
 
 #define   NUM_POR_LINHA  5
 #define   NUM_GERA       10000000

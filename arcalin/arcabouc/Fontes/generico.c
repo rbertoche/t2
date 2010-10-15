@@ -22,17 +22,17 @@
 
 #include    <string.h>
 #include    <stdio.h>
-//#include    <process.h>
+/* #include    <process.h> */
 #include	<stdlib.h>
 
 #define GENERICO_OWN
-#include "GENERICO.H"
+#include "generico.h"
 #undef GENERICO_OWN
 
-#include    "LERPARM.H"
-#include    "INTRPCNT.H"
-#include    "INTRPCED.H"
-#include    "CESPDIN.H"
+#include    "lerparm.h"
+#include    "intrpcnt.h"
+#include    "intrpced.h"
+#include    "cespdin.h"
 
 /* Constantes internas */
 

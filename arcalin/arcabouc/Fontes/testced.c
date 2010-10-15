@@ -23,11 +23,11 @@
 #include    <string.h>
 #include    <stdio.h>
 
-#include    "TST_ESPC.H"
+#include    "tst_espc.h"
 
-#include    "GENERICO.H"
-#include    "CESPDIN.H"
-#include    "LERPARM.H"
+#include    "generico.h"
+#include    "cespdin.h"
+#include    "lerparm.h"
 
 
 typedef     int      BOOL ;

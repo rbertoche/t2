@@ -20,7 +20,7 @@
 ***************************************************************************/
 
 #define Tst_Espc_OWN
-#include "TST_ESPC.H"
+#include "tst_espc.h"
 #undef Tst_Espc_OWN
 
 /*****  Código das funções exportadas pelo módulo  *****/
