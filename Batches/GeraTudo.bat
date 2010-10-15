@@ -5,7 +5,6 @@ cls
 
 pushd  .
 
-cd ..
 
 gmake  /b..\composicao  /cTesteLista
 gmake  /b..\composicao  /cTestGraph
