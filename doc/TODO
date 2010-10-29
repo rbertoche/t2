@@ -1,0 +1,17 @@
+28-10
+Ja' marcamos de nos reencontrar 4a dia 3 pra discutir melhor a
+ arquitetura, as interfaces e dividir tarefas.
+
+Porem, ha' tarefas que ja' estao definidas e podem ser executadas 
+independente do que decidamos 4a:
+
+- Diagramar o modulo grafo (e o lista se necessario);
+- Listar requisitos que faltam;
+- Programar a estrutura da versao Command Line de interface (excluindo
+	a parte que vai lidar com a interface do GraphManager)
+- Revisar e/ou otimizar o Grafo (nao e' realmente necessario)
+- Programar a parte do modulo user que gerencia mensagens (considerando 
+	a possibilidade de juntarmos msg e user em um modulo so)
+
+
+
