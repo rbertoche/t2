@@ -3,9 +3,12 @@
 #include <string.h>
 #include <ctype.h>
 
+const int MAXARGC=50;
+const int LINEBUFFSIZE=50;
+
 typedef int (*fncallback) (int argc, const char *argv[]);
 
-struct cli_tuple {
+struct cli_cmd_tuple {
 	char *s;
 	fncallback cb;
 };
@@ -23,23 +26,25 @@ struct cli_tuple cli[] = {
 	{ NULL, NULL },
 };
 
-/* Tolkenize the blank chars from the string.
+/* Tokenize the blank chars from the string.
  * Works like the argc, argv generator. */
-int clitok (char *s)
+int clitok (char *s,const char **argv)
 {
 	int argc = 0;
 	int i, n = strlen (s);
-	int state; /* 0 for blank, 1 for else. */
+	int last_isspace;
 
-	for (i=0, state=0; i<n; i++){
+	for (i=0, last_isspace=1; i<n; i++){
 		if (isspace (s[i])){
-			if (state != 0){
-				state = 0;
+			if (!last_isspace){
+				last_isspace = 1;
 				argc++;
 			}
 			s[i] = '\0';
-		} else
-			state = 1;
+		} else if (last_isspace){
+			argv[argc] = s + i;
+			last_isspace = 0;
+		}
 	}
 	return argc;
 }
@@ -48,39 +53,25 @@ int clitok (char *s)
  *  argv[0]. */
 int clicall (char *s)
 {
-	int i, j;
-	int state; /*0 for '\0', 1 for else. */
-	int argc = clitok(s);
-	const char **argv = malloc (argc*sizeof(char*));
+	int i;
+	const char *argv[MAXARGC];
+	int argc = clitok(s,argv);
 
-	for (j=0, i=0, state=0; j<argc; i++){
-		if (s[i] != '\0'){
-			if (!state){
-				argv[j] = &s[i];
-				j++;
-				state = 1;
-			}
-		} else
-			state = 0;
-	}
-
-	for (i=0; cli[i].s; i++){
+	for (i=0; cmds[i].s; i++){
 		int ret;
-		if (strcmp (cli[i].s, argv[0]) == 0){
-			ret = cli[i].cb (argc, argv);
-			free (argv);
+		if (strcmp (cmds[i].s, argv[0]) == 0){
+			ret = cmds[i].cb (argc, argv);
 			return ret;
 		}
 	}
 	printf ("invalid command %s\n", argv[0]);
-	free (argv);
 	return -1;
 }
 
 int main (int argc, char *argv[])
 {
-	char buff[255];
-	fgets (buff, 255, stdin);
+	char buff[LINEBUFFSIZE];
+	fgets (buff, LINEBUFFSIZE, stdin);
 	clicall (buff);
 	return 0;
 }
