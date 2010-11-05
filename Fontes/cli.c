@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -21,14 +20,14 @@ int debug (int argc, const char *argv[])
 	return 0;
 }
 
-struct cli_tuple cli[] = {
+struct cli_cmd_tuple cmds[] = {
 	{ "print", &debug },
 	{ NULL, NULL },
 };
 
 /* Tokenize the blank chars from the string.
  * Works like the argc, argv generator. */
-int clitok (char *s,const char **argv)
+static int clitok (char *s,const char **argv)
 {
 	int argc = 0;
 	int i, n = strlen (s);
