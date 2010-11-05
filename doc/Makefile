@@ -1,14 +1,60 @@
-# Generates Doc from asciidoc .txt files.
+# Generates pdf, dvi, etc, from tex.
+# graph:$(GRAPH)
 
-.PHONY: all clean graph html
-all: pdf
+# Disable default implicit rules (or my dvi rule will never be used)
+.SUFFIXES:
 
-graph:$(GRAPH)
+# do not remove blank line above
+
+# uncomment this to use pdflatex
+# LATEX = pdflatex
+
+GRAPH = graph.pdf
+ALLTARGS = \
+$(GRAPH)
+
+LATEXDEPS = \
+arch.1\
+hg.eps
+
+PDFLATEXDEPS = \
+arch.1\
+hg.pdf
+
+ifeq ($(LATEX),pdflatex)
+TEXIMGEXT=%.pdf
+else
+TEXIMGEXT=%.eps
+endif
+
+all: $(ALLTARGS)
+
+
+# convert is found at ImageMagick
+$(TEXIMGEXT): %.jpg
+	convert $< $@
+$(TEXIMGEXT): %.gif
+	convert $< $@
+$(TEXIMGEXT): %.png
+	convert $< $@
+$(TEXIMGEXT): %.svg
+	convert $< $@
+
+%.1: %.mp
+	mpost $<
+
+
+ifeq ($(LATEX),pdflatex)
+%.pdf: %.tex $(PDFLATEXDEPS)
+	pdflatex $<
+else
+%.dvi: %.tex $(LATEXDEPS)
+	latex $<
+%.pdf: %.dvi %.tex $(LATEXDEPS)
+	dvipdf $<
+endif
+
+.PHONY: clean
 
 clean:
-	$(RM) $(HTML) $(GRAPH)
-pdf:
-	mpost arch.mp
-	mpost example.mp
-	latex graph.tex
-	dvipdf graph.dvi
+	$(RM) *.1 *.dvi *.aux *.log $(GRAPH)

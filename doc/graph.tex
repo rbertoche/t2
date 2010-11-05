@@ -1,16 +1,21 @@
-\documentclass{article}
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{url}
+%\usepackage{graphicx}
+%\usepackage{graphics}
 
 % The following is needed in order to make the code compatible
 % with both latex/dvips and pdflatex.
-%\ifx\pdftexversion\undefined
-%\usepackage[dvips]{graphicx}
-%\else
-% \usepackage[pdftex]{graphicx}
-% \DeclareGraphicsRule{*}{mps}{*}{}
-% \fi
+\usepackage{ifpdf}
+\ifpdf
+	\usepackage[pdftex]{graphicx}
+	\DeclareGraphicsRule{*}{mps}{*}{}
+\else
+	\usepackage[dvips]{graphicx}
+\fi
 
-\usepackage{graphics}
-\usepackage{graphicx}
+
 
 \title{T2 modular}
 \author{Marcelo Politzer, Raphael Bertoche}
