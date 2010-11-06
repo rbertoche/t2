@@ -1,29 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
+#include "cli.h"
+
 const int MAXARGC=50;
-const int LINEBUFFSIZE=50;
-
-typedef int (*fncallback) (int argc, const char *argv[]);
-
-struct cli_cmd_tuple {
-	char *s;
-	fncallback cb;
-};
-
-int debug (int argc, const char *argv[])
-{
-	int i;
-	for (i=0; i<argc; i++)
-		printf ("%d-%s\n", i, argv[i]);
-	return 0;
-}
-
-struct cli_cmd_tuple cmds[] = {
-	{ "print", &debug },
-	{ NULL, NULL },
-};
+const static struct cli_cmd_tuple *userCmds;
 
 /* Tokenize the blank chars from the string.
  * Works like the argc, argv generator. */
@@ -50,16 +33,16 @@ static int clitok (char *s,const char **argv)
 
 /* transform a string in a argc, *argv[]. and call the function from the
  *  argv[0]. */
-int clicall (char *s)
+int cli_call (char *s)
 {
 	int i;
 	const char *argv[MAXARGC];
 	int argc = clitok(s,argv);
 
-	for (i=0; cmds[i].s; i++){
+	for (i=0; userCmds[i].s; i++){
 		int ret;
-		if (strcmp (cmds[i].s, argv[0]) == 0){
-			ret = cmds[i].cb (argc, argv);
+		if ( userCmds[i].s && strcmp (userCmds[i].s, argv[0]) == 0){
+			ret = userCmds[i].cb (argc, argv);
 			return ret;
 		}
 	}
@@ -67,10 +50,7 @@ int clicall (char *s)
 	return -1;
 }
 
-int main (int argc, char *argv[])
+void cli_register_tuple (const struct cli_cmd_tuple *cmds)
 {
-	char buff[LINEBUFFSIZE];
-	fgets (buff, LINEBUFFSIZE, stdin);
-	clicall (buff);
-	return 0;
+	userCmds = cmds;
 }
