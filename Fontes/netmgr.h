@@ -28,28 +28,26 @@ Dessa forma concentramos codigo que manipula essas strings nesse modulo ao inves
 de empurrar pra outro.
 */
 
-condRet NetNewUser (char *id);
+char* NetNewUser (char *id);
 
-void NetDelMe();
+char* NetDelMe();
 
-condRet NetEditMe();
+char* NetEditMe();
 /* Contem codigo de input para editar o perfil*/
 
-condRet NetSearch (int isFriend, char *id, enum interest in, int minAge, int maxAge); 
-/* Pode cuspir varias linhas em stdout */
+char* NetSearch (int isFriend, char *id, enum interest in, int minAge, int maxAge);
 /* posivelmente adicionar uma string com regexp sobre o nome mais tarde */
 
-condRet NetAddFriend (char *id);
+char* NetAddFriend (char *id);
 
-condRet NetUnfriend (char *id);
+char* NetUnfriend (char *id);
 
-condRet NetWrite (int destC, char * destV);
+char* NetWrite (int destC, char * destV);
 /* Contem codigo de input para editar a mensagem*/
 
-condRet NetRead (char * sender);
-/* Pode cuspir varias linhas em stdout */
+char* NetRead (char * sender);
 
-condRet NetDelMsg (int msgNumber);
+char* NetDelMsg (int msgNumber);
 
 
 
