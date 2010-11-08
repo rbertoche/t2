@@ -30,15 +30,15 @@ char* UsrGetPId( Usr *u )
 {
 	return u->id;
 }
-char* UsrGetPName( pUsr u )
+char* UsrGetPName( Usr *u )
 {
 	return u->name;
 }
-enum interest* UsrGetPInterest( pUsr u )
+enum interest* UsrGetPInterest( Usr *u )
 {
 	return &u->interest;
 }
-int UsrDeliver ( pUsr u, msg m)
+int UsrDeliver ( Usr *u, msg m)
 {
 	LIS_tpCondRet condRet;
 	condRet = LIS_InserirElementoApos( u->msgs, m);
@@ -46,7 +46,7 @@ int UsrDeliver ( pUsr u, msg m)
 		return 0;
 	return condRet;
 }
-int UsrDelMsg ( pUsr u, int id)
+int UsrDelMsg ( Usr *u, int id)
 {
 	LIS_tpCondRet condRet;
 	condRet = LIS_AvancarElementoCorrente(
