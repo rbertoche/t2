@@ -1,6 +1,6 @@
+#include <stdlib.h>
 #include "netmgr.h"
-#include "usr.h"
-#include "msg.h"
+#include "graph.h"
 
 
 static const char NEWUSROK[  ] = "Novo usuario criado.\n";
@@ -14,40 +14,46 @@ pGraph getGraphInstance()
 	return Net;
 }
 	
-char* NetNewUser (char *id)
+const char* NetNewUser (char *id)
 {
 	pUsr u;
-	u = UsrNew();
-	GraphNewNode( getGraphInstance(), u)
-	/* muda id do usuario com funcao do mod usr */
-	return NEWUSROK	
+	u = UsrNew(id);
+	GraphNewNode( getGraphInstance(), u);
+	return NEWUSROK;
 }
 
 char* NetDelMe()
 {
+	return NULL;
 }
 
 char* NetEditMe()
 {
+	return NULL;
 }
 
 char* NetAddFriend (char *id)
 {
+	return NULL;
 }
 
 char* NetUnfriend (char *id)
 {
+	return NULL;
 }
 
 char* NetWrite (int destC, char * destV)
 {
+	return NULL;
 }
 
 char* NetRead (char * sender)
 {
+	return NULL;
 }
 
 char* NetDelMsg (int msgNumber)
 {
+	return NULL;
 }
 

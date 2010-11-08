@@ -9,16 +9,10 @@
 *	$ED Descricao do modulo
 *
 ***************************************************************************/
+#include "usr.h"
 
-
-#ifndef GRAORE_
-
-enum interest {
-	WORK,
-	FRIENDS,
-	SEX,
-	NONE
-}
+#ifndef NETMGR_
+#define NETMGR_
 
 /* Caso esse modulo va' gerar muitas strings, me parece fazer sentido que
 ele nao retorne condicoes de retorno em enum, mas em strings com mensagens de erro
@@ -28,7 +22,7 @@ Dessa forma concentramos codigo que manipula essas strings nesse modulo ao inves
 de empurrar pra outro.
 */
 
-char* NetNewUser (char *id);
+const char* NetNewUser (char *id);
 
 char* NetDelMe();
 
@@ -50,16 +44,5 @@ char* NetRead (char * sender);
 char* NetDelMsg (int msgNumber);
 
 
-
-#define GRAORE_
-
-
-
-
-
-
-
-
-
-#endif /* GRAORE_ */
+#endif /* NETMGR_ */
 
