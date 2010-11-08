@@ -25,8 +25,8 @@
 ***************************************************************************/
 
 
-#ifndef GRAORE_
-#define GRAORE_
+#ifndef GRA_
+#define GRA_
 
 
 /***********************************************************************
@@ -267,5 +267,5 @@ void *GraphNodesGetNext (pGraph g);
 void *GraphLinksGetNext (pGraph g);
 
 
-#endif /* GRAORE_ */
+#endif /* GRA_ */
 
