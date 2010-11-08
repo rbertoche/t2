@@ -7,20 +7,16 @@
 *	Autores: gac mpl rlb 
 *
 *	$ED Descricao do modulo
+*	Esse modulo retorna strings que podem ser printadas por um modulo
+*	de interface, para reduzir o acoplamento entre o modulo de interface
+*	e este modulo. Alem disso o codigo que manipula strings a serem printadas
+*	fica concentrado em um so' modulo.
 *
 ***************************************************************************/
 #include "usr.h"
 
 #ifndef NETMGR_
 #define NETMGR_
-
-/* Caso esse modulo va' gerar muitas strings, me parece fazer sentido que
-ele nao retorne condicoes de retorno em enum, mas em strings com mensagens de erro
-ou com NULL ou com a informacao pedida.
-
-Dessa forma concentramos codigo que manipula essas strings nesse modulo ao inves
-de empurrar pra outro.
-*/
 
 const char* NetNewUser (char *id);
 
