@@ -18,6 +18,12 @@
 #ifndef NETMGR_
 #define NETMGR_
 
+/* Sera' 0 quando nao houver usuario autenticado
+ * ou 1 quando houver
+ */
+
+int NetIsAuthenticated();
+
 const char* NetNewUser (char *id);
 
 char* NetDelMe();
