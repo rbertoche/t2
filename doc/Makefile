@@ -15,11 +15,11 @@ $(GRAPH)
 
 LATEXDEPS = \
 arch.1\
-hg.eps
+fisico.eps
 
 PDFLATEXDEPS = \
 arch.1\
-hg.pdf
+fisico.pdf
 
 ifeq ($(LATEX),pdflatex)
 TEXIMGEXT=%.pdf
@@ -39,6 +39,10 @@ $(TEXIMGEXT): %.png
 	convert $< $@
 $(TEXIMGEXT): %.svg
 	convert $< $@
+
+%.eps: %.pdf
+	pdftops -eps $< $@
+
 
 %.1: %.mp
 	mpost $<
