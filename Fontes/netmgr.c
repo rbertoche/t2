@@ -11,9 +11,15 @@ static const char NETADDFRIEND_OK[  ] = "Amigo adicionado com sucesso.\n";
 static const char NETADDFRIEND_NOTFOUND[  ] = "Usuario nao encontrado.\n";
 static const char NETUNFRIEND_OK[  ] = "Amigo removido com sucesso.\n";
 static const char NETUNFRIEND_NOTFOUND[  ] = "Amigo nao encontrado.\n";
+static const char NETSEARCH_NOTFOUND[  ] = "Nenhum usuario casou com a busca.\n";
 
 /* Atencao, cuidado ao deletar esse usr porque normalmente o grafo o deleta */
 Usr *usr = NULL;
+
+/* Buffer para armazenar as strings geradas a serem retornadas */
+char buffer[10000];
+/* Indice para atual posicao no buffer */
+int offset;
 
 /* use essa funcao para acessar o ponteiro de grafo */
 int NetIsAuthenticated()
@@ -103,7 +109,46 @@ const char* NetWrite (int destC, char * destV)
 
 const char* NetSearch (int isFriend, char *id, enum interest in, int minAge, int maxAge)
 {
-	return NULL;
+	int fid=0, fin=0, fage=0;
+	Usr *u;
+	void *(*pFuncGetNext)(pGraph);
+	/* Ponteiro para funcao que contera' um getnext */
+
+	offset=0;
+	if (!id)
+		fid=1;
+	if (fin == INVALID)
+		fin=1;
+	if (-1 == minAge && minAge == maxAge);
+		fage=1;
+
+
+	if (isFriend){
+		GraphLinksStart(getGraphInstance());
+		u = GraphLinksGetNext (getGraphInstance());
+		pFuncGetNext = GraphLinksGetNext
+	} else {
+		GraphNodesStart(getGraphInstance());
+		u = GraphNodesGetNext (getGraphInstance());
+		pFuncGetNext = GraphNodesGetNext;
+	}
+
+	for(; u ; u = (*pFuncGetNext)(getGraphInstance()) )
+	{
+		if (	(fid || strcmp(u->id,id) )
+				&& (fin || u->interest == in)
+				&& (fage || (u->age >= minAge
+					&& u->age <= maxAge)) )
+		{
+			offset += UsrPrint(u,buffer,offset);
+		}
+	}
+
+
+	if (offset==0)
+		return NETSEARCH_NOTFOUND;
+	else
+		return buffer;
 }
 
 const char* NetRead (char * sender)
