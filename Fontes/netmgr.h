@@ -26,24 +26,24 @@ int NetIsAuthenticated();
 
 const char* NetNewUser (char *id);
 
-char* NetDelMe();
+const char* NetDelMe();
 
-char* NetEditMe();
+const char* NetEditMe();
 /* Contem codigo de input para editar o perfil*/
 
-char* NetSearch (int isFriend, char *id, enum interest in, int minAge, int maxAge);
+const char* NetSearch (int isFriend, char *id, enum interest in, int minAge, int maxAge);
 /* posivelmente adicionar uma string com regexp sobre o nome mais tarde */
 
-char* NetAddFriend (char *id);
+const char* NetAddFriend (char *id);
 
-char* NetUnfriend (char *id);
+const char* NetUnfriend (char *id);
 
-char* NetWrite (int destC, char * destV);
+const char* NetWrite (int destC, char * destV);
 /* Contem codigo de input para editar a mensagem*/
 
-char* NetRead (char * sender);
+const char* NetRead (char * sender);
 
-char* NetDelMsg (int msgNumber);
+const char* NetDelMsg (int msgNumber);
 
 
 #endif /* NETMGR_ */

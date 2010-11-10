@@ -18,7 +18,7 @@ int NetIsAuthenticated()
 
 pGraph getGraphInstance()
 {
-	static pGraph Net; 
+	static pGraph Net;
 	if (Net) return Net;
 	Net = GraphNew (UsrDel);
 	return Net;
@@ -40,41 +40,44 @@ const char* NetNewUser (char *id)
 	return NEWUSEROK;
 }
 
-char* NetDelMe()
+const char* NetDelMe()
 {
-	LIS_DestruirLista(
-		((Usr*) GraphGetData (pGraph g))->msgs );
 	GraphDelNode (getGraphInstance());
 	IsAutheticated = 0;
 	return NETDELMEOK;
 }
 
-char* NetEditMe()
+const char* NetEditMe()
 {
 	return NULL;
 }
 
-char* NetAddFriend (char *id)
+const char* NetAddFriend (char *id)
 {
 	return NULL;
 }
 
-char* NetUnfriend (char *id)
+const char* NetUnfriend (char *id)
 {
 	return NULL;
 }
 
-char* NetWrite (int destC, char * destV)
+const char* NetWrite (int destC, char * destV)
 {
 	return NULL;
 }
 
-char* NetRead (char * sender)
+const char* NetSearch (int isFriend, char *id, enum interest in, int minAge, int maxAge)
 {
 	return NULL;
 }
 
-char* NetDelMsg (int msgNumber)
+const char* NetRead (char * sender)
+{
+	return NULL;
+}
+
+const char* NetDelMsg (int msgNumber)
 {
 	return NULL;
 }
