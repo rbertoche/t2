@@ -17,18 +17,6 @@ void UsrDel( void *u)
 	free (u);
 	return;
 }
-char* UsrGetPId( Usr *u )
-{
-	return u->id;
-}
-char* UsrGetPName( Usr *u )
-{
-	return u->name;
-}
-enum interest* UsrGetPInterest( Usr *u )
-{
-	return &u->interest;
-}
 int UsrDeliver ( Usr *u, msg m)
 {
 	LIS_tpCondRet condRet;
