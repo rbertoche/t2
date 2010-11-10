@@ -11,33 +11,40 @@
 ***************************************************************************/
 #ifndef USR_
 #define USR_
-
+#include "lista.h"
 enum interest {
+	INVALID,
 	WORK,
 	FRIENDS,
 	SEX,
 	NONE
 };
-typedef struct usr *pUsr;
+
+struct usr{
+	char id[15];
+	char name[50];
+	int age;
+	enum interest interest;
+	LIS_tppLista msgs;
+};
+typedef struct usr Usr;
+
 typedef char *msg;
 	
-pUsr UsrNew( char id[15] );
+Usr *UsrNew( char id[15] );
 
 void UsrDel( void *u );
 
-char* UsrGetPId( pUsr u );
-/* Retorna ponteiro cujo conteudo pode ser alterado */
+int UsrPrint( void *u, char *buffer, int startoffset );
+/* Gera uma string de informacoes sobre o usuario sobre buffer, do indice
+ * startoffset ate' startoffset + o retorno.
+ * O retorno e' o numero de caracteres impressos.
+ */
 
-char* UsrGetPName( pUsr u );
-/* Retorna ponteiro cujo conteudo pode ser alterado */
-
-enum interest* UsrGetPInterest( pUsr u );
-/* Retorna ponteiro cujo conteudo pode ser alterado */
-
-int UsrDeliver ( pUsr u, msg m);
+int UsrDeliver ( Usr *u, msg m);
 /* Appenda mensagem `a lista desse usua rio */
 
-int UsrDelMsg ( pUsr u, int id);
+int UsrDelMsg ( Usr *u, int id);
 /* Exclui idesima msg do usuario. Retorna 0 caso nao tenha recebido
  * nenhum erro do modulo de listas.
  */

@@ -3,15 +3,6 @@
 #include "usr.h"
 #include "lista.h"
 
-struct usr{
-	char id[15];
-	char name[50];
-	enum interest interest;
-	LIS_tppLista msgs;
-};
-typedef struct usr Usr;
-
-
 Usr* UsrNew( char id[15] )
 {
 	Usr *ret;
@@ -25,18 +16,6 @@ void UsrDel( void *u)
 	LIS_DestruirLista( ((Usr*)u)->msgs );
 	free (u);
 	return;
-}
-char* UsrGetPId( Usr *u )
-{
-	return u->id;
-}
-char* UsrGetPName( Usr *u )
-{
-	return u->name;
-}
-enum interest* UsrGetPInterest( Usr *u )
-{
-	return &u->interest;
 }
 int UsrDeliver ( Usr *u, msg m)
 {
