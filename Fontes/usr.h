@@ -13,6 +13,7 @@
 #define USR_
 #include "lista.h"
 enum interest {
+	INVALID,
 	WORK,
 	FRIENDS,
 	SEX,
@@ -22,6 +23,7 @@ enum interest {
 struct usr{
 	char id[15];
 	char name[50];
+	int age;
 	enum interest interest;
 	LIS_tppLista msgs;
 };
@@ -32,6 +34,12 @@ typedef char *msg;
 Usr *UsrNew( char id[15] );
 
 void UsrDel( void *u );
+
+int UsrPrint( void *u, char *buffer, int startoffset );
+/* Gera uma string de informacoes sobre o usuario sobre buffer, do indice
+ * startoffset ate' startoffset + o retorno.
+ * O retorno e' o numero de caracteres impressos.
+ */
 
 int UsrDeliver ( Usr *u, msg m);
 /* Appenda mensagem `a lista desse usua rio */
