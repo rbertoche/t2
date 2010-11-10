@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include "netmgr.h"
 #include "graph.h"
 
@@ -22,10 +23,10 @@ pGraph getGraphInstance()
 	Net = GraphNew (UsrDel);
 	return Net;
 }
-	
+
 const char* NetNewUser (char *id)
 {
-	pUsr u;
+	Usr* u;
 	GraphNodesStart(getGraphInstance());
 	u = GraphNodesGetNext (getGraphInstance());
 	while (u){
@@ -42,7 +43,7 @@ const char* NetNewUser (char *id)
 char* NetDelMe()
 {
 	LIS_DestruirLista(
-		((pUsr) GraphGetData (pGraph g))->msgs );
+		((Usr*) GraphGetData (pGraph g))->msgs );
 	GraphDelNode (getGraphInstance());
 	IsAutheticated = 0;
 	return NETDELMEOK;

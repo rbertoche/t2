@@ -3,15 +3,6 @@
 #include "usr.h"
 #include "lista.h"
 
-struct usr{
-	char id[15];
-	char name[50];
-	enum interest interest;
-	LIS_tppLista msgs;
-};
-typedef struct usr Usr;
-
-
 Usr* UsrNew( char id[15] )
 {
 	Usr *ret;
