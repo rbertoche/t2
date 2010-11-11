@@ -21,6 +21,13 @@
  */
 
 
+const char *sInterest[] = {
+	"Invalid",
+	"Work",
+	"Friends",
+	"Sex",
+	"None"
+};
 
 Usr* UsrNew( char id[15] )
 {
@@ -36,6 +43,7 @@ void UsrDel( void *u)
 	free (u);
 	return;
 }
+
 int UsrDeliver ( Usr *u, msg m)
 {
 	LIS_tpCondRet condRet;
@@ -58,3 +66,60 @@ int UsrDelMsg ( Usr *u, int id)
 	return condRet;		
 }
 
+int UsrPrint( Usr *u, char *buffer, int size)
+{
+	return snprintf( buffer, size,
+				"%s\n"
+				"%s\n"
+				"Idade:%d\n"
+				"Interesse: %s\n"
+				"\n"
+			,u->id,u->name,u->age,sInterest[u->interest]);
+}
+int UsrMsgPrint( Usr *u, char *buffer, int size )
+{
+	return 0;
+}
+
+int printmsgheader ( char * msg, char *_buffer, int size)
+{
+/* formato da string msg:
+remetente:destinatario1:destinatario2: ... :destinatarioN::conteudodamensagem\0
+*/
+	char *buffer = _buffer;
+	int bToWrite=0;
+
+	if ( strstr(msg,"::") - msg > size )
+		return buffer - _buffer;
+
+	/* Coloca o remetente */
+	buffer += sprintf( buffer, "From: " );
+	bToWrite = strchr( msg, ':' ) - msg;
+	memcpy ( buffer, msg, bToWrite );
+	buffer += bToWrite;
+	msg += bToWrite + 1; /* pula o : */
+	buffer += sprintf( buffer, "\nTo: " );
+
+	/* Coloca a lista de destinatarios ate encontrar "::" */
+	while ( *msg != ':' ){
+		bToWrite = strchr( msg, ':' ) - msg;
+		memcpy ( buffer, msg, bToWrite );
+		buffer += bToWrite;
+		msg += bToWrite + 1; /* pula o : */
+		buffer += sprintf( buffer, "; " );
+	}
+	buffer -= 2; /* Tira o "; " final sobrando */
+	msg++;
+	buffer += sprintf( buffer, "\n" );
+	return buffer - _buffer;
+}
+int printmsgcontent ( char * msg, char *buffer, int size)
+{
+	int msgLen;
+	msg = 2 + strstr(msg,"::");
+	msgLen = strlen(msg);
+	if ( size < msgLen )
+		return 0;
+	strcpy(buffer,msg);
+	return msgLen;
+}
