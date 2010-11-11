@@ -1,11 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
 #include "cli.h"
 
-const int MAXARGC=50;
+#define MAXARGC 50
 const static struct cli_cmd_tuple *userCmds;
 
 /* Tokenize the blank chars from the string.
@@ -16,8 +14,9 @@ static int clitok (char *s,const char **argv)
 	int i, n = strlen (s);
 	int last_isspace;
 
-	for (i=0, last_isspace=1; i<n; i++){
-		if (isspace (s[i])){
+	argv[0] = NULL;
+	for (i=0, last_isspace=1; i<n+1; i++){
+		if (isspace (s[i]) || s[i] == '\0'){
 			if (!last_isspace){
 				last_isspace = 1;
 				argc++;
@@ -32,22 +31,25 @@ static int clitok (char *s,const char **argv)
 }
 
 /* transform a string in a argc, *argv[]. and call the function from the
- *  argv[0]. */
-int cli_call (char *s)
+ *  argv[0]. If function not found, try to run the "error" errorfn function at
+ *  the last  entry of the table, { NULL, errorfn }, If errorfn doesn't exist
+ *  return NULL. */
+const char *cli_call (char *s)
 {
 	int i;
 	const char *argv[MAXARGC];
 	int argc = clitok(s,argv);
 
-	for (i=0; userCmds[i].s; i++){
-		int ret;
-		if ( userCmds[i].s && strcmp (userCmds[i].s, argv[0]) == 0){
-			ret = userCmds[i].cb (argc, argv);
-			return ret;
-		}
-	}
-	printf ("invalid command %s\n", argv[0]);
-	return -1;
+	if (argc == 0) argv[0] = '\0';
+	for (	i=0;
+			userCmds[i].s
+			&& argv[0]
+			&& (strcmp (userCmds[i].s, argv[0]) != 0);
+		i++ ){}
+
+	if (userCmds[i].cb == NULL)
+		return NULL;
+	return userCmds[i].cb (argc, argv);
 }
 
 void cli_register_tuple (const struct cli_cmd_tuple *cmds)
