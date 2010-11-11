@@ -35,9 +35,15 @@ Usr *UsrNew( char id[15] );
 
 void UsrDel( void *u );
 
-int UsrPrint( void *u, char *buffer, int startoffset );
-/* Gera uma string de informacoes sobre o usuario sobre buffer, do indice
- * startoffset ate' startoffset + o retorno.
+int UsrPrint( Usr *u, char *buffer, int buffersize );
+/* Gera uma string de informacoes sobre o usuario sobre buffer, com menos
+ * que buffersize caracteres.
+ * O retorno e' o numero de caracteres impressos.
+ */
+
+int UsrMsgPrint( Usr *u, char *buffer, int buffersize );
+/* Gera uma string de informacoes sobre o usuario sobre buffer, com menos
+ * que buffersize caracteres.
  * O retorno e' o numero de caracteres impressos.
  */
 

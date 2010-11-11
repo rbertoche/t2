@@ -3,6 +3,7 @@
 #include "netmgr.h"
 #include "graph.h"
 
+enum { BUFFERSIZE = 10000 };
 
 static const char NEWUSER_OK[  ] = "Novo usuario criado.\n";
 static const char NEWUSER_USEDID[  ] = "ID escolhido ja' em uso.\n";
@@ -12,12 +13,15 @@ static const char NETADDFRIEND_NOTFOUND[  ] = "Usuario nao encontrado.\n";
 static const char NETUNFRIEND_OK[  ] = "Amigo removido com sucesso.\n";
 static const char NETUNFRIEND_NOTFOUND[  ] = "Amigo nao encontrado.\n";
 static const char NETSEARCH_NOTFOUND[  ] = "Nenhum usuario casou com a busca.\n";
+static const char NETDELMSG_OK[  ] = "Mensagem deletada.\n";
+static const char NETDELMSG_NOTFOUND[  ] = "Numero de mensagem invalido.\n";
+
 
 /* Atencao, cuidado ao deletar esse usr porque normalmente o grafo o deleta */
 Usr *usr = NULL;
 
 /* Buffer para armazenar as strings geradas a serem retornadas */
-char buffer[10000];
+char buffer[BUFFERSIZE];
 /* Indice para atual posicao no buffer */
 int offset;
 
@@ -107,7 +111,11 @@ const char* NetWrite (int destC, char * destV)
 	return NULL;
 }
 
-const char* NetSearch (int isFriend, char *id, enum interest in, int minAge, int maxAge)
+const char* NetSearch (		int isFriend,
+				char *id,
+				enum interest in,
+				int minAge,
+				int maxAge)
 {
 	int fid=0, fin=0, fage=0;
 	Usr *u;
@@ -126,7 +134,7 @@ const char* NetSearch (int isFriend, char *id, enum interest in, int minAge, int
 	if (isFriend){
 		GraphLinksStart(getGraphInstance());
 		u = GraphLinksGetNext (getGraphInstance());
-		pFuncGetNext = GraphLinksGetNext
+		pFuncGetNext = GraphLinksGetNext;
 	} else {
 		GraphNodesStart(getGraphInstance());
 		u = GraphNodesGetNext (getGraphInstance());
@@ -135,16 +143,15 @@ const char* NetSearch (int isFriend, char *id, enum interest in, int minAge, int
 
 	for(; u ; u = (*pFuncGetNext)(getGraphInstance()) )
 	{
-		if (	(fid || strcmp(u->id,id) )
+		if (		(fid || strcmp(u->id,id) )
 				&& (fin || u->interest == in)
 				&& (fage || (u->age >= minAge
 					&& u->age <= maxAge)) )
 		{
-			offset += UsrPrint(u,buffer,offset);
+			offset += UsrPrint(u,buffer + offset,
+					 BUFFERSIZE - offset);
 		}
 	}
-
-
 	if (offset==0)
 		return NETSEARCH_NOTFOUND;
 	else
@@ -153,11 +160,15 @@ const char* NetSearch (int isFriend, char *id, enum interest in, int minAge, int
 
 const char* NetRead (char * sender)
 {
-	return NULL;
+	offset = 0;
+	offset += UsrMsgPrint(usr,buffer,offset);
+	return buffer;
 }
 
 const char* NetDelMsg (int msgNumber)
 {
-	return NULL;
+	if (!UsrDelMsg(usr, msgNumber))
+		return NETDELMSG_OK;
+	return NETDELMSG_NOTFOUND;
 }
 
