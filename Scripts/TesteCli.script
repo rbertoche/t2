@@ -1,0 +1,39 @@
+// Script:	TesteCli.script
+// Autor:	Marcelo
+// Data:	11/11/2010
+
+== Registra Tabela 0
+=RegistraTabela 0
+
+== (1 arg)
+=ChamaFuncao "soma 1" "1"
+
+== (1 arg) e um trailing space
+=ChamaFuncao "soma 1 " "1"
+
+== (2 args)
+=ChamaFuncao "soma 1 2" "3"
+
+== (3 args)
+=ChamaFuncao "soma 1 2 3" "6"
+
+== Gerando uma falha
+=ChamaFuncao "soma" "-"
+=recuperar
+
+== Chamando concatena
+=ChamaFuncao "concat a b c" "abc"
+
+== Forcando o tratamento de comando inexistene.
+=ChamaFuncao "asdf" "invalid function"
+
+== Registrando Tabela 1
+=RegistraTabela 1
+
+== Validando a funcao echo.
+=ChamaFuncao "echo_first_arg string3" "string2"
+=recuperar
+
+== Testanto Funcao echo da tabela 1
+=ChamaFuncao "echo_first_arg a" "a"
+=ChamaFuncao "echo_first_arg string2" "string2"
