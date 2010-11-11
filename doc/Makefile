@@ -15,16 +15,28 @@ $(GRAPH)
 
 LATEXDEPS = \
 arch.1\
-fisico.eps
+fisico.eps\
+exemploa.eps
+#exemplob.eps\
+#exemploc.eps
 
 PDFLATEXDEPS = \
 arch.1\
-fisico.pdf
+fisico.pdf\
+exemploa.pdf
+#exemplob.pdf\
+#exemploc.pdf
 
 ifeq ($(LATEX),pdflatex)
 TEXIMGEXT=%.pdf
+%.pdf: %.ps
+	ps2pdf $< $@
+%.pdf: %.eps
+	ps2pdf $< $@
 else
 TEXIMGEXT=%.eps
+%.eps: %.pdf
+	pdftops -eps $< $@
 endif
 
 all: $(ALLTARGS)
@@ -39,9 +51,6 @@ $(TEXIMGEXT): %.png
 	convert $< $@
 $(TEXIMGEXT): %.svg
 	convert $< $@
-
-%.eps: %.pdf
-	pdftops -eps $< $@
 
 
 %.1: %.mp
