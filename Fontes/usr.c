@@ -1,7 +1,26 @@
+#define _ISOC99_SOURCE
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "usr.h"
 #include "lista.h"
+
+
+/* Isso permite snprintf de C99 no gcc */
+#define _ISOC99_SOURCE
+#include <stdio.h>
+#undef _ISOC99_SOURCE
+
+/* Isso permite snprintf de C99 no MSVS */
+#if _MSC_VER
+#define snprintf _snprintf
+#endif
+/* Estamos usando uma funcao de C99. Sem essa funcao, o buffer
+ * que utilizamos em UsrPrint e UsrMsgPrint em estaria sujeito
+ * a buffer overflow, ou entao teriamos que fazer strcpy desnecessario.
+ */
+
+
 
 Usr* UsrNew( char id[15] )
 {
