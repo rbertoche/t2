@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "usr.h"
 #include "lista.h"
+#include "usr.h"
 
 
 /* Isso permite snprintf de C99 no gcc */

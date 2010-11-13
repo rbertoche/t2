@@ -11,7 +11,11 @@
 ***************************************************************************/
 #ifndef USR_
 #define USR_
-#include "lista.h"
+#ifndef LIS_tpp_typedef
+   #define LIS_tpp_typedef
+typedef struct LIS_tagLista * LIS_tppLista ;
+#endif
+
 enum interest {
 	INVALID,
 	WORK,

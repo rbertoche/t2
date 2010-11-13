@@ -61,7 +61,10 @@
 
 /* Tipo referência para uma lista */
 
+#ifndef LIS_tpp_typedefs
+   #define LIS_tpp_typedef
 typedef struct LIS_tagLista * LIS_tppLista ;
+#endif
 
 
 /***********************************************************************
