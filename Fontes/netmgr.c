@@ -158,16 +158,23 @@ const char* NetSearch (		int isFriend,
 		return buffer;
 }
 
-const char* NetRead (char * sender)
+const char* NetMail ()
 {
 	offset = 0;
-	offset += UsrMsgPrint(usr,buffer,offset);
+	offset += UsrMsgList(usr,buffer,offset);
+	return buffer;
+}
+
+const char* NetRead (int msgNumber)
+{
+	offset = 0;
+	offset += UsrMsgPrint(usr,msgNumber,buffer,offset);
 	return buffer;
 }
 
 const char* NetDelMsg (int msgNumber)
 {
-	if (!UsrDelMsg(usr, msgNumber))
+	if (!UsrMsgDel(usr, msgNumber))
 		return NETDELMSG_OK;
 	return NETDELMSG_NOTFOUND;
 }

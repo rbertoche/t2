@@ -41,7 +41,7 @@ const char* NetUnfriend (char *id);
 const char* NetWrite (int destC, char * destV);
 /* Contem codigo de input para editar a mensagem*/
 
-const char* NetRead (char * sender);
+const char* NetRead (int msgNumber);
 
 const char* NetDelMsg (int msgNumber);
 

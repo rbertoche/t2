@@ -41,17 +41,23 @@ int UsrPrint( Usr *u, char *buffer, int buffersize );
  * O retorno e' o numero de caracteres impressos.
  */
 
-int UsrMsgPrint( Usr *u, char *buffer, int buffersize );
-/* Gera uma string de informacoes sobre o usuario sobre buffer, com menos
+int UsrMsgList( Usr *u, char *buffer, int buffersize );
+/* Gera uma lista de mensagens do usuario sobre buffer, com menos
  * que buffersize caracteres.
  * O retorno e' o numero de caracteres impressos.
  */
 
-int UsrDeliver ( Usr *u, msg m);
+int UsrMsgDeliver ( Usr *u, msg m);
 /* Appenda mensagem `a lista desse usua rio */
 
-int UsrDelMsg ( Usr *u, int id);
-/* Exclui idesima msg do usuario. Retorna 0 caso nao tenha recebido
+int UsrMsgPrint( Usr *u, int msg, char *buffer, int buffersize );
+/* Gera uma string contendo a mensagem numero msg sobre buffer, com menos
+ * que buffersize caracteres.
+ * O retorno e' o numero de caracteres impressos.
+ */
+
+int UsrMsgDel ( Usr *u, int msg);
+/* Exclui mensagem numero msg do usuario. Retorna 0 caso nao tenha recebido
  * nenhum erro do modulo de listas.
  */
 
