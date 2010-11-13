@@ -1,0 +1,26 @@
+# Makefile TestUsr
+
+[Diretorios]
+
+Nome        =  TestUsr
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+def         =  ..\Tabelas
+
+[Modulos]
+lista
+usr
+tstusr
+
+[BuildInicio]
+/OUT:..\Produto\TestUsr.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[BuildFim]
+ArcaboucoTeste.lib
+
+[Fim]

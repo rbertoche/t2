@@ -1,5 +1,4 @@
-# Composicao do programa de teste de uma lista gen�rica duplamente encadeada
-# Este exemplo utiliza o arcabou�o completo 
+# Makefile TestGraph
 
 [Diretorios]
 

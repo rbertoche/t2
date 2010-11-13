@@ -1,0 +1,27 @@
+# Makefile TestNetMgr
+
+[Diretorios]
+
+Nome        =  TestNetMgr
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+def         =  ..\Tabelas
+
+[Modulos]
+usr
+graph
+netmgr
+tstnetmgr
+
+[BuildInicio]
+/OUT:..\Produto\TestNetMgr.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[BuildFim]
+ArcaboucoTeste.lib
+
+[Fim]

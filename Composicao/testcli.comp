@@ -1,0 +1,25 @@
+# Makefile TestCli
+
+[Diretorios]
+
+Nome        =  TestCli
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+def         =  ..\Tabelas
+
+[Modulos]
+tstcli
+cli
+
+[BuildInicio]
+/OUT:..\Produto\TestCli.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[BuildFim]
+ArcaboucoTeste.lib
+
+[Fim]
