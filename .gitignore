@@ -12,6 +12,7 @@
 
 *.log
 *.err
+*.aux
 *.make
 *.build
 *.list
