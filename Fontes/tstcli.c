@@ -60,7 +60,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		return TST_CompararString (ret, (char*)cliret,
 				"string missmatch,");
 	}
-	return TST_CondRetOK;
+        return TST_CondRetNaoConhec;
 }
 
 const char *cmd_soma (int argc, const char *argv[])
