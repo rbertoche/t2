@@ -39,7 +39,7 @@ pGraph getGraphInstance()
 	return Net;
 }
 
-Usr *searchUsr(char *id)
+Usr *searchUsr(const char *id)
 {
 	Usr* u;
 	GraphNodesStart(getGraphInstance());
@@ -52,7 +52,7 @@ Usr *searchUsr(char *id)
 	return NULL;
 }
 
-Usr *searchLink(char *id)
+Usr *searchLink(const char *id)
 {
 	Usr *u;
 	GraphLinksStart(getGraphInstance());
@@ -65,7 +65,7 @@ Usr *searchLink(char *id)
 	return NULL;
 }
 
-const char* NetNewUser (char *id)
+const char* NetNewUser (const char *id)
 {
 	if(searchUsr(id))
 		return NEWUSER_USEDID;
@@ -179,3 +179,7 @@ const char* NetDelMsg (int msgNumber)
 	return NETDELMSG_NOTFOUND;
 }
 
+const char* NetWhoAmI (void)
+{
+	return usr->id;
+}

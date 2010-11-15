@@ -24,7 +24,7 @@
 
 int NetIsAuthenticated();
 
-const char* NetNewUser (char *id);
+const char* NetNewUser (const char *id);
 
 const char* NetDelMe();
 
@@ -46,6 +46,7 @@ const char* NetRead (int msgNumber);
 
 const char* NetDelMsg (int msgNumber);
 
+const char* NetWhoAmI ();
 
 #endif /* NETMGR_ */
 
