@@ -28,7 +28,7 @@ struct cli_cmd_tuple unlogged_cmds[] = {
 };
 
 struct cli_cmd_tuple logged_cmds[] = {
-	{ "logoff", &lcmd_logoff },
+	{ "logout", &lcmd_logoff },
 	{ "addfriend", &lcmd_addfriend },
 	{ "exit", &cmd_exit },
 	{ NULL, &lcmd_error },
@@ -58,7 +58,7 @@ int handle_commands (void)
 	while (1){
 		if (logged){
 			/* TODO: WhoAmI aqui */
-			printf ("%s $ ", "<name>");
+			printf ("%s $ ", NetWhoAmI() );
 		} else {
 			printf ("enter admin cmd or login: " );
 		}
@@ -131,8 +131,7 @@ const char *lcmd_logoff (int argc, const char *argv[])
 {
 	logged = 0;
 	cli_register_tuple (unlogged_cmds);
-	/* TODO: UsrWhoAmI() aqui */
-	sprintf (ans_buff, "bye <user_name>\n");
+	sprintf (ans_buff, "bye %s\n", NetWhoAmI());
 	return ans_buff;
 }
 
