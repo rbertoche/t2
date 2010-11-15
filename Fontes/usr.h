@@ -35,7 +35,7 @@ typedef struct usr Usr;
 
 typedef char *msg;
 	
-Usr *UsrNew( char id[15] );
+Usr *UsrNew( const char id[15] );
 
 void UsrDel( void *u );
 

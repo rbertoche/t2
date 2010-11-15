@@ -29,7 +29,7 @@ const char *sInterest[] = {
 	"None"
 };
 
-Usr* UsrNew( char id[15] )
+Usr* UsrNew( const char id[15] )
 {
 	Usr *ret;
 	ret = malloc (sizeof(Usr));
