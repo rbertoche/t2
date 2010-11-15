@@ -1,0 +1,31 @@
+// Script:	TesteUsr.script
+// Autor:	Raphael
+// Data:	15/11/2010
+
+
+=declararparm   InWork    int 1
+=declararparm   InFriends int 2
+=declararparm   InSex     int 3
+=declararparm   InNone    int 4
+=declararparm   usrA      int 0
+=declararparm   usrB      int 1
+=declararparm   usrC      int 2
+=declararparm   usrD      int 3
+=declararparm   usrAidade int 20
+=declararparm   usrBidade int 30
+=declararparm   usrCidade int 40
+=declararparm   usrDidade int 50
+
+== Cria usuarios
+=UsrNew usrA andre "Andre Andrade" usrAidade InWork
+=UsrNew usrB breno "Breno Borges" usrBidade InFriends
+=UsrNew usrC carlos "Carlos Coral" usrCidade InSex
+=UsrNew usrD denis "Denis Dias" usrDidade InNone
+=UsrPrint usrA 80 "andre
+Andre Andrade
+Idade: 20
+Interesse: Work
+
+"
+
+==
