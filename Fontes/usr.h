@@ -63,7 +63,7 @@ int UsrMsgPrint( Usr *u, int msg, char *buffer, int buffersize );
  * O retorno e' o numero de caracteres impressos.
  */
 
-int UsrMsgDel ( Usr *u, int msg);
+int UsrDelMsg ( Usr *u, int msg);
 /* Exclui mensagem numero msg do usuario. Retorna 0 caso nao tenha recebido
  * nenhum erro do modulo de listas.
  */
