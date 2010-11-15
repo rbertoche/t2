@@ -34,6 +34,7 @@ const char* NetEditMe();
 const char* NetSearch (int isFriend, char *id, enum interest in, int minAge, int maxAge);
 /* posivelmente adicionar uma string com regexp sobre o nome mais tarde */
 
+/* TODO: Mesmo usuario pode ser adicionado multiplas vezes? */
 const char* NetAddFriend (char *id);
 
 const char* NetUnfriend (char *id);
