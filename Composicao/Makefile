@@ -29,25 +29,30 @@ $(SRC)/usr.h
 
 #  Dependencias de cada modulo
 CLIOBJ=\
+$(OBJ)/libArcaboucoTeste.a\
 $(OBJ)/cli.o\
 $(OBJ)/tstcli.o
 
 GRAPHOBJ=\
+$(OBJ)/libArcaboucoTeste.a\
 $(OBJ)/lista.o\
 $(OBJ)/graph.o\
 $(OBJ)/tstgraph.o
 
 LISTAOBJ=\
+$(OBJ)/libArcaboucoTeste.a\
 $(OBJ)/lista.o\
 $(OBJ)/testlis.o
 
 NETMGROBJ=\
+$(OBJ)/libArcaboucoTeste.a\
 $(OBJ)/usr.o\
 $(OBJ)/graph.o\
 $(OBJ)/netmgr.o\
 $(OBJ)/tstnetmgr.o
 
 USROBJ=\
+$(OBJ)/libArcaboucoTeste.a\
 $(OBJ)/lista.o\
 $(OBJ)/usr.o\
 $(OBJ)/tstusr.o
@@ -64,6 +69,10 @@ all:$(ALLTARGS)
 
 %.o: $(SRC)/%.c $(ALLDEPS)
 	$(CC) -c -o $@ $(CFLAGS) $<
+
+$(OBJ)/libArcaboucoTeste.a:
+	make -C ../arcalin/arcabouc/Fontes/ libArcaboucoTeste.a
+	cp ../arcalin/arcabouc/Fontes/libArcaboucoTeste.a $@
 
 testcli: $(CLIOBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
