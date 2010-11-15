@@ -52,7 +52,10 @@ int UsrMsgList( Usr *u, char *buffer, int buffersize );
  */
 
 int UsrMsgDeliver ( Usr *u, msg m);
-/* Appenda mensagem `a lista desse usua rio */
+/* Appenda mensagem `a lista desse usuario
+ * Retorna o retorno da chamada LIS_InserirElementoApos
+ * (0 em caso de sucesso)
+ */
 
 int UsrMsgPrint( Usr *u, int msg, char *buffer, int buffersize );
 /* Gera uma string contendo a mensagem numero msg sobre buffer, com menos
