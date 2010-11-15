@@ -68,7 +68,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if (argc != 3 || usr > USRVSIZE || usr < 0)
 			return TST_CondRetParm;
 		vUsr[usr] = UsrNew( id );
-		vUsr[usr]->name = name;
+		strcpy (vUsr[usr]->name, name);
 		vUsr[usr]->age=age;
 		return TST_CondRetOK;
 
