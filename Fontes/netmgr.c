@@ -20,6 +20,8 @@ static const char NETWRITE_MEMERROR[  ] = "Erro: Nao pude alocar memoria.\n";
 static const char NETWRITE_DELIVERERROR[  ] = "Erro: Funcao de entrega do modulo usr falhou.\n";
 static const char NETWRITE_OK[  ] = "Mensagem enviada.\n";
 
+static const char ARGNUMERROR[  ] = "Numero de argumentos menor que o esperado.\n";
+
 
 /* Atencao, cuidado ao deletar esse usr porque normalmente o grafo o deleta */
 Usr *usr = NULL;
@@ -115,16 +117,20 @@ const char* NetUnfriend (char *id)
 	return NETUNFRIEND_OK;
 }
 
-const char* NetWrite (int destC, char ** destV)
+const char* NetWrite (int destC, const char ** destV)
 {
 	Msg msg;
 	int i,size;
 	char *msgptr;
 	offset = 0;
+
+	/* testa se ha algum destinatario */
+	if (destC == 0)
+		return ARGNUMERROR;
 	/* testa se os usuarios sao validos */
 	for (i=0; i<destC; i++)
 		if (!searchUsr(destV[i]))
-			offset+=sprintf("%s nao e' um username valido\n",destV[i]);
+			offset += sprintf(&buffer[offset], "%s nao e' um username valido\n",destV[i]);
 	if (offset)
 		return buffer;
 
@@ -133,6 +139,7 @@ const char* NetWrite (int destC, char ** destV)
 	{
 		offset++;
 	}
+	buffer[offset] = '\0';
 
 	/* calcula o tamanho a alocar para armazenar a mensagem codificada */
 	size = 0;
@@ -166,13 +173,13 @@ const char* NetWrite (int destC, char ** destV)
 	/* Entrega copias das mensagens pra todos os destinatarios
 	 * Atencao: faco o destV[0] separado porque ja tenho uma
 	 * msg alocada */
-	if (!UsrMsgDeliver( searchUsr( destV[0] ), msg))
+	if (UsrMsgDeliver( searchUsr( destV[0] ), msg))
 		return NETWRITE_DELIVERERROR;
 	for (i=1; i < destC; i++){
 		Msg msgCopy;
 		msgCopy = malloc( sizeof(char) * size );
 		memcpy( msgCopy, msg, size );
-		if (!UsrMsgDeliver( searchUsr( destV[i] ), msgCopy))
+		if (UsrMsgDeliver( searchUsr( destV[i] ), msgCopy))
 			return NETWRITE_DELIVERERROR;
 	}
 	return NETWRITE_OK;
@@ -190,6 +197,7 @@ const char* NetSearch (		int isFriend,
 	/* Ponteiro para funcao que contera' um getnext */
 
 	offset=0;
+	*buffer = 0;
 	if (!id)
 		fid=1;
 	if (fin == INVALID)
@@ -228,14 +236,16 @@ const char* NetSearch (		int isFriend,
 const char* NetMail ()
 {
 	offset = 0;
-	offset += UsrMsgList(usr,buffer,offset);
+	*buffer = 0;
+	offset += UsrMsgList(usr,buffer,BUFFERSIZE - offset);
 	return buffer;
 }
 
 const char* NetRead (int msgNumber)
 {
 	offset = 0;
-	offset += UsrMsgPrint(usr,msgNumber,buffer,offset);
+	*buffer = 0;
+	offset += UsrMsgPrint(usr,msgNumber,buffer,BUFFERSIZE -offset);
 	return buffer;
 }
 

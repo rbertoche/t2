@@ -184,7 +184,7 @@ const char *lcmd_read (int argc, const char *argv[])
 
 const char *lcmd_write (int argc, const char *argv[])
 {
-	NetWrite (argc-1, argv++);
+	printf("%s", NetWrite (argc-1, ++argv));
 	return NULL;
 }
 
