@@ -46,7 +46,7 @@ struct usr{
 };
 typedef struct usr Usr;
 
-typedef char *msg;
+typedef char *Msg;
 
 /***********************************************************************
 *
@@ -140,7 +140,7 @@ int UsrMsgList( Usr *u, char *buffer, int buffersize );
 *       (0 em caso de sucesso)
 *
 ***********************************************************************/
-int UsrMsgDeliver ( Usr *u, msg m);
+int UsrMsgDeliver ( Usr *u, Msg m);
 
 /***********************************************************************
 *

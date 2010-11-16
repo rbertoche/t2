@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "netmgr.h"
 #include "graph.h"
 
@@ -15,6 +16,9 @@ static const char NETUNFRIEND_NOTFOUND[  ] = "Amigo nao encontrado.\n";
 static const char NETSEARCH_NOTFOUND[  ] = "Nenhum usuario casou com a busca.\n";
 static const char NETDELMSG_OK[  ] = "Mensagem deletada.\n";
 static const char NETDELMSG_NOTFOUND[  ] = "Numero de mensagem invalido.\n";
+static const char NETWRITE_MEMERROR[  ] = "Erro: Nao pude alocar memoria.\n";
+static const char NETWRITE_DELIVERERROR[  ] = "Erro: Funcao de entrega do modulo usr falhou.\n";
+static const char NETWRITE_OK[  ] = "Mensagem enviada.\n";
 
 
 /* Atencao, cuidado ao deletar esse usr porque normalmente o grafo o deleta */
@@ -111,9 +115,67 @@ const char* NetUnfriend (char *id)
 	return NETUNFRIEND_OK;
 }
 
-const char* NetWrite (int destC, char * destV)
+const char* NetWrite (int destC, char ** destV)
 {
-	return NULL;
+	Msg msg;
+	int i,size;
+	char *msgptr;
+	offset = 0;
+	/* testa se os usuarios sao validos */
+	for (i=0; i<destC; i++)
+		if (!searchUsr(destV[i]))
+			offset+=sprintf("%s nao e' um username valido\n",destV[i]);
+	if (offset)
+		return buffer;
+
+	/* recebe o conteudo da mensagem de stdin */
+	while ((buffer[offset] = getchar()) != EOF && offset < BUFFERSIZE)
+	{
+		offset++;
+	}
+
+	/* calcula o tamanho a alocar para armazenar a mensagem codificada */
+	size = 0;
+	size += strlen( usr->id );
+	size++; /* ':' */
+	for (i=0; i<destC; i++){
+		size += strlen( destV[i] );
+		size++; /* ':' */
+	}
+	size++; /* ':' */
+	size += offset;
+
+	/* Aloca uma mensagem */
+	msg = malloc( sizeof(char) * size );
+	if (!msg)
+		return NETWRITE_MEMERROR;
+	msgptr = msg;
+
+	/* Escreve a mensagem codificada */
+	strcpy( msgptr, usr->id );
+	msgptr += strlen( usr->id );
+	*(msgptr++) = ':';
+	for (i=0; i<destC; i++){
+		strcpy( msgptr, destV[i] );
+		msgptr += strlen( destV[i] );
+		*(msgptr++) = ':';
+	}
+	*(msgptr++) = ':';
+	strcpy(msgptr,buffer);
+
+	/* Entrega copias das mensagens pra todos os destinatarios
+	 * Atencao: faco o destV[0] separado porque ja tenho uma
+	 * msg alocada */
+	if (!UsrMsgDeliver( searchUsr( destV[0] ), msg))
+		return NETWRITE_DELIVERERROR;
+	for (i=1; i < destC; i++){
+		Msg msgCopy;
+		msgCopy = malloc( sizeof(char) * size );
+		memcpy( msgCopy, msg, size );
+		if (!UsrMsgDeliver( searchUsr( destV[i] ), msgCopy))
+			return NETWRITE_DELIVERERROR;
+	}
+	return NETWRITE_OK;
 }
 
 const char* NetSearch (		int isFriend,
