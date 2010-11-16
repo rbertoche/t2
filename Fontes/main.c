@@ -68,7 +68,7 @@ const char *cmd_exit (int argc, const char *argv[])
 
 int handle_commands (void)
 {
-	while (1){
+	while (!feof(stdin)){
 		if (logged){
 			printf ("%s $ ", NetWhoAmI() );
 		} else {
@@ -78,6 +78,7 @@ int handle_commands (void)
 		fgets (cmd_buff, sizeof (cmd_buff), stdin);
 		cli_call (cmd_buff);
 	}
+	return 0;
 }
 
 /* ------------------------------------------------------------------------- */
