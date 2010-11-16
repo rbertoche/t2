@@ -57,13 +57,23 @@ $(OBJ)/lista.o\
 $(OBJ)/usr.o\
 $(OBJ)/tstusr.o
 
+REDSOC=\
+$(OBJ)/cli.o\
+$(OBJ)/lista.o\
+$(OBJ)/usr.o\
+$(OBJ)/graph.o\
+$(OBJ)/netmgr.o\
+$(OBJ)/main.o
+
+
 #  Alvos a serem compilados com `make all`
 ALLTARGS = \
 testcli\
 testgraph\
 testlista\
 testnetmgr\
-testusr
+testusr\
+rede_social
 
 all:$(ALLTARGS)
 
@@ -89,6 +99,8 @@ testnetmgr: $(NETMGROBJ)
 testusr: $(USROBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
 
+rede_social: $(REDSOC)
+	$(CC) -o $(TRG)/$@ $^ $(CFLAGS)
 
 .PHONY: clean
 clean:
