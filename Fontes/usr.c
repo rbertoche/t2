@@ -64,9 +64,9 @@ remetente:destinatario1:destinatario2: ... :destinatarioN::Assunto:conteudodamen
 	char *buffer = _buffer;
 	int bToWrite=0;
 
-	if ( strstr(strstr(msg,"::"),":") - msg > size )
+/*	if ( ( strstr(strstr(msg,"::"),":") - msg ) > size )
 		return buffer - _buffer;
-
+*/
 	/* Coloca o remetente */
 	buffer += sprintf( buffer, "From: " );
 	bToWrite = strchr( msg, ':' ) - msg;
@@ -103,16 +103,19 @@ int printmsgcontent ( char * msg, char *buffer, int size)
 	int msgLen;
 	msg = 2 + strstr(msg,"::");
 	*strstr(msg,":") = '\n'; /* Troca o separador : por \n */
-	msgLen = strlen(msg);
+	msgLen = strlen(msg) + 1; /* +1 pelo \n final */
 	if ( size < msgLen )
 		return 0;
 	strcpy(buffer,msg);
+	*(buffer+msgLen-1) = '\n';
+	*(buffer+msgLen) = '\0';
 	return msgLen;
 }
 
 int UsrMsgDeliver ( Usr *u, msg m)
 {
 	LIS_tpCondRet condRet;
+	IrFinalLista( u->msgs ) ;
 	condRet = LIS_InserirElementoApos( u->msgs, m);
 	if (LIS_CondRetOK == condRet)
 		return 0;
@@ -122,6 +125,7 @@ int UsrMsgDeliver ( Usr *u, msg m)
 int UsrMsgDel ( Usr *u, int id)
 {
 	LIS_tpCondRet condRet;
+	IrInicioLista( u->msgs ) ;
 	condRet = LIS_AvancarElementoCorrente(
 		u->msgs ,id );
 	if (LIS_CondRetOK == condRet){
@@ -129,7 +133,6 @@ int UsrMsgDel ( Usr *u, int id)
 		IrInicioLista( u->msgs ) ;
 		return 0;
 	}
-	IrInicioLista( u->msgs ) ;
 	return condRet;
 }
 
@@ -138,7 +141,9 @@ int UsrMsgList( Usr *u, char *_buffer, int size )
 	int i=0, bWritten;
 	char *buffer = _buffer;
 	IrInicioLista( u->msgs );
-	while (LIS_CondRetOK ==  LIS_AvancarElementoCorrente( u->msgs,1 )){
+	if (! LIS_ObterValor( u->msgs ))
+		return 0;
+	do{
 		bWritten = snprintf(buffer, size, "%d - ",i++);
 		buffer += bWritten;
 		size -= bWritten;
@@ -146,7 +151,7 @@ int UsrMsgList( Usr *u, char *_buffer, int size )
 				buffer,size );
 		buffer += bWritten;
 		size -= bWritten;
-	}
+	}while (LIS_CondRetOK == LIS_AvancarElementoCorrente( u->msgs,1 ));
 	return buffer - _buffer;
 }
 
@@ -154,6 +159,7 @@ int UsrMsgPrint( Usr *u, int msgNumber, char *buffer, int size )
 {
 	LIS_tpCondRet condRet;
 	char * msg;
+	IrInicioLista( u->msgs ) ;
 	condRet = LIS_AvancarElementoCorrente(
 		u->msgs ,msgNumber );
 	if (LIS_CondRetOK == condRet){
@@ -161,6 +167,5 @@ int UsrMsgPrint( Usr *u, int msgNumber, char *buffer, int size )
 		IrInicioLista( u->msgs ) ;
 		return printmsgcontent( msg, buffer, size);
 	}
-	IrInicioLista( u->msgs ) ;
 	return 0;
 }

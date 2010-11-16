@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "usr.h"
 
@@ -7,7 +8,7 @@
 #include "generico.h"
 #include "lerparm.h"
 enum {USRVSIZE = 10};
-enum {BUFFSIZE = 100};
+enum {BUFFSIZE = 1000};
 
 
 Usr*  vUsr[USRVSIZE];
@@ -40,13 +41,13 @@ static const char USRMSGDEL     [] = "=UsrMsgDel";
 		usrret = _FuncCall_; \
 \
 		tstret |= TST_CompararString ( expected, buffer, \
-				_FuncString_ " emitiu uma string incorreta.");\
+				_FuncString_ " emitiu uma string incorreta."); \
 		tstret |= TST_CompararBool ( 1 , usrret < limit, \
 				_FuncString_ " disse que printou mais que " \
 				"limit bytes."); \
 		tstret |= TST_CompararInt ( strlen(buffer) , usrret, \
-				_FuncString_ " disse que printou mais bytes " \
-				"do que realmente printou"); \
+				_FuncString_ " disse que printou um numero" \
+				"de bytes diferente do que o teste contou"); \
 		tstret |= TST_CompararEspaco ( zeros , \
 				buffer + limit, BUFFSIZE-limit, \
 				_FuncString_ " permitiu buffer overflow.");
@@ -104,7 +105,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if (argc != 3 || usr > USRVSIZE || usr < 0 || limit > BUFFSIZE)
 			return TST_CondRetParm;
 
-		__TestFWithBuffer__( UsrMsgList(vUsr[i], buffer, limit),
+		__TestFWithBuffer__( UsrMsgList(vUsr[usr], buffer, limit),
 				"UsrMsgList")
 
 		return (tstret) ? (TST_CondRetErro) : (TST_CondRetOK);
@@ -120,7 +121,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if (argc != 4 || usr > USRVSIZE || usr < 0 || limit > BUFFSIZE)
 			return TST_CondRetParm;
 
-		__TestFWithBuffer__( UsrMsgPrint(vUsr[i], msg, buffer, limit),
+		__TestFWithBuffer__( UsrMsgPrint(vUsr[usr], msg, buffer, limit),
 				"UsrMsgPrint")
 
 		return (tstret) ? (TST_CondRetErro) : (TST_CondRetOK);
@@ -128,15 +129,20 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 	} else if (! strcmp (CmdTeste, USRMSGDELIVER)) {
 
 
-		char msg[BUFFSIZE];
+		char *msg;
 		int argc, usr;
+
+		msg = malloc( sizeof(char[200] ));
+		TST_CompararBool( 0, NULL == msg, "Nao pude alocar uma mensagem nova. "
+				"Estou inconsistente.");
 
 		argc = LER_LerParametros ("is", &usr , msg);
 		if (argc != 2 || usr > USRVSIZE || usr < 0)
 			return TST_CondRetParm;
 
+
 		TST_CompararInt( 0, UsrMsgDeliver( vUsr[usr], msg),
-			"UsrMsgDeliver detectou falha.");
+			"UsrMsgDeliver detectou falha. Esse erro vaza memoria no tstusr.c");
 		return TST_CondRetOK;
 
 
