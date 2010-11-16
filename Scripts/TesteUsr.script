@@ -27,16 +27,16 @@
 =UsrPrint usrC 80 "carlos\nCarlos Coral\nIdade: 40\nInteresse: Sex\n\n"
 =UsrPrint usrD 80 "denis\nDenis Dias\nIdade: 50\nInteresse: None\n\n"
 == Entrega mensagens para ler depois
-=UsrMsgDeliver usrA 80 "rementente:andre:destinatario2:carlos::Assunto:Conteudo"
-=UsrMsgDeliver usrC 80 "rementente:andre:destinatario2:carlos::Assunto:Conteudo"
+=UsrMsgDeliver usrA "remetente:andre:destinatario2:carlos::Assunto:Conteudo"
+=UsrMsgDeliver usrC "remetente:andre:destinatario2:carlos::Assunto:Conteudo"
 
 
 == Testa UsrMsgList com apenas 1 mensagem
-=UsrMsgList usrA 80 "0 - From: remetente
-To: andre; destinatario2
-Assunto
+=UsrMsgList usrA 800 "0 - From: remetente\nTo: andre; destinatario2; carlos\nAssunto\n\n"
 
-"
+== Testa UsrMsgPrint com apenas 1 mensagem
+=UsrMsgPrint usrA 0 100 "Assunto\nConteudo\n"
+
 
 == Testa exclusao de mensagem
 =UsrMsgDel usrA 0
