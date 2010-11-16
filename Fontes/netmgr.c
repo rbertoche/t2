@@ -179,7 +179,7 @@ const char* NetRead (int msgNumber)
 
 const char* NetDelMsg (int msgNumber)
 {
-	if (!UsrMsgDel(usr, msgNumber))
+	if (!UsrDelMsg(usr, msgNumber))
 		return NETDELMSG_OK;
 	return NETDELMSG_NOTFOUND;
 }
