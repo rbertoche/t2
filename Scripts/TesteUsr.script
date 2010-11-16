@@ -27,9 +27,9 @@
 =UsrPrint usrC 80 "carlos\nCarlos Coral\nIdade: 40\nInteresse: Sex\n\n"
 =UsrPrint usrD 80 "denis\nDenis Dias\nIdade: 50\nInteresse: None\n\n"
 == Entrega mensagens para ler depois
-=UsrMsgDeliver usrA "remetente:andre:destinatario2:carlos::Assunto:Conteudo"
-=UsrMsgDeliver usrC "remetente:andre:destinatario2:carlos::Assunto:Conteudo"
-=UsrMsgDeliver usrC "remetente:destinatario1:carlos::Assunto:Conteudo"
+=UsrMsgDeliver usrA "remetente:andre:destinatario2:carlos::Assunto\nConteudo"
+=UsrMsgDeliver usrC "remetente:andre:destinatario2:carlos::Assunto\nConteudo"
+=UsrMsgDeliver usrC "remetente:destinatario1:carlos::Assunto\nConteudo"
 
 
 == Testa UsrMsgList com apenas 1 mensagem
@@ -46,9 +46,9 @@
 =UsrMsgList usrC 300 "0 - From: remetente\nTo: andre; destinatario2; carlos\nAssunto\n\n1 - From: remetente\nTo: destinatario1; carlos\nAssunto\n\n"
 
 == Testa UsrMsgList depois de inserir, apagar e inserir mensagens.
-=UsrMsgDeliver usrC "remetente:destinatario1:destinatario2:carlos::msg3:Conteudo"
+=UsrMsgDeliver usrC "remetente:destinatario1:destinatario2:carlos::msg3\nConteudo"
 =UsrMsgDel usrC 1
-=UsrMsgDeliver usrC "remetente:destinatario1:destinatario2:carlos::msg4:Conteudo"
+=UsrMsgDeliver usrC "remetente:destinatario1:destinatario2:carlos::msg4\nConteudo"
 =UsrMsgList usrC 300 "0 - From: remetente\nTo: andre; destinatario2; carlos\nAssunto\n\n1 - From: remetente\nTo: destinatario1; destinatario2; carlos\nmsg3\n\n2 - From: remetente\nTo: destinatario1; destinatario2; carlos\nmsg4\n\n"
 
 

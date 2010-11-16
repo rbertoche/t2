@@ -59,12 +59,12 @@ int UsrPrint( Usr *u, char *buffer, int size)
 int printmsgheader ( char * msg, char *_buffer, int size)
 {
 /* formato da string msg:
-remetente:destinatario1:destinatario2: ... :destinatarioN::Assunto:conteudodamensagem\0
+remetente:destinatario1:destinatario2: ... :destinatarioN::Assunto\nconteudodamensagem\0
 */
 	char *buffer = _buffer;
 	int bToWrite=0;
 
-/*	if ( ( strstr(strstr(msg,"::"),":") - msg ) > size )
+/*	if ( ( strstr(strstr(msg,"::"),"\n") - msg ) > size )
 		return buffer - _buffer;
 */
 	/* Coloca o remetente */
@@ -88,10 +88,9 @@ remetente:destinatario1:destinatario2: ... :destinatarioN::Assunto:conteudodamen
 	(*buffer++) = '\n';
 
 	/* printa assunto */
-	bToWrite = strchr( msg, ':' ) - msg;
+	bToWrite = 1 + strchr( msg, '\n' ) - msg;
 	memcpy ( buffer, msg, bToWrite );
 	buffer += bToWrite;
-	(*buffer++) = '\n';
 	(*buffer++) = '\n';
 	*buffer = '\0'; /* Poe um \0 que pode ser sobrescrito */
 	/* msg += 1 + bToWrite; So e' necessario caso o header aumente */
@@ -102,8 +101,7 @@ int printmsgcontent ( char * msg, char *buffer, int size)
 {
 	int msgLen;
 	msg = 2 + strstr(msg,"::");
-	*strstr(msg,":") = '\n'; /* Troca o separador : por \n */
-	msgLen = strlen(msg) + 1; /* +1 pelo \n final */
+	msgLen = 1 + strlen(msg);
 	if ( size < msgLen )
 		return 0;
 	strcpy(buffer,msg);
