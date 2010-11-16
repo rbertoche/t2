@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <ctype.h>
 #include "netmgr.h"
 #include "graph.h"
 
@@ -19,6 +20,9 @@ static const char NETDELMSG_NOTFOUND[  ] = "Numero de mensagem invalido.\n";
 static const char NETWRITE_MEMERROR[  ] = "Erro: Nao pude alocar memoria.\n";
 static const char NETWRITE_DELIVERERROR[  ] = "Erro: Funcao de entrega do modulo usr falhou.\n";
 static const char NETWRITE_OK[  ] = "Mensagem enviada.\n";
+static const char NETEDITME_OK[  ] = "Perfil salvo.\n";
+
+
 
 static const char ARGNUMERROR[  ] = "Numero de argumentos menor que o esperado.\n";
 
@@ -90,11 +94,6 @@ const char* NetDelMe()
 	GraphDelNode (getGraphInstance());
 	usr = NULL;
 	return NETDELME_OK;
-}
-
-const char* NetEditMe()
-{
-	return NULL;
 }
 
 const char* NetAddFriend (char *id)
@@ -259,4 +258,26 @@ const char* NetDelMsg (int msgNumber)
 const char* NetWhoAmI (void)
 {
 	return usr->id;
+}
+
+const char* NetEditMe (int argc, const char *argv[])
+{
+	char str[50];
+	int i;
+	printf("Entre um novo nome ate 50 caracteres ou pressione enter\n");
+	if (fgets(str,50,stdin) && ! isspace( *str )){
+		str[strlen(str)-1]='\0';
+		strcpy(usr->name,str);
+	}
+	printf("Entre um novo interesse ou pressione enter\n");
+	if (fgets(str,50,stdin) && ! isspace( *str )){
+		str[strlen(str)-1]='\0';
+		usr->interest = UsrStrToIn(str);
+	}
+	printf("Entre uma nova idade ou pressione enter\n");
+	if (fgets(str,50,stdin) && ! isspace( *str )){
+		sscanf(str,"%d\n",&i);
+		usr->age = i;
+	}
+	return NETEDITME_OK;
 }

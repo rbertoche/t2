@@ -167,3 +167,12 @@ int UsrMsgPrint( Usr *u, int msgNumber, char *buffer, int size )
 	}
 	return 0;
 }
+
+enum interest UsrStrToIn ( const char * s)
+{
+	int i;
+	for (i=0; i < 5; i++)
+		if (!strcmp(s, sInterest[i]))
+			return i;
+	return 0;
+}

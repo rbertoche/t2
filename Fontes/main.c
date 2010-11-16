@@ -24,6 +24,7 @@ const char *lcmd_write (int argc, const char *argv[]);
 const char *lcmd_read (int argc, const char *argv[]);
 const char *lcmd_search (int argc, const char *argv[]);
 const char *lcmd_mail (int argc, const char *argv[]);
+const char *lcmd_editme (int argc, const char *argv[]);
 
 struct cli_cmd_tuple unlogged_cmds[] = {
 	{ "login", &ucmd_login },
@@ -36,6 +37,7 @@ struct cli_cmd_tuple unlogged_cmds[] = {
 struct cli_cmd_tuple logged_cmds[] = {
 	{ "logout", &lcmd_logoff },
 	{ "delme", &lcmd_delme },
+	{ "editme", &lcmd_editme },
 	{ "read", &lcmd_read },
 	{ "write", &lcmd_write },
 	{ "addfriend", &lcmd_addfriend },
@@ -216,5 +218,11 @@ const char *lcmd_search (int argc, const char *argv[])
 const char *lcmd_mail (int argc, const char *argv[])
 {
 	printf ("%s", NetMail ());
+	return NULL;
+}
+
+const char *lcmd_editme (int argc, const char *argv[])
+{
+	printf("%s", NetEditMe());
 	return NULL;
 }

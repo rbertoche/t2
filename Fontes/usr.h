@@ -181,6 +181,19 @@ int UsrMsgPrint( Usr *u, int msg, char *buffer, int buffersize );
 ***********************************************************************/
 int UsrMsgDel ( Usr *u, int msg);
 
+/***********************************************************************
+*
+*	$FC Funcao: UsrStrToInterest
+*
+*	$EP Parametros
+*		$P s - String a ser transformada para enum
+*
+*	$ED Descricao da funcao
+*       Dada uma string, retorna o enum correspondente caso haja algum
+*	interesse com o mesmo nome. Caso contrario retorna INVALID.
+*
+***********************************************************************/
+enum interest UsrStrToIn ( const char * s);
 #endif /* USR_ */
 
 
