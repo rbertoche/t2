@@ -117,7 +117,7 @@ const char* NetWrite (int destC, char * destV)
 }
 
 const char* NetSearch (		int isFriend,
-				char *id,
+				const char *id,
 				enum interest in,
 				int minAge,
 				int maxAge)

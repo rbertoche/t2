@@ -33,7 +33,7 @@ const char* NetEditMe();
 
 void switchUsr (const char *id);
 
-const char* NetSearch (int isFriend, char *id, enum interest in, int minAge, int maxAge);
+const char* NetSearch (int isFriend, const char *id, enum interest in, int minAge, int maxAge);
 /* posivelmente adicionar uma string com regexp sobre o nome mais tarde */
 
 /* TODO: Mesmo usuario pode ser adicionado multiplas vezes? */
@@ -49,6 +49,8 @@ const char* NetRead (int msgNumber);
 const char* NetDelMsg (int msgNumber);
 
 const char* NetWhoAmI ();
+
+const char* NetMail ();
 
 #endif /* NETMGR_ */
 
