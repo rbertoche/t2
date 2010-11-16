@@ -50,7 +50,7 @@ int UsrPrint( Usr *u, char *buffer, int size)
 	return snprintf( buffer, size,
 				"%s\n"
 				"%s\n"
-				"Idade:%d\n"
+				"Idade: %d\n"
 				"Interesse: %s\n"
 				"\n"
 			,u->id,u->name,u->age,sInterest[u->interest]);
@@ -91,6 +91,8 @@ remetente:destinatario1:destinatario2: ... :destinatarioN::Assunto:conteudodamen
 	bToWrite = strchr( msg, ':' ) - msg;
 	memcpy ( buffer, msg, bToWrite );
 	buffer += bToWrite;
+	(*buffer++) = '\n';
+	(*buffer++) = '\n';
 	*buffer = '\0'; /* Poe um \0 que pode ser sobrescrito */
 	/* msg += 1 + bToWrite; So e' necessario caso o header aumente */
 	return buffer - _buffer;
@@ -117,7 +119,7 @@ int UsrMsgDeliver ( Usr *u, msg m)
 	return condRet;
 }
 
-int UsrDelMsg ( Usr *u, int id)
+int UsrMsgDel ( Usr *u, int id)
 {
 	LIS_tpCondRet condRet;
 	condRet = LIS_AvancarElementoCorrente(
@@ -137,7 +139,7 @@ int UsrMsgList( Usr *u, char *_buffer, int size )
 	char *buffer = _buffer;
 	IrInicioLista( u->msgs );
 	while (LIS_CondRetOK ==  LIS_AvancarElementoCorrente( u->msgs,1 )){
-		bWritten = sprintf(buffer, "%d - ",i++);
+		bWritten = snprintf(buffer, size, "%d - ",i++);
 		buffer += bWritten;
 		size -= bWritten;
 		bWritten = printmsgheader( LIS_ObterValor ( u->msgs ) ,

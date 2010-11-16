@@ -7,7 +7,7 @@
 #include "generico.h"
 #include "lerparm.h"
 enum {USRVSIZE = 10};
-enum {BUFFSIZE = 10};
+enum {BUFFSIZE = 100};
 
 
 Usr*  vUsr[USRVSIZE];
@@ -34,19 +34,22 @@ static const char USRMSGDEL     [] = "=UsrMsgDel";
  *  da mesma forma. Coloque no mesmo escopo algum codigo semelhante ao acima
  *  para declarar e ler variaveis.
  */
-#define		__TestFWithBuffer__( _FuncCall_ ) \
+#define		__TestFWithBuffer__( _FuncCall_, _FuncString_) \
 		for (i=0; i < BUFFSIZE; i++) \
 			zeros[i] = buffer[i]=0; \
 		usrret = _FuncCall_; \
 \
-		tstret |= TST_CompararBool ( 1 , usrret > limit, \
-				"_FuncCall_ disse que printou mais que limit" \
-				"bytes."); \
 		tstret |= TST_CompararString ( expected, buffer, \
-				"_FuncCall_ emitiu uma string incorreta."); \
+				_FuncString_ " emitiu uma string incorreta.");\
+		tstret |= TST_CompararBool ( 1 , usrret > limit, \
+				_FuncString_ " disse que printou mais que " \
+				"limit bytes."); \
+		tstret |= TST_CompararInt ( strlen(buffer) , usrret, \
+				_FuncString_ " disse que printou mais bytes " \
+				"do que realmente printou"); \
 		tstret |= TST_CompararEspaco ( zeros , \
 				buffer + limit, BUFFSIZE-limit, \
-				"_FuncCall_ permitiu buffer overflow.");
+				_FuncString_ " permitiu buffer overflow.");
 
 
 TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
@@ -61,15 +64,16 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		return TST_CondRetOK;
 
 	} else if (! strcmp (CmdTeste, USRNEW)) {
-		int age, usr, argc = 0;
+		int age,interest, usr, argc = 0;
 		char id[15];
 		char name[50];
-		argc = LER_LerParametros ("issi", &usr, id, name, &age);
-		if (argc != 3 || usr > USRVSIZE || usr < 0)
+		argc = LER_LerParametros ("issii", &usr, id, name, &age, &interest);
+		if (argc != 5 || usr > USRVSIZE || usr < 0)
 			return TST_CondRetParm;
 		vUsr[usr] = UsrNew( id );
 		strcpy (vUsr[usr]->name, name);
 		vUsr[usr]->age=age;
+		vUsr[usr]->interest=interest;
 		return TST_CondRetOK;
 
 
@@ -83,7 +87,8 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if (argc != 3 || usr > USRVSIZE || usr < 0 || limit > BUFFSIZE)
 			return TST_CondRetParm;
 
-		__TestFWithBuffer__( UsrPrint(vUsr[usr], buffer, limit) )
+		__TestFWithBuffer__( UsrPrint(vUsr[usr], buffer, limit),
+				"UsrPrint" )
 
 		return (tstret) ? (TST_CondRetErro) : (TST_CondRetOK);
 
@@ -99,7 +104,8 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if (argc != 3 || usr > USRVSIZE || usr < 0 || limit > BUFFSIZE)
 			return TST_CondRetParm;
 
-		__TestFWithBuffer__( UsrMsgList(vUsr[i], buffer, limit) )
+		__TestFWithBuffer__( UsrMsgList(vUsr[i], buffer, limit),
+				"UsrMsgList")
 
 		return (tstret) ? (TST_CondRetErro) : (TST_CondRetOK);
 
@@ -114,7 +120,8 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if (argc != 4 || usr > USRVSIZE || usr < 0 || limit > BUFFSIZE)
 			return TST_CondRetParm;
 
-		__TestFWithBuffer__( UsrMsgPrint(vUsr[i], msg, buffer, limit) )
+		__TestFWithBuffer__( UsrMsgPrint(vUsr[i], msg, buffer, limit),
+				"UsrMsgPrint")
 
 		return (tstret) ? (TST_CondRetErro) : (TST_CondRetOK);
 

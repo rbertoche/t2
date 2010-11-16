@@ -2,7 +2,7 @@
 // Autor:	Raphael
 // Data:	15/11/2010
 
-
+== Declara variaveis
 =declararparm   InWork    int 1
 =declararparm   InFriends int 2
 =declararparm   InSex     int 3
@@ -17,15 +17,28 @@
 =declararparm   usrDidade int 50
 
 == Cria usuarios
-=UsrNew usrA andre "Andre Andrade" usrAidade InWork
-=UsrNew usrB breno "Breno Borges" usrBidade InFriends
-=UsrNew usrC carlos "Carlos Coral" usrCidade InSex
-=UsrNew usrD denis "Denis Dias" usrDidade InNone
-=UsrPrint usrA 80 "andre
-Andre Andrade
-Idade: 20
-Interesse: Work
+=UsrNew usrA "andre" "Andre Andrade" usrAidade InWork
+=UsrNew usrB "breno" "Breno Borges" usrBidade InFriends
+=UsrNew usrC "carlos" "Carlos Coral" usrCidade InSex
+=UsrNew usrD "denis" "Denis Dias" usrDidade InNone
+== Testa UsrPrint
+=UsrPrint usrA 100 "andre\nAndre Andrade\nIdade: 20\nInteresse: Work\n\n"
+
+=UsrPrint usrB 80 "breno\nBreno Borges\nIdade: 30\nInteresse: Friends\n\n"
+=UsrPrint usrC 80 "carlos\nCarlos Coral\nIdade: 40\nInteresse: Sex\n\n"
+=UsrPrint usrD 80 "denis\nDenis Dias\nIdade: 50\nInteresse: None\n\n"
+== Entrega mensagens para ler depois
+=UsrMsgDeliver usrA 80 "rementente:andre:destinatario2:carlos::Assunto:Conteudo"
+=UsrMsgDeliver usrC 80 "rementente:andre:destinatario2:carlos::Assunto:Conteudo"
+
+
+== Testa UsrMsgList com apenas 1 mensagem
+=UsrMsgList usrA 80 "0 - From: remetente
+To: andre; destinatario2
+Assunto
 
 "
 
-==
+== Testa exclusao de mensagem
+=UsrMsgDel usrA 0
+=UsrMsgList usrA 10 ""
