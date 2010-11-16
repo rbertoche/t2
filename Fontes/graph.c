@@ -301,7 +301,7 @@ void *GraphNodesGetNext (Graph *g)
 	LIS_tppLista l;
 	if (!g || !g->currentNode)
 		return NULL;
-	l = LIS_ObterValor(g->nodes);
+	l = g->nodes;
 	if (!l)
 		return NULL;
 	ret = ((Node*)LIS_ObterValor (l))->data;
