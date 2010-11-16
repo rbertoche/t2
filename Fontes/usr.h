@@ -4,7 +4,7 @@
 *
 *	Arquivo gerado:		usr.h
 *
-*	Autores: rlb 
+*	Autores: rlb
 *
 *	$ED Descricao do modulo
 *
@@ -17,8 +17,10 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 #endif
 /***********************************************************************
 *	$TC Tipo de Dados: interest
-*	$ED Descrição do tipo
-*		Enumera��o de possiveis interesses de usu�rios da rede.
+*	$ED Descricao do tipo
+*		Enumera��o de possiveis interesses de usu�rios da rede.
+*	$ED Descricao do tipo
+*		Enumeracao de possiveis interesses de usuarios da rede.
 ***********************************************************************/
 enum interest {
 	INVALID,
@@ -30,8 +32,10 @@ enum interest {
 
 /***********************************************************************
 *	$TC Tipo de Dados: usr
-*	$ED Descrição do tipo
-*		Estrutura de defini��o de usu�rio da rede.
+*	$ED Descricao do tipo
+*		Estrutura de defini��o de usu�rio da rede.
+*	$ED Descricao do tipo
+*		Estrutura de definicao de usuario da rede.
 ***********************************************************************/
 struct usr{
 	char id[15];
@@ -49,17 +53,34 @@ typedef char *msg;
 *	$FC Funcao: UsrNew
 *
 *	$EP Parametros
-*		$C id - identificador do usu�rio
+*		$C id - identificador do usuario
 *
-*	$ED Descrição da função
-*		Cria (aloca) um novo n� da estrutura Usr.
+*	$ED Descricao da funcao
+*		Cria (aloca) um novo n� da estrutura Usr.
+*	$ED Descricao da funcao
+*		Cria (aloca) um novo no da estrutura Usr.
 *
 *	$FV Valor retornado
 *		Ponteiro para estrutura us alocada.
 *
-***********************************************************************/	
+***********************************************************************/
 Usr *UsrNew( const char id[15] );
 
+/***********************************************************************
+*
+*	$FC Funcao: UsrDel
+*
+*	$EP Parametros
+*		$P u - ponteiro para estrutura usr, contendo o usu�rio a ser deletado
+*
+*	$ED Descricao da funcao
+*		Desaloca a lista de mensagens do usu�rio bem como a sua estrutura
+*       da mem�ria.
+*
+*	$FV Valor retornado
+*		N�mero de caractreres impressos.
+*
+***********************************************************************/
 void UsrDel( void *u );
 
 /***********************************************************************
@@ -67,11 +88,11 @@ void UsrDel( void *u );
 *	$FC Funcao: UsrPrint
 *
 *	$EP Parametros
-*		$P u - ponteiro para estrutura usr, contendo o usu�rio desejado
-*       $P buffer - string onde ficar� o resultado da "impress�o"
+*		$P u - ponteiro para estrutura usr, contendo o usuario desejado
+*       $P buffer - string onde ficara o resultado da "impressao"
 *       $i buffersize - delimitador de tamanho da string buffer
 *
-*	$ED Descrição da função
+*	$ED Descricao da funcao
 *		Gera uma string de informacoes sobre o usuario sobre buffer, com menos
 *       que buffersize caracteres.
 *
@@ -86,11 +107,11 @@ int UsrPrint( Usr *u, char *buffer, int buffersize );
 *	$FC Funcao: UsrMsgList
 *
 *	$EP Parametros
-*		$P u - ponteiro para estrutura usr, contendo o usu�rio desejado
-*       $P buffer - string onde ficar� o resultado da "listagem"
+*		$P u - ponteiro para estrutura usr, contendo o usuario desejado
+*       $P buffer - string onde ficara o resultado da "listagem"
 *       $i buffersize - delimitador de tamanho da string buffer
 *
-*	$ED Descrição da função
+*	$ED Descricao da funcao
 *		Gera uma string de informacoes sobre o usuario sobre buffer, com menos
 *       que buffersize caracteres.
 *
@@ -105,12 +126,14 @@ int UsrMsgList( Usr *u, char *buffer, int buffersize );
 *	$FC Funcao: UsrMsgDeliver
 *
 *	$EP Parametros
-*		$P u - ponteiro para estrutura usr, contendo o usu�rio desejado
-*       $P m - mensagem a ser entregue ao usu�rio. 
+*		$P u - ponteiro para estrutura usr, contendo o usuario desejado
+*       $P m - mensagem a ser entregue ao usuario.
 *
-*	$ED Descrição da função
+*	$ED Descricao da funcao
+*		Coloca a mensagem recebida na lista de mensagens do usu�rio u.
+*	$ED Descricao da funcao
 *		Coloca a mensagem recebida na lista de mensagens do usu�rio u.
-*      
+*
 *
 *	$FV Valor retornado
 *		Retorna o retorno da chamada LIS_InserirElementoApos
@@ -124,15 +147,15 @@ int UsrMsgDeliver ( Usr *u, msg m);
 *	$FC Funcao: UsrMsgPrint
 *
 *	$EP Parametros
-*		$P u - ponteiro para estrutura usr, contendo o usu�rio desejado
-*       $i msg - mensagem a ser entregue ao usu�rio. 
-*       $P buffer - string onde ficar� o resultado da "listagem"
+*		$P u - ponteiro para estrutura usr, contendo o usuario desejado
+*       $i msg - mensagem a ser entregue ao usu�rio.
+*       $P buffer - string onde ficara o resultado da "listagem"
 *       $i buffersize - delimitador de tamanho da string buffer
 *
-*	$ED Descrição da função
-*		Gera uma string contendo a mensagem numero msg da lista de mensagens 
+*	$ED Descricao da funcao
+*		Gera uma string contendo a mensagem numero msg da lista de mensagens
 *       de u sobre buffer, com menos que buffersize caracteres.
-*      
+*
 *
 *	$FV Valor retornado
 *       N�mero de caracteres impressos.
@@ -142,21 +165,21 @@ int UsrMsgPrint( Usr *u, int msg, char *buffer, int buffersize );
 
 /***********************************************************************
 *
-*	$FC Funcao: UsrMsgDel
+*	$FC Funcao: UsrDelMsg
 *
 *	$EP Parametros
-*		$P u - ponteiro para estrutura usr, contendo o usu�rio desejado
-*       $i msg - mensagem a ser deletada do usu�rio. 
+*		$P u - ponteiro para estrutura usr, contendo o usuario desejado
+*       $i msg - mensagem a ser deletada do usuario.
 *
-*	$ED Descrição da função
+*	$ED Descricao da funcao
 *       Exclui mensagem numero msg da lista de mensagens de u.
 *
 *	$FV Valor retornado
-*       Retorna 0 caso nao tenha recebido nenhum erro do m�dulo de 
+*       Retorna 0 caso nao tenha recebido nenhum erro do m�dulo de
 *       listas.
 *
 ***********************************************************************/
-int UsrMsgDel ( Usr *u, int msg);
+int UsrDelMsg ( Usr *u, int msg);
 
 #endif /* USR_ */
 
