@@ -304,7 +304,7 @@ void *GraphNodesGetNext (Graph *g)
 	l = g->nodes;
 	if (!l)
 		return NULL;
-	ret = ((Node*)LIS_ObterValor (l))->data;
+	ret = ((Node*)LIS_ObterValor (LIS_ObterValor(l)))->data;
 	if (g->nodesOld == ret){ /* Se esse dado ja' repitiu, ja terminou a lista */
 		return NULL;
 	}
