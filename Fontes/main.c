@@ -51,9 +51,12 @@ struct cli_cmd_tuple logged_cmds[] = {
 
 static char cmd_buff[1024];
 static int logged = 0;
+static int ScriptMode = 0;
 
 int main (int argc, char *argv[])
 {
+	if (argc >= 2 && argv[1][0] == '-' && argv[1][1] == 's')
+		ScriptMode = 1;
 	cli_register_tuple (unlogged_cmds);
 	while (handle_commands ())
 		;
@@ -69,10 +72,12 @@ const char *cmd_exit (int argc, const char *argv[])
 int handle_commands (void)
 {
 	while (!feof(stdin)){
-		if (logged){
-			printf ("%s $ ", NetWhoAmI() );
-		} else {
-			printf ("admin $ ");
+		if (!ScriptMode){
+			if (logged){
+				printf ("%s $ ", NetWhoAmI() );
+			} else {
+				printf ("admin $ ");
+			}
 		}
 		cmd_buff[0] = '\0';
 		fgets (cmd_buff, sizeof (cmd_buff), stdin);
