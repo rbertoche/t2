@@ -23,7 +23,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *		Enumeracao de possiveis interesses de usuarios da rede.
 ***********************************************************************/
 enum interest {
-	INVALID,
+	INVALID = 0,
 	WORK,
 	FRIENDS,
 	SEX,
