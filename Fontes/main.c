@@ -13,7 +13,6 @@ const char *ucmd_error (int argc, const char *argv[]);
 const char *ucmd_help (int argc, const char *argv[]);
 const char *ucmd_register (int argc, const char *argv[]);
 const char *ucmd_login (int argc, const char *argv[]);
-const char *ucmd_didyou_mean (int argc, const char *argv[]);
 
 const char *lcmd_error (int argc, const char *argv[]);
 const char *lcmd_help (int argc, const char *argv[]);
@@ -21,7 +20,9 @@ const char *lcmd_logoff (int argc, const char *argv[]);
 const char *lcmd_addfriend (int argc, const char *argv[]);
 const char *lcmd_search (int argc, const char *argv[]);
 const char *lcmd_delme (int argc, const char *argv[]);
-const char *lcmd_rmfriend (int argc, const char *argv[]);
+const char *lcmd_unfriend (int argc, const char *argv[]);
+const char *lcmd_read (int argc, const char *argv[]);
+const char *lcmd_write (int argc, const char *argv[]);
 
 struct cli_cmd_tuple unlogged_cmds[] = {
 	{ "login", &ucmd_login },
@@ -34,21 +35,22 @@ struct cli_cmd_tuple unlogged_cmds[] = {
 struct cli_cmd_tuple logged_cmds[] = {
 	{ "logout", &lcmd_logoff },
 	{ "delme", &lcmd_delme },
+	{ "read", &lcmd_read },
+	{ "write", &lcmd_write },
 	{ "addfriend", &lcmd_addfriend },
-	{ "rmfriend", &lcmd_rmfriend },
+	{ "rmfriend", &lcmd_unfriend },
 	{ "search", &lcmd_search },
 	{ "exit", &cmd_exit },
 	{ NULL, &lcmd_error },
 };
 
-char cmd_buff[1024];
-char ans_buff[1024];
-const char *ans_ptr = NULL;
-int logged = 0;
+static char cmd_buff[1024];
+static int logged = 0;
 
 int main (int argc, char *argv[])
 {
 	cli_register_tuple (unlogged_cmds);
+	ucmd_help (0, NULL);
 	while (handle_commands ())
 		;
 	printf ("\n");
@@ -70,17 +72,7 @@ int handle_commands (void)
 		}
 		cmd_buff[0] = '\0';
 		fgets (cmd_buff, sizeof (cmd_buff), stdin);
-		switch (cmd_buff[0]){
-		case '\0':
-			printf ("\n");
-		case '\n':
-			continue;
-		default: break;
-		}
-		ans_ptr = cli_call (cmd_buff);
-		if (ans_ptr != NULL)
-			printf ("%s", ans_ptr);
-		ans_ptr = NULL;
+		cli_call (cmd_buff);
 	}
 }
 
@@ -93,14 +85,14 @@ const char *ucmd_register (int argc, const char *argv[])
 	if (argc != 2){
 		return ucmd_help (0, NULL);
 	}
-	return NetNewUser (argv[1]);
+	printf ("%s", NetNewUser (argv[1]));
+	return NULL;
 }
 
 const char *ucmd_error (int argc, const char *argv[])
 {
-	sprintf (ans_buff, "invalid command '%s'\n",
-			argv[0]);
-	return ans_buff;
+	printf ("invalid command '%s'\n", argv[0]);
+	return NULL;
 }
 
 const char *ucmd_help (int argc, const char *argv[])
@@ -122,10 +114,10 @@ const char *ucmd_login (int argc, const char *argv[])
 			logged = 1;
 			cli_register_tuple (logged_cmds);
 		} else {
-			sprintf (ans_buff, "login as '%s' failed\n", argv[1]);
+			printf ("login as '%s' failed\n", argv[1]);
 		}
 	}
-	return ans_buff;
+	return NULL;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -134,8 +126,8 @@ const char *ucmd_login (int argc, const char *argv[])
 
 const char *lcmd_error (int argc, const char *argv[])
 {
-	sprintf (ans_buff, "invalid command '%s'\n", argv[0]);
-	return ans_buff;
+	printf ("invalid command '%s'\n", argv[0]);
+	return NULL;
 }
 
 const char *lcmd_help (int argc, const char *argv[])
@@ -148,16 +140,17 @@ const char *lcmd_logoff (int argc, const char *argv[])
 {
 	logged = 0;
 	cli_register_tuple (unlogged_cmds);
-	sprintf (ans_buff, "bye %s\n", NetWhoAmI());
-	return ans_buff;
+	printf ("bye %s\n", NetWhoAmI());
+	return NULL;
 }
 
 const char *lcmd_addfriend (int argc, const char *argv[])
 {
 	if (argc != 2){
-		sprintf (ans_buff, "syntax is %s user_id\n", argv[0]);
+		printf ("syntax is %s user_id\n", argv[0]);
 	}
-	return NetAddFriend ((char*)argv[1]);
+	printf ("%s", NetAddFriend ((char*)argv[1]));
+	return NULL;
 }
 
 const char *lcmd_search (int argc, const char *argv[])
@@ -168,13 +161,28 @@ const char *lcmd_search (int argc, const char *argv[])
 const char *lcmd_delme (int argc, const char *argv[])
 {
 	lcmd_logoff (0, NULL);
-	return NetDelMe();
+	printf ("%s", NetDelMe());
+	return NULL;
 }
 
 const char *lcmd_unfriend (int argc, const char *argv[])
 {
 	if (argc != 2){
-		sprintf (ans_buff, "syntax is %s user_id\n", argv[0]);
+		printf ("syntax is %s user_id\n", argv[0]);
+		return NULL;
 	}
-	return NetUnfriend ((char*)argv[1]);
+	printf ("%s", NetUnfriend ((char*)argv[1]));
+	return NULL;
+}
+
+const char *lcmd_read (int argc, const char *argv[])
+{
+	printf ("unimplemented\n");
+	return NULL;
+}
+
+const char *lcmd_write (int argc, const char *argv[])
+{
+	printf ("unimplemented\n");
+	return NULL;
 }
