@@ -7,7 +7,7 @@
 *
 *	Arquivo gerado:		cli
 *
-*	Autores: rlbgacmp
+*	Autores: rlb gac mpc
 *
 *	$HA Histórico de evolução:
 *		Vide repositorio Git
