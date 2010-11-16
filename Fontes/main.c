@@ -5,10 +5,10 @@
 #include "usr.h"
 
 int handle_commands (void);
+
 const char *cmd_exit (int argc, const char *argv[]);
 
 const char *ucmd_newUser (int argc, const char *argv[]);
-const char *invalid_command (int argc, const char *argv[]);
 const char *ucmd_error (int argc, const char *argv[]);
 const char *ucmd_help (int argc, const char *argv[]);
 const char *ucmd_register (int argc, const char *argv[]);
@@ -18,11 +18,12 @@ const char *lcmd_error (int argc, const char *argv[]);
 const char *lcmd_help (int argc, const char *argv[]);
 const char *lcmd_logoff (int argc, const char *argv[]);
 const char *lcmd_addfriend (int argc, const char *argv[]);
-const char *lcmd_search (int argc, const char *argv[]);
 const char *lcmd_delme (int argc, const char *argv[]);
 const char *lcmd_unfriend (int argc, const char *argv[]);
-const char *lcmd_read (int argc, const char *argv[]);
 const char *lcmd_write (int argc, const char *argv[]);
+const char *lcmd_read (int argc, const char *argv[]);
+const char *lcmd_search (int argc, const char *argv[]);
+const char *lcmd_mail (int argc, const char *argv[]);
 
 struct cli_cmd_tuple unlogged_cmds[] = {
 	{ "login", &ucmd_login },
@@ -38,8 +39,9 @@ struct cli_cmd_tuple logged_cmds[] = {
 	{ "read", &lcmd_read },
 	{ "write", &lcmd_write },
 	{ "addfriend", &lcmd_addfriend },
-	{ "rmfriend", &lcmd_unfriend },
 	{ "search", &lcmd_search },
+	{ "rmfriend", &lcmd_unfriend },
+	{ "mail", &lcmd_mail },
 	{ "exit", &cmd_exit },
 	{ NULL, &lcmd_error },
 };
@@ -153,11 +155,6 @@ const char *lcmd_addfriend (int argc, const char *argv[])
 	return NULL;
 }
 
-const char *lcmd_search (int argc, const char *argv[])
-{
-	return NULL;
-}
-
 const char *lcmd_delme (int argc, const char *argv[])
 {
 	lcmd_logoff (0, NULL);
@@ -167,22 +164,57 @@ const char *lcmd_delme (int argc, const char *argv[])
 
 const char *lcmd_unfriend (int argc, const char *argv[])
 {
-	if (argc != 2){
-		printf ("syntax is %s user_id\n", argv[0]);
-		return NULL;
+	int i;
+	for (i=1; i < argc; i++){
+		printf ("%s", NetUnfriend ((char*)argv[i]));
 	}
-	printf ("%s", NetUnfriend ((char*)argv[1]));
 	return NULL;
 }
 
 const char *lcmd_read (int argc, const char *argv[])
 {
-	printf ("unimplemented\n");
+	int i;
+	for (i=1; i < argc; i++){
+		int k;
+		sscanf (argv[i], "%d", &k);
+		printf("%s", NetRead (k));
+	}
 	return NULL;
 }
 
 const char *lcmd_write (int argc, const char *argv[])
 {
-	printf ("unimplemented\n");
+	NetWrite (argc-1, argv++);
+	return NULL;
+}
+
+const char *lcmd_search (int argc, const char *argv[])
+{
+	int isFriend = 0, minAge = 0, maxAge = 0x7FFFFF;
+	const char *id = NULL;
+	int in;
+
+	if (argc != 5){
+		printf ("%s\n"
+				"isFriend\n"
+				"interest\n"
+				"minAge\n"
+				"maxAge\n",
+				argv[0]
+		       );
+		return NULL;
+	}
+	sscanf (argv[1], "%d", &isFriend);
+	id = argv[2];
+	sscanf (argv[3], "%d", &in);
+	sscanf (argv[4], "%d", &minAge);
+	sscanf (argv[5], "%d", &maxAge);
+	printf ("%s", NetSearch (isFriend, id, in, minAge, maxAge));
+	return NULL;
+}
+
+const char *lcmd_mail (int argc, const char *argv[])
+{
+	printf ("%s", NetMail ());
 	return NULL;
 }
