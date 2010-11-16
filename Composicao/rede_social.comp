@@ -1,0 +1,28 @@
+# Makefile TestCli
+
+[Diretorios]
+
+Nome        =  rede_social
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+def         =  ..\Tabelas
+
+[Modulos]
+main
+cli
+lista
+graph
+netmgr
+usr
+
+[BuildInicio]
+/OUT:..\Produto\rede_social.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[BuildFim]
+
+[Fim]

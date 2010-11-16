@@ -7,12 +7,27 @@ del ..\objetos\*.obj
 
 REM compila lista
 pushd .
-nmake /F..\composicao\testelista.make 
+nmake /F..\composicao\testelista.make
 popd
 
 REM compila graph
 pushd .
-nmake /F..\composicao\testgraph.make 
+nmake /F..\composicao\testgraph.make
+popd
+
+REM compila usr
+pushd .
+nmake /F..\composicao\testusr.make
+popd
+
+REM compila cli
+pushd .
+nmake /F..\composicao\testcli.make
+popd
+
+REM compila cli
+pushd .
+nmake /F..\composicao\rede_social.make
 popd
 
 copy ..\produto\*.err ..\produto\tudo.err

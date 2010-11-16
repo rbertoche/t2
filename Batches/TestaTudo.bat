@@ -10,6 +10,12 @@ if errorlevel 4 goto sai
 ..\produto\testgraph        /s..\scripts\testgraph             /l..\produto\testgraph              /a..\scripts\estatisticas
 if errorlevel 4 goto sai
 
+..\produto\testusr        /s..\scripts\testeusr             /l..\produto\testusr              /a..\scripts\estatisticas
+if errorlevel 4 goto sai
+
+..\produto\testcli        /s..\scripts\testecli             /l..\produto\testcli              /a..\scripts\estatisticas
+if errorlevel 4 goto sai
+
 ..\..\ferramnt\exbestat /e..\scripts\estatisticas
 
 :sai
