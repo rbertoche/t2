@@ -40,7 +40,7 @@ const char *cli_call (char *s)
 	const char *argv[MAXARGC];
 	int argc = clitok(s,argv);
 
-	if (argc == 0) argv[0] = '\0';
+	if (argc == 0) return NULL;
 	for (	i=0;
 			userCmds[i].s
 			&& argv[0]
