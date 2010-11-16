@@ -192,25 +192,34 @@ const char *lcmd_write (int argc, const char *argv[])
 
 const char *lcmd_search (int argc, const char *argv[])
 {
-	int isFriend = 0, minAge = 0, maxAge = 0x7FFFFF;
-	const char *id = NULL;
-	int in;
+	int i, isFriend = 0, minAge = -1, maxAge = -1;
+	const char *in = NULL, *id = NULL;
 
-	if (argc != 5){
-		printf ("%s\n"
-				"isFriend\n"
-				"interest\n"
-				"minAge\n"
-				"maxAge\n",
-				argv[0]
-		       );
-		return NULL;
+	for (i=1; i < argc; i++){
+		if (argv[i][0] != '-'){
+			printf("Erro: Argumento %d, %s nao e uma opcao valida",i,argv[i]);
+			return NULL;
+		}
+		switch (argv[i][1]){
+			case 'f':
+				isFriend = 1;
+				break;
+			case 'u':
+				id = argv[++i];
+				break;
+			case 'i':
+				in = argv[++i];
+				break;
+			case 'a':
+				sscanf(argv[++i],"%d-%d",&minAge,&maxAge);
+				break;
+			default:
+				printf("Erro: Argumento %d, %s nao e uma opcao valida",i,argv[i]);
+				return NULL;
+
+		}
 	}
-	sscanf (argv[1], "%d", &isFriend);
-	id = argv[2];
-	sscanf (argv[3], "%d", &in);
-	sscanf (argv[4], "%d", &minAge);
-	sscanf (argv[5], "%d", &maxAge);
+
 	printf ("%s", NetSearch (isFriend, id, in, minAge, maxAge));
 	return NULL;
 }

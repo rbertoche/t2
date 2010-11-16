@@ -186,7 +186,7 @@ const char* NetWrite (int destC, const char ** destV)
 
 const char* NetSearch (		int isFriend,
 				const char *id,
-				enum interest in,
+				const char *in,
 				int minAge,
 				int maxAge)
 {
@@ -199,7 +199,7 @@ const char* NetSearch (		int isFriend,
 	*buffer = 0;
 	if (!id)
 		fid=1;
-	if (fin == INVALID)
+	if (!in)
 		fin=1;
 	if (-1 == minAge && minAge == maxAge);
 		fage=1;
@@ -217,8 +217,8 @@ const char* NetSearch (		int isFriend,
 
 	for(; u ; u = (*pFuncGetNext)(getGraphInstance()) )
 	{
-		if (		(fid || strcmp(u->id,id) )
-				&& (fin || u->interest == in)
+		if (		(fid || !strcmp(u->id,id) )
+				&& (fin || u->interest == UsrStrToIn(in))
 				&& (fage || (u->age >= minAge
 					&& u->age <= maxAge)) )
 		{
