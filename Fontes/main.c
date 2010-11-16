@@ -35,7 +35,7 @@ struct cli_cmd_tuple unlogged_cmds[] = {
 };
 
 struct cli_cmd_tuple logged_cmds[] = {
-	{ "logout", &lcmd_logoff },
+	{ "help", &ucmd_help },
 	{ "delme", &lcmd_delme },
 	{ "editme", &lcmd_editme },
 	{ "read", &lcmd_read },
@@ -44,6 +44,7 @@ struct cli_cmd_tuple logged_cmds[] = {
 	{ "search", &lcmd_search },
 	{ "rmfriend", &lcmd_unfriend },
 	{ "mail", &lcmd_mail },
+	{ "logout", &lcmd_logoff },
 	{ "exit", &cmd_exit },
 	{ NULL, &lcmd_error },
 };
@@ -54,7 +55,6 @@ static int logged = 0;
 int main (int argc, char *argv[])
 {
 	cli_register_tuple (unlogged_cmds);
-	ucmd_help (0, NULL);
 	while (handle_commands ())
 		;
 	printf ("\n");
@@ -105,6 +105,8 @@ const char *ucmd_help (int argc, const char *argv[])
 	printf ("lista de comandos:\n"
 			"\t+ login <user_name>\n"
 			"\t+ register <user_name>\n"
+			"\t+ help\n"
+			"\t+ exit\n"
 			);
 	return NULL;
 }
@@ -137,7 +139,18 @@ const char *lcmd_error (int argc, const char *argv[])
 
 const char *lcmd_help (int argc, const char *argv[])
 {
-	printf ("lista de possiveis comandos:\n");
+	printf ("lista de possiveis comandos:\n"
+			"\t+ logout\n"
+			"\t+ delme\n"
+			"\t+ editme\n"
+			"\t+ read <msg_id>\n"
+			"\t+ write\n"
+			"\t+ addfriend <user_id> [user_id ...]\n"
+			"\t+ rmfriend <user_id> [user_id ...]\n"
+			"\t+ search [-f] [-u id] [-i interest] [-a maxAge-minAge]\n"
+			"\t+ mail\n"
+			"\t+ exit\n"
+			);
 	return NULL;
 }
 
@@ -151,10 +164,11 @@ const char *lcmd_logoff (int argc, const char *argv[])
 
 const char *lcmd_addfriend (int argc, const char *argv[])
 {
-	if (argc != 2){
-		printf ("syntax is %s user_id\n", argv[0]);
+
+	int i;
+	for (i=1; i < argc; i++){
+		printf ("%s", NetAddFriend ((char*)argv[i]));
 	}
-	printf ("%s", NetAddFriend ((char*)argv[1]));
 	return NULL;
 }
 
@@ -198,7 +212,7 @@ const char *lcmd_search (int argc, const char *argv[])
 
 	for (i=1; i < argc; i++){
 		if (argv[i][0] != '-'){
-			printf("Erro: Argumento %d, %s nao e uma opcao valida",i,argv[i]);
+			printf("Erro: Argumento %d, %s nao e uma opcao valida\n",i,argv[i]);
 			return NULL;
 		}
 		switch (argv[i][1]){
@@ -215,7 +229,7 @@ const char *lcmd_search (int argc, const char *argv[])
 				sscanf(argv[++i],"%d:%d",&minAge,&maxAge);
 				break;
 			default:
-				printf("Erro: Argumento %d, %s nao e uma opcao valida",i,argv[i]);
+				printf("Erro: Argumento %d, %s nao e uma opcao valida\n",i,argv[i]);
 				return NULL;
 
 		}
