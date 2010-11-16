@@ -15,17 +15,13 @@ $(GRAPH)
 
 LATEXDEPS = \
 arch.1\
-fisico.eps\
-exemploa.eps
-#exemplob.eps\
-#exemploc.eps
+modelofisico.eps\
+exemplofisico.eps
 
 PDFLATEXDEPS = \
 arch.1\
-fisico.pdf\
-exemploa.pdf
-#exemplob.pdf\
-#exemploc.pdf
+modelofisico.pdf\
+exemplofisico.pdf
 
 ifeq ($(LATEX),pdflatex)
 TEXIMGEXT=%.pdf

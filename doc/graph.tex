@@ -43,8 +43,7 @@
 
 \item Procurar perfis de outros usuários filtrando por: interesse, amizade,
  idade, ID, nome
- \newline\texttt{search/list [-f] [-u userid] [-i interest] [-a minage-maxage]
- [-n name (regular expression)]}
+ \newline\texttt{search [-f] [-u userid] [-i interest] [-a minage-maxage]}
  \newline-f - mostra apenas amigos
 
 \item Adicionar novo contato (incluir usuário nos contatos)
@@ -66,7 +65,32 @@
 
 \section{Requisitos Não Funcionais}
 
-\section{Modelos}
+\begin{enumerate}
+
+
+\item Portabilidade
+
+O projeto deve suportar compilação tanto utilizando os Gnu-Make e GCC quanto
+utilizando o Visual Studio e o GMake;
+
+\item Performance
+
+Nenhum comando pode demorar mais que 10ms por usuário registrado;
+
+\item Segurança
+
+As funções que lêem da entrada padrão devem estar protegidas de
+overflow de qualquer espécie;
+
+\item Privacidade
+
+Deve ser impossível de se ler mensagens alheias e de conhecer listas de
+amigos.
+
+\end{enumerate}
+
+
+\section{Diagramas}
 \subsection{Arquitetura}
 
 \includegraphics{arch.1}
@@ -74,41 +98,21 @@
 \subsection{Modelo Físico}
 
 \ifpdf
-\includegraphics{fisico.pdf}
+\includegraphics[width=\linewidth]{modelofisico.pdf}
 \else
-\includegraphics{fisico.eps}
+\includegraphics[width=\linewidth]{modelofisico.eps}
 \fi
 
-\section{Exemplos}
+\pagebreak
+\subsection{Exemplo Físico}
 
-\subsection{Exemplo A}
+Dois usuários ligados, um usuário sem amigos, todos possuem mensagem
 
-2 usuários ligados, um usuário sem amigos, nenhuma mensagem
-
-\ifpdf
-\includegraphics[width=\linewidth]{exemploa.pdf}
-\else
-\includegraphics[width=\linewidth]{exemploa.eps}
-\fi
-
-\subsection{Exemplo B}
-
-2 usuários sem amigos, algumas mensagens entre eles
 
 \ifpdf
-%\includegraphics[width=\linewidth]{exemplob.pdf}
+\includegraphics[width=\linewidth]{exemplofisico.pdf}
 \else
-%\includegraphics[width=\linewidth]{exemplob.eps}
-\fi
-
-\subsection{Exemplo C}
-
-3 usuários ligados, nenhuma mensagem
-
-\ifpdf
-%\includegraphics[width=\linewidth]{exemploc.pdf}
-\else
-%\includegraphics[width=\linewidth]{exemploc.eps}
+\includegraphics[width=\linewidth]{exemplofisico.eps}
 \fi
 
 \end{document}
