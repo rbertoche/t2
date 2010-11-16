@@ -13,16 +13,24 @@ static int clitok (char *s,const char **argv)
 	int argc = 0;
 	int i, n = strlen (s);
 	int last_isspace;
+	int instring = 0;
 
 	argv[0] = NULL;
 	for (i=0, last_isspace=1; i<n+1; i++){
-		if (isspace (s[i]) || s[i] == '\0'){
+		if (s[i] == '"' && instring){
+			instring = 0;
+		}else if (s[i] == '"' && !instring){
+			instring = 1;
+			continue;
+		}
+		if (!instring && (isspace (s[i]) || s[i] == '\0' || s[i] == '"')){
 			if (!last_isspace){
+				if (argc >= MAXARGC) return -1;
 				last_isspace = 1;
 				argc++;
 			}
 			s[i] = '\0';
-		} else if (last_isspace){
+		}else if (last_isspace){
 			argv[argc] = s + i;
 			last_isspace = 0;
 		}
