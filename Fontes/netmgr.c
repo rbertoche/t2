@@ -129,16 +129,21 @@ const char* NetWrite (int destC, const char ** destV)
 	/* testa se os usuarios sao validos */
 	for (i=0; i<destC; i++)
 		if (!searchUsr(destV[i]))
-			offset += sprintf(&buffer[offset], "%s nao e' um username valido\n",destV[i]);
+			offset += sprintf(&buffer[offset],
+				"%s nao e' um username valido\n",destV[i]);
 	if (offset)
 		return buffer;
 
 	/* recebe o conteudo da mensagem de stdin */
-	while ((buffer[offset] = getchar()) != EOF && offset < BUFFERSIZE)
+	while (offset < BUFFERSIZE-3)
 	{
-		offset++;
+		if ((buffer[offset++] = getchar()) == '\n')
+			if ((buffer[offset++] = getchar()) == '.')
+				if ((buffer[offset++] = getchar()) == '\n')
+					break;
 	}
-	buffer[offset] = '\0';
+	buffer[offset-3] = '\0';
+	clearerr(stdin);
 
 	/* calcula o tamanho a alocar para armazenar a mensagem codificada */
 	size = 0;
