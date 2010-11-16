@@ -41,7 +41,7 @@ static const char USRMSGDEL     [] = "=UsrMsgDel";
 \
 		tstret |= TST_CompararString ( expected, buffer, \
 				_FuncString_ " emitiu uma string incorreta.");\
-		tstret |= TST_CompararBool ( 1 , usrret > limit, \
+		tstret |= TST_CompararBool ( 1 , usrret < limit, \
 				_FuncString_ " disse que printou mais que " \
 				"limit bytes."); \
 		tstret |= TST_CompararInt ( strlen(buffer) , usrret, \

@@ -23,7 +23,6 @@
 =UsrNew usrD "denis" "Denis Dias" usrDidade InNone
 == Testa UsrPrint
 =UsrPrint usrA 100 "andre\nAndre Andrade\nIdade: 20\nInteresse: Work\n\n"
-
 =UsrPrint usrB 80 "breno\nBreno Borges\nIdade: 30\nInteresse: Friends\n\n"
 =UsrPrint usrC 80 "carlos\nCarlos Coral\nIdade: 40\nInteresse: Sex\n\n"
 =UsrPrint usrD 80 "denis\nDenis Dias\nIdade: 50\nInteresse: None\n\n"
