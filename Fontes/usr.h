@@ -142,7 +142,7 @@ int UsrMsgPrint( Usr *u, int msg, char *buffer, int buffersize );
 
 /***********************************************************************
 *
-*	$FC Funcao: UsrDelMsg
+*	$FC Funcao: UsrMsgDel
 *
 *	$EP Parametros
 *		$P u - ponteiro para estrutura usr, contendo o usu�rio desejado
@@ -156,7 +156,7 @@ int UsrMsgPrint( Usr *u, int msg, char *buffer, int buffersize );
 *       listas.
 *
 ***********************************************************************/
-int UsrDelMsg ( Usr *u, int msg);
+int UsrMsgDel ( Usr *u, int msg);
 
 #endif /* USR_ */
 

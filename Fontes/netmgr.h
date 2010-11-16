@@ -31,6 +31,8 @@ const char* NetDelMe();
 const char* NetEditMe();
 /* Contem codigo de input para editar o perfil*/
 
+void switchUsr (const char *id);
+
 const char* NetSearch (int isFriend, char *id, enum interest in, int minAge, int maxAge);
 /* posivelmente adicionar uma string com regexp sobre o nome mais tarde */
 

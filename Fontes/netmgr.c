@@ -52,6 +52,11 @@ Usr *searchUsr(const char *id)
 	return NULL;
 }
 
+void switchUsr(const char *id)
+{
+	usr = searchUsr(id);
+}
+
 Usr *searchLink(const char *id)
 {
 	Usr *u;
@@ -174,7 +179,7 @@ const char* NetRead (int msgNumber)
 
 const char* NetDelMsg (int msgNumber)
 {
-	if (!UsrDelMsg(usr, msgNumber))
+	if (!UsrMsgDel(usr, msgNumber))
 		return NETDELMSG_OK;
 	return NETDELMSG_NOTFOUND;
 }
