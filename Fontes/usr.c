@@ -115,6 +115,7 @@ int printmsgcontent ( char * msg, char *buffer, int size)
 int UsrMsgDeliver ( Usr *u, msg m)
 {
 	LIS_tpCondRet condRet;
+	IrFinalLista( u->msgs ) ;
 	condRet = LIS_InserirElementoApos( u->msgs, m);
 	if (LIS_CondRetOK == condRet)
 		return 0;
@@ -124,6 +125,7 @@ int UsrMsgDeliver ( Usr *u, msg m)
 int UsrMsgDel ( Usr *u, int id)
 {
 	LIS_tpCondRet condRet;
+	IrInicioLista( u->msgs ) ;
 	condRet = LIS_AvancarElementoCorrente(
 		u->msgs ,id );
 	if (LIS_CondRetOK == condRet){
@@ -131,7 +133,6 @@ int UsrMsgDel ( Usr *u, int id)
 		IrInicioLista( u->msgs ) ;
 		return 0;
 	}
-	IrInicioLista( u->msgs ) ;
 	return condRet;
 }
 
@@ -158,6 +159,7 @@ int UsrMsgPrint( Usr *u, int msgNumber, char *buffer, int size )
 {
 	LIS_tpCondRet condRet;
 	char * msg;
+	IrInicioLista( u->msgs ) ;
 	condRet = LIS_AvancarElementoCorrente(
 		u->msgs ,msgNumber );
 	if (LIS_CondRetOK == condRet){
@@ -165,6 +167,5 @@ int UsrMsgPrint( Usr *u, int msgNumber, char *buffer, int size )
 		IrInicioLista( u->msgs ) ;
 		return printmsgcontent( msg, buffer, size);
 	}
-	IrInicioLista( u->msgs ) ;
 	return 0;
 }
