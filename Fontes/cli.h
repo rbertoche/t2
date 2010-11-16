@@ -19,7 +19,7 @@
 typedef const char * (*fncallback) (int argc, const char *argv[]);
 
 /***********************************************************************
-*	$TC Tipo de Dados: graphRet
+*	$TC Tipo de Dados: cli_cmd_tuple
 *	$ED Descrição do tipo
 *		struct utilizada para criar um registro de comando
 ***********************************************************************/
