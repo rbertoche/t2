@@ -112,7 +112,7 @@ int printmsgcontent ( char * msg, char *buffer, int size)
 	return msgLen;
 }
 
-int UsrMsgDeliver ( Usr *u, msg m)
+int UsrMsgDeliver ( Usr *u, Msg m)
 {
 	LIS_tpCondRet condRet;
 	IrFinalLista( u->msgs ) ;
