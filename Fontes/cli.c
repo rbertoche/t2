@@ -41,6 +41,7 @@ const char *cli_call (char *s)
 	int argc = clitok(s,argv);
 
 	if (argc == 0) return NULL;
+	if (argv[0][0] == '#') return NULL;
 	for (	i=0;
 			userCmds[i].s
 			&& argv[0]
