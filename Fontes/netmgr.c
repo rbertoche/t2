@@ -206,9 +206,8 @@ const char* NetSearch (		int isFriend,
 		fid=1;
 	if (!in)
 		fin=1;
-	if (-1 == minAge && minAge == maxAge);
+	if ((-1 == minAge) && (-1 == maxAge))
 		fage=1;
-
 
 	if (isFriend){
 		GraphLinksStart(getGraphInstance());

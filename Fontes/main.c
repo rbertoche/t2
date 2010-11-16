@@ -212,7 +212,7 @@ const char *lcmd_search (int argc, const char *argv[])
 				in = argv[++i];
 				break;
 			case 'a':
-				sscanf(argv[++i],"%d-%d",&minAge,&maxAge);
+				sscanf(argv[++i],"%d:%d",&minAge,&maxAge);
 				break;
 			default:
 				printf("Erro: Argumento %d, %s nao e uma opcao valida",i,argv[i]);
