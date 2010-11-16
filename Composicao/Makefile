@@ -44,13 +44,6 @@ $(OBJ)/libArcaboucoTeste.a\
 $(OBJ)/lista.o\
 $(OBJ)/testlis.o
 
-NETMGROBJ=\
-$(OBJ)/libArcaboucoTeste.a\
-$(OBJ)/usr.o\
-$(OBJ)/graph.o\
-$(OBJ)/netmgr.o\
-$(OBJ)/tstnetmgr.o
-
 USROBJ=\
 $(OBJ)/libArcaboucoTeste.a\
 $(OBJ)/lista.o\
@@ -71,7 +64,6 @@ ALLTARGS = \
 testcli\
 testgraph\
 testlista\
-testnetmgr\
 testusr\
 rede_social
 
@@ -93,9 +85,6 @@ testlista: $(LISTAOBJ)
 testgraph: $(GRAPHOBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
 	
-testnetmgr: $(NETMGROBJ)
-	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
-
 testusr: $(USROBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
 

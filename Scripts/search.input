@@ -1,0 +1,23 @@
+#Cria usuarios
+register a
+register b
+register c
+login c
+#Faz busca com usarios vazios
+search
+#Edita um usario
+editme
+Carlos
+Sex
+20
+#Faz busca outra vez
+search
+#Desloga, edita outro usuario
+logout
+login a
+editme
+Andre
+None
+27
+#Faz busca por idade, retornando a e c
+search -a 20:27
