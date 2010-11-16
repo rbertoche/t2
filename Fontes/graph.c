@@ -184,7 +184,7 @@ void GraphDelNode (Graph *g)
 		return graphInvalidCurrentNode;
 */
 	delNode(g,n);
-	g->currentNode = NULL;
+	g->currentNode = LIS_ObterValor(g->nodes);
 }
 
 void delNode (Graph *g, void *n_)
