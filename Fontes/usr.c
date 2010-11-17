@@ -64,15 +64,17 @@ remetente:destinatario1:destinatario2: ... :destinatarioN::Assunto\nconteudodame
 	char *str, *buffer = _buffer;
 	int bToWrite=0, b=0;
 
-	b = ( strstr(strstr(msg,"::"),"\n") - msg ) > size;
+	b = ( strstr(strstr(msg,"::"),"\n") - msg );
 	b += 7; /*From:\nTo:*/
 	str = msg;
 	while ( *str != ':' ){
-		bToWrite = strchr( msg, ':' ) - msg;
-		msg += bToWrite + 1; /* pula o : */
+		bToWrite = strchr( str, ':' ) - str;
+		if (bToWrite < 0)
+			break;
+		str += bToWrite + 1; /* pula o : */
 		b += 2;
 	}
-	if ( b > size )
+	if ( b > size || bToWrite < 0)
 		return buffer - _buffer;
 
 
