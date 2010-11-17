@@ -14,4 +14,11 @@
 15/10/2010|3|codificar modulo		|Consertos no modulo para passar no teste
 15/10/2010|1|revisar script de teste	|do grafo
 15/10/2010|1|revisar projeto		|Modelos e desenhos pedidos
+22/10/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+25/10/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+06/11/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+07/11/2010|3|Estudar			|Discutir algumas ideias de implenetacao, Começando 
+						a programar coisas simples.
+08/11/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+10/11/2010|3|Codificar modulo		|Pensar em arquitetura, esboçar interfaces e estruturas
 
