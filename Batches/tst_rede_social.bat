@@ -1,9 +1,8 @@
+set SCRIPT=%1
+set EXEC=..\Produto\rede_social
+set INPUT=..\Scripts\%SCRIPT%.input
+set OUTPUT=..\Scripts\%SCRIPT%.output
+set EXPECTED=..\Scripts\%SCRIPT%.expected
 
-SCRIPT="$1"
-EXEC=..\Produto\rede_social
-INPUT=..\Scripts\$SCRIPT.input
-OUTPUT=..\Scripts\$SCRIPT.output
-EXPECTED=..\Scripts\$SCRIPT.expected
-
-$EXEC -s <$INPUT >$OUTPUT
-diff $EXPECTED $OUTPUT
+%EXEC% -s <%INPUT% >%OUTPUT%
+diff %EXPECTED% %OUTPUT%
