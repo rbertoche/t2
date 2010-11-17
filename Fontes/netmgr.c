@@ -135,11 +135,11 @@ const char* NetWrite (int destC, const char ** destV)
 		return buffer;
 
 	/* recebe o conteudo da mensagem de stdin */
-	while (offset < BUFFERSIZE-3)
+	while (offset < BUFFERSIZE-4)
 	{
-		if ((buffer[offset++] = getchar()) == '\n')
-			if ((buffer[offset++] = getchar()) == '.')
-				if ((buffer[offset++] = getchar()) == '\n')
+		buffer[offset++] = getchar();
+		if ( buffer[offset-3] == '#' && (buffer[offset-2] == '#')
+				&& buffer[offset-1] == '#')
 					break;
 	}
 	buffer[offset-3] = '\0';

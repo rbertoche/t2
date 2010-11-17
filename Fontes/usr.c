@@ -61,12 +61,18 @@ int printmsgheader ( char * msg, char *_buffer, int size)
 /* formato da string msg:
 remetente:destinatario1:destinatario2: ... :destinatarioN::Assunto\nconteudodamensagem\0
 */
-	char *buffer = _buffer;
-	int bToWrite=0;
+	char *str, *buffer = _buffer;
+	int bToWrite=0, b=0;
 
-/*	if ( ( strstr(strstr(msg,"::"),"\n") - msg ) > size )
+	b = ( strstr(strstr(msg,"::"),"\n") - msg ) > size;
+	b += 7; /*From:\nTo:*/
+	str = msg;
+	while ( NULL != (str = strchr(str,':')) && str[1] != ':')
+		b + = 1;
+	if ( b > size )
 		return buffer - _buffer;
-*/
+
+
 	/* Coloca o remetente */
 	buffer += sprintf( buffer, "From: " );
 	bToWrite = strchr( msg, ':' ) - msg;

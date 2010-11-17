@@ -14,11 +14,19 @@
 15/10/2010|3|codificar modulo		|Consertos no modulo para passar no teste
 15/10/2010|1|revisar script de teste	|do grafo
 15/10/2010|1|revisar projeto		|Modelos e desenhos pedidos
-22/10/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
-25/10/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
-06/11/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
-07/11/2010|3|Estudar			|Discutir algumas ideias de implenetacao, Começando 
+22/10/2010|2|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+25/10/2010|4|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+03/11/2010|2|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+04/11/2010|3|Estudar			|Discutir algumas ideias de implenetacao, Começando
 						a programar coisas simples.
-08/11/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
-10/11/2010|3|Codificar modulo		|Pensar em arquitetura, esboçar interfaces e estruturas
+05/11/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+6/11/2010|6|Codificar modulo		|Começando a por a mao na massa, codificando usr
+8/11/2010|3|Codificar modulo		|Começando a por a mao na massa, codificando usr
+11/11/2010|3|Codificar modulo		|Começando a por a mao na massa, codificando netmgr
+13/11/2010|6|Codificar modulo		|Começando a por a mao na massa, codificando netmgr
+14/11/2010|3|Codificar modulo		|Começando a por a mao na massa, codificando netmgr
+15/11/2010|3|Revisar			|Revisando o progresso nos 2 modulos
+15/11/2010|4|Codificar modulo		|Escrevendo modulo de testes de usr
+16/11/2010|2|Codificar modulo		|Escrevendo modulo de testes de usr
+16/11/2010|2|redigir scripts 		|Escrevendo scripts de teste testes de usr
 
