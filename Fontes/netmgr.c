@@ -9,6 +9,7 @@ enum { BUFFERSIZE = 10000 };
 
 static const char NEWUSER_OK[  ] = "Novo usuario criado.\n";
 static const char NEWUSER_USEDID[  ] = "ID escolhido ja' em uso.\n";
+static const char NEWUSER_INVALID[  ] = "ID contem caracteres invalidos.\n";
 static const char NETDELME_OK[  ] = "Usuario excluido com sucesso.\n";
 static const char NETADDFRIEND_OK[  ] = "Amigo adicionado com sucesso.\n";
 static const char NETADDFRIEND_NOTFOUND[  ] = "Usuario nao encontrado.\n";
@@ -84,6 +85,8 @@ const char* NetNewUser (const char *id)
 {
 	if(searchUsr(id))
 		return NEWUSER_USEDID;
+	if(strchr(id,':'))
+		return NEWUSER_INVALID;
 	usr = UsrNew(id);
 	GraphNewNode( getGraphInstance(), usr);
 	return NEWUSER_OK;
