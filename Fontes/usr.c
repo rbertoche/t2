@@ -67,8 +67,11 @@ remetente:destinatario1:destinatario2: ... :destinatarioN::Assunto\nconteudodame
 	b = ( strstr(strstr(msg,"::"),"\n") - msg ) > size;
 	b += 7; /*From:\nTo:*/
 	str = msg;
-	while ( NULL != (str = strchr(str,':')) && str[1] != ':')
-		b + = 1;
+	while ( *str != ':' ){
+		bToWrite = strchr( msg, ':' ) - msg;
+		msg += bToWrite + 1; /* pula o : */
+		b += 2;
+	}
 	if ( b > size )
 		return buffer - _buffer;
 
