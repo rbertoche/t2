@@ -1,0 +1,14 @@
+Aluno: Gabriel Arrais Coelho
+
+15/10/2010|2|revisar projeto		|Modelos e desenhos pedidos
+22/10/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+25/10/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+06/11/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+07/11/2010|3|Estudar			|Discutir ideias de implenetacao 
+04/11/2010|3|Estudar			|Discutir ideias de implenetacao 						
+08/11/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+10/11/2010|3|Codificar modulo		|Pensar em arquitetura, esboçar interfaces e estruturas
+05/11/2010|3|Estudar			|Pensar em arquitetura, esboçar interfaces e estruturas
+16/11/2010|2|Revisar			|Revisando Diagrama de Exemplo físico
+16/11/2010|2|Codificar modulo		|Editando script de testes de usr
+
