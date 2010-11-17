@@ -1,37 +1,75 @@
 // Script:	TesteCli.script
 // Autor:	Marcelo
 // Data:	11/11/2010
+//
 
+//Comentário inicial: O módulo Cli se trata do módulo de interface genérico.
+//                    Ele funciona como uma interface de linha de comando. Neste teste, utilizaremos 
+//		      o comando ChamaFuncao seguido de uma string "nome_da_funcao parametros".
+//		      Criamos as funcoes "soma", "concat" e "echo_first_arg"  para servir de teste do módulo.
+
+
+//Inicializa Conjunto de funções 
 == Registra Tabela 0
 =RegistraTabela 0
 
-== (1 arg)
+//Chamando Soma
+
+== Chamando soma com um argumento
+
 =ChamaFuncao "soma 1" "1"
 
-== (1 arg) e um trailing space
+== Chamando soma com um argumento e um trailing space
 =ChamaFuncao "soma 1 " "1"
 
-== (2 args)
+== Chamando soma com dois argumentos
 =ChamaFuncao "soma 1 2" "3"
 
-== (3 args)
+== Chamando soma com três argumentos
 =ChamaFuncao "soma 1 2 3" "6"
 
-== Gerando uma falha
+
+//Gerando falhas em soma
+== soma sem nenhum argumento
 =ChamaFuncao "soma" "-"
 =recuperar
 
-== Chamando concatena
+== Esperando resultado errado
+=ChamaFuncao "soma 2 3" "10"
+=recuperar
+
+//Chamando Concatena
+
+== Chamando concatena com 3 chars
 =ChamaFuncao "concat a b c" "abc"
+
+== Chamando concatena com 2 chars
+=ChamaFuncao "concat l a" "la"
+
+//Gerando falhas em concatena
+
+== Esperando retorno errado
+=ChamaFuncao "concat a e f" "adc"
+=recuperar
+
+== Esperando retorno errado
+=ChamaFuncao "concat f u i" "faz"
+=recuperar
+
 
 == Forcando o tratamento de comando inexistene.
 =ChamaFuncao "asdf" "invalid function"
 
+//Troca Conjunto de funções
 == Registrando Tabela 1
 =RegistraTabela 1
 
+
+//Forcando erro sobre o retorno de echo
 == Validando a funcao echo.
 =ChamaFuncao "echo_first_arg string3" "string2"
+=recuperar
+=ChamaFuncao "echo_first_arg AA" "BB"
 =recuperar
 
 == Testanto Funcao echo da tabela 1
