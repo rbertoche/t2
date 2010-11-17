@@ -123,7 +123,7 @@ const char *ucmd_login (int argc, const char *argv[])
 	if (argc != 2){
 		return ucmd_help (0, NULL);
 	} else {
-		switchUsr (argv[1]);
+		NetUsrChange (argv[1]);
 		if (NetIsAuthenticated()){
 			logged = 1;
 			cli_register_tuple (logged_cmds);

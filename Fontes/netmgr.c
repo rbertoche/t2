@@ -62,7 +62,7 @@ Usr *searchUsr(const char *id)
 	return NULL;
 }
 
-void switchUsr(const char *id)
+void NetUsrChange(const char *id)
 {
 	usr = searchUsr(id);
 }
