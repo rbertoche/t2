@@ -35,14 +35,17 @@ struct cli_cmd_tuple {
 *		$P s - ponteiro para string de comandos.
 *
 *	$ED Descrição da função
-*		        Le e interpreta uma linha de comando.
+*	        Le e interpreta uma linha de comando.
 *               Tokeniza a string e executa a funcao registrada
-*               correspondente ao comando. Retorna -1 caso o comando nao
-*               exista ou o retorno do comando caso contrario.
+*               correspondente ao comando. Caso o comando entrado nao tenha
+*               funcao correspondente, o modulo tentara' chamar uma funcao
+*               'ferr' registrada como { NULL, ferr } caso exista ou retornara'
+*               NULL caso nao exista.
+*
 *
 *	$FV Valor retornado
-*		        -1 caso o comando nao exista ou o retorno do comando caso
-*               contrário.
+*		NULL caso haja falha, const char *retornado pela funcao de
+*		callback no caso de sucesso.
 *
 ***********************************************************************/
 
@@ -59,7 +62,11 @@ const char *cli_call (char *s);
 *               Registra um vetor de registros de comandos. Esse vetor
 *               contem o mapeamento dos comandos para as funcoes que
 *               respondem por eles.
-
+*
+*	$AE Assertiva Estrutural
+*		A ultima entrada do vetor de comandos e' { NULL, NULL } ou
+*		{ NULL, ferr }. ferr e' uma funcao que recebe os comandos
+*		sem match.
 *
 ***********************************************************************/
 void cli_register_tuple (const struct cli_cmd_tuple *cmds);
