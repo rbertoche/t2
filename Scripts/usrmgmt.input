@@ -1,0 +1,22 @@
+# Cria usuarios e loga e desloga em todos eles
+register a
+register b
+register c
+login c
+logout
+login b
+logout
+login v
+login a
+logout
+
+# Loga e deleta um usario no meio
+
+login b
+delme
+login x
+login a
+logout
+login c
+logout
+

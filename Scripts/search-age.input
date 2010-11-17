@@ -1,6 +1,5 @@
 #Cria usuarios
 register a
-register b
 register c
 login c
 #Faz busca com usarios vazios
@@ -60,5 +59,7 @@ search
 search -a 3:9
 #Printa nenhum
 search -a 3:9 -i None
-
+#Testa exibicao de amigos
+addfriend 3 5	
+search -f -a 3:9
 

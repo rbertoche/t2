@@ -1,12 +1,6 @@
 Novo usuario criado.
 Novo usuario criado.
-Novo usuario criado.
 a
-
-Idade: 0
-Interesse: Invalid
-
-b
 
 Idade: 0
 Interesse: Invalid
@@ -21,11 +15,6 @@ Entre um novo interesse ou pressione enter
 Entre uma nova idade ou pressione enter
 Perfil salvo.
 a
-
-Idade: 0
-Interesse: Invalid
-
-b
 
 Idade: 0
 Interesse: Invalid
@@ -85,11 +74,6 @@ Andre
 Idade: 27
 Interesse: None
 
-b
-
-Idade: 0
-Interesse: Invalid
-
 c
 Carlos
 Idade: 20
@@ -131,5 +115,16 @@ Idade: 6
 Interesse: Friends
 
 Nenhum usuario casou com a busca.
+Amigo adicionado com sucesso.
+Amigo adicionado com sucesso.
+3
+3
+Idade: 3
+Interesse: Sex
+
+5
+5
+Idade: 5
+Interesse: Work
 
 
