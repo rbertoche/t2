@@ -118,11 +118,9 @@ const char* getmsgcontent ( char * msg )
 int UsrMsgDeliver ( Usr *u, Msg m)
 {
 	LIS_tpCondRet condRet;
-	printf("%s\n",m);
 	IrFinalLista( u->msgs ) ;
 	condRet = LIS_InserirElementoApos( u->msgs, m);
 	if (LIS_CondRetOK == condRet)
-		printf("%s\n",LIS_ObterValor( u->msgs));
 		return 0;
 	return condRet;
 }
