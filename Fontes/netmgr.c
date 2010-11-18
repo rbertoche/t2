@@ -143,7 +143,7 @@ const char* NetWrite (char * buffer, int destC, const char ** destV)
 		size++; /* ':' */
 	}
 	size++; /* ':' */
-	size += offset;
+	size += strlen( buffer );
 
 	/* Aloca uma mensagem */
 	msg = malloc( sizeof(char) * size );
