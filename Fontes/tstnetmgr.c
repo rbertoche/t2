@@ -1,6 +1,6 @@
-//#include <stdio.h>
-//#include <string.h>
-//#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+/*#include <stdlib.h>*/
 
 #include "netmgr.h"
 #include "usr.h"
@@ -28,6 +28,7 @@ static const char NETNETMAIL        [] = "=NetNetMail";
 
 TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 {
+	int argc;
 	if (! strcmp (CmdTeste ,  NETISAUTHENTICATED) ){
 		int logado, argc = LER_LerParametros ("i", &logado);
 		if (argc != 1) return TST_CondRetParm;
