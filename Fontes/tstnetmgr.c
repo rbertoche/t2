@@ -23,7 +23,7 @@ static const char NETWRITE          [] = "=NetWrite";
 static const char NETREAD           [] = "=NetRead";
 static const char NETDELMSG         [] = "=NetDelMsg";
 static const char NETWHOAMI         [] = "=NetWhoAmI";
-static const char NETNETMAIL        [] = "=NetNetMail";
+static const char NETMAIL           [] = "=NetMail";
 
 
 TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
@@ -99,7 +99,18 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 
 	} else if (! strcmp (CmdTeste,NETDELMSG   )) {
 	} else if (! strcmp (CmdTeste,NETWHOAMI   )) {
-	} else if (! strcmp (CmdTeste,NETNETMAIL  )) {
+	} else if (! strcmp (CmdTeste,NETMAIL  )) {
+
+		char buffer[BUFFSIZE];
+		char expected[BUFFSIZE];
+
+		argc = LER_LerParametros ("s",
+			expected);
+		if (argc != 1) return TST_CondRetParm;
+		return TST_CompararString (expected,(char*) NetMail(
+			buffer, BUFFSIZE),
+			"NetMail retornou uma string incorreta.");
+
 	}
         return TST_CondRetNaoConhec;
 }
