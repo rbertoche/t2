@@ -1,7 +1,8 @@
-13/10/2010|2|especificar funcoes	|Especificacao das funcoes do Grafo
-14/10/2010|3|especificar funcoes	|Especificacao das funcoes do Grafo
-14/10/2010|3|codificar modulo		|modulo Grafo.
-14/10/2010|1|estudar			|Estudo da Arquitetura proposta.
-14/10/2010|2|redigir script de teste	|script da lista.
-15/10/2010|1|revisar script de teste	|script da lista.
-15/10/2010|3|revisar projeto		|revisao da organizacao das pastas.
+13/11/2010|2|especificar funcoes	|Especificacao das funcoes do Grafo
+14/11/2010|3|especificar funcoes	|Especificacao das funcoes do Grafo
+14/11/2010|3|codificar modulo		|modulo Grafo.
+14/11/2010|1|estudar			|Estudo da Arquitetura proposta.
+14/11/2010|2|redigir script de teste	|script da lista.
+15/11/2010|1|revisar script de teste	|script da lista.
+15/11/2010|3|revisar projeto		|revisao da organizacao das pastas.
+17/11/2010|2|documentacao		|revisao e documentacao do netmgr
