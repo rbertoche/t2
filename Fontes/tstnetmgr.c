@@ -75,6 +75,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		argc = LER_LerParametros ("s",
 			&id);
 		if (argc != 1) return TST_CondRetParm;
+		NetUsrChange(id);
 		return TST_CondRetOK;
 
 
