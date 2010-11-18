@@ -139,12 +139,12 @@ const char* NetWrite (char * buffer, int destC, const char * destV[])
 	/* calcula o tamanho a alocar para armazenar a mensagem codificada */
 	size = 0;
 	size += strlen( usr->id );
-	size++; /* ':' */
+	size+=2; /* ':' */
 	for (i=0; i<destC; i++){
 		size += strlen( destV[i] );
-		size++; /* ':' */
+		size+=2; /* ':' */
 	}
-	size++; /* ':' */
+	size+=2; /* ':' */
 	size += strlen( buffer );
 
 	/* Aloca uma mensagem */
