@@ -25,7 +25,12 @@ pushd .
 nmake /F..\composicao\testcli.make
 popd
 
-REM compila cli
+REM compila netmgr
+pushd .
+nmake /F..\composicao\testnetmgr.make
+popd
+
+REM compila rede_social
 pushd .
 nmake /F..\composicao\rede_social.make
 popd

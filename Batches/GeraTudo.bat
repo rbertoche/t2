@@ -8,8 +8,9 @@ pushd  .
 
 gmake  /b..\composicao  /cTesteLista
 gmake  /b..\composicao  /cTestGraph
-gmake  /b..\composicao  /cTestusr
-gmake  /b..\composicao  /cTestcli
+gmake  /b..\composicao  /cTestUsr
+gmake  /b..\composicao  /cTestCli
+gmake  /b..\composicao  /cTestNetMgr
 gmake  /b..\composicao  /crede_social
 
 popd
