@@ -40,7 +40,7 @@ struct cli_cmd_tuple unlogged_cmds[] = {
 };
 
 struct cli_cmd_tuple logged_cmds[] = {
-	{ "help", &ucmd_help },
+	{ "help", &lcmd_help },
 	{ "delme", &lcmd_delme },
 	{ "editme", &lcmd_editme },
 	{ "read", &lcmd_read },
