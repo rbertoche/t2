@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+//#include <stdio.h>
+//#include <string.h>
+//#include <stdlib.h>
 
 #include "netmgr.h"
 #include "usr.h"
@@ -39,6 +39,18 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 	} else if (! strcmp (CmdTeste,NETEDITME   )) {
 	} else if (! strcmp (CmdTeste,NETUSRCHANGE)) {
 	} else if (! strcmp (CmdTeste,NETSEARCH   )) {
+
+		char buffer[]; int buffsize; int isFriend;
+		char id[15], in[15]; int minAge, maxAge;
+		char expected[]
+
+		argc = LER_LerParametros ("issiis",
+			&isFriend, id, in, &minAge, &maxAge, expected);
+		if (argc != 6) return TST_CondRetParm;
+		return TST_CompararString (expected, NetSearch(
+			buffer, buffsize, isFriend, id, in, minAge, maxAge)
+			"NetSearch retornou uma string incorreta.");
+
 	} else if (! strcmp (CmdTeste,NETADDFRIEND)) {
 	} else if (! strcmp (CmdTeste,NETUNFRIEND )) {
 	} else if (! strcmp (CmdTeste,NETWRITE    )) {
