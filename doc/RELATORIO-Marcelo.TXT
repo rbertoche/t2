@@ -6,3 +6,4 @@
 15/11/2010|1|revisar script de teste	|script da lista.
 15/11/2010|3|revisar projeto		|revisao da organizacao das pastas.
 17/11/2010|2|documentacao		|revisao e documentacao do netmgr
+18/11/2010|3|documentacao		|revisao e documentacao dos modelos UML
