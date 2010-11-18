@@ -68,41 +68,43 @@ $(OBJ)/main.o
 
 #  Alvos a serem compilados com `make all`
 ALLTARGS = \
-testcli\
-testgraph\
-testlista\
-testusr\
-testnetmgr\
-rede_social
+$(TRG)/testcli\
+$(TRG)/testgraph\
+$(TRG)/testlista\
+$(TRG)/testusr\
+$(TRG)/testnetmgr\
+$(TRG)/rede_social
+
 
 all:$(ALLTARGS)
 
 %.o: $(SRC)/%.c $(ALLDEPS)
 	$(CC) -c -o $@ $(CFLAGS) $<
 
+.PHONY: clean all
+
 $(OBJ)/libArcaboucoTeste.a:
 	make -C ../arcalin/arcabouc/Fontes/ libArcaboucoTeste.a
 	cp ../arcalin/arcabouc/Fontes/libArcaboucoTeste.a $@
 
-testcli: $(CLIOBJ)
-	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
+$(TRG)/testcli: $(CLIOBJ)
+	$(CC) -o $@ $(LFLAGS) $^ $(CFLAGS)
 
-testlista: $(LISTAOBJ)
+$(TRG)/testlista: $(LISTAOBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS) 
 
-testgraph: $(GRAPHOBJ)
+$(TRG)/testgraph: $(GRAPHOBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
 	
-testusr: $(USROBJ)
+$(TRG)/testusr: $(USROBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
 
-testnetmgr: $(NETMGROBJ)
+$(TRG)/testnetmgr: $(NETMGROBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
 
-rede_social: $(REDSOC)
+$(TRG)/rede_social: $(REDSOC)
 	$(CC) -o $(TRG)/$@ $^ $(CFLAGS)
 
-.PHONY: clean
 clean:
 	rm -f $(OBJ)/*.o 
 	rm $(TRG)/$(ALLTARGS) 2>/dev/null || true
