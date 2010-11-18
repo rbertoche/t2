@@ -116,7 +116,7 @@ const char* NetUnfriend (char *id)
 	return NETUNFRIEND_OK;
 }
 
-const char* NetWrite (char * buffer, int buffsize, int destC, const char ** destV)
+const char* NetWrite (char * buffer, int destC, const char ** destV)
 {
 	Msg msg;
 	int i,size;
@@ -133,17 +133,6 @@ const char* NetWrite (char * buffer, int buffsize, int destC, const char ** dest
 				"%s nao e' um username valido\n",destV[i]);
 	if (offset)
 		return buffer;
-
-	/* recebe o conteudo da mensagem de stdin */
-	while (offset < buffsize-4)
-	{
-		buffer[offset++] = getchar();
-		if ( buffer[offset-3] == '#' && (buffer[offset-2] == '#')
-				&& buffer[offset-1] == '#')
-					break;
-	}
-	buffer[offset-3] = '\0';
-	clearerr(stdin);
 
 	/* calcula o tamanho a alocar para armazenar a mensagem codificada */
 	size = 0;

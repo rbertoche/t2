@@ -218,7 +218,18 @@ const char *lcmd_read (int argc, const char *argv[])
 
 const char *lcmd_write (int argc, const char *argv[])
 {
-	return NetWrite (buffer,BUFFSIZE,argc-1, ++argv);
+	int offset = 0;
+	/* recebe o conteudo da mensagem de stdin */
+	while (offset < BUFFSIZE-4)
+	{
+		buffer[offset++] = getchar();
+		if ( buffer[offset-3] == '#' && (buffer[offset-2] == '#')
+				&& buffer[offset-1] == '#')
+					break;
+	}
+	buffer[offset-3] = '\0';
+	clearerr(stdin);
+	return NetWrite (buffer,argc-1, ++argv);
 }
 
 const char *lcmd_search (int argc, const char *argv[])

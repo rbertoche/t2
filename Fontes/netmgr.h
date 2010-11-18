@@ -150,7 +150,7 @@ const char* NetAddFriend (char *id);
 const char* NetUnfriend (char *id);
 
 
-const char* NetWrite (char * buffer, int buffsize, int destC,
+const char* NetWrite (char * buffer, int destC,
 		const char ** destV);
 
 /***********************************************************************
