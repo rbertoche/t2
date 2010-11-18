@@ -66,6 +66,25 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 	} else if (! strcmp (CmdTeste,NETADDFRIEND)) {
 	} else if (! strcmp (CmdTeste,NETUNFRIEND )) {
 	} else if (! strcmp (CmdTeste,NETWRITE    )) {
+
+		char msg[BUFFSIZE];
+		const char to[10][15];
+		int toc,i;
+
+		argc = LER_LerParametros ("i",
+			&toc);
+		if (argc != 1 || toc > 10) return TST_CondRetParm;
+		for (i=0;i<toc;i++){
+			i = strlen(to[i]);
+			argc = LER_LerParametros ("s", to[i]);
+			if (argc != 1) return TST_CondRetParm;
+		}
+		argc = LER_LerParametros ("s", msg);
+		if (argc != 1) return TST_CondRetParm;
+		return TST_CompararString ("Mensagem enviada.\n",
+			(char*)NetWrite(msg, toc, to),
+			"NetWrite nao enviou mensagem.");
+
 	} else if (! strcmp (CmdTeste,NETREAD     )) {
 	} else if (! strcmp (CmdTeste,NETDELMSG   )) {
 	} else if (! strcmp (CmdTeste,NETWHOAMI   )) {
