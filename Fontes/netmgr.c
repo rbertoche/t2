@@ -230,7 +230,7 @@ const char* NetSearch (		char *buffer,
 const char* NetMail (char *buffer, int buffsize)
 {
 	UsrMsgList(usr, buffer, buffsize);
-	return NULL;
+	return buffer;
 }
 
 const char* NetRead ( int msgNumber)
