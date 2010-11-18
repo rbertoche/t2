@@ -90,7 +90,8 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			&isFriend, id, in, &minAge, &maxAge, expected);
 		if (argc != 6) return TST_CondRetParm;
 		return TST_CompararString (expected,(char*) NetSearch(
-			buffer, BUFFSIZE, isFriend, (*id)?id:NULL, in, minAge, maxAge),
+			buffer, BUFFSIZE, isFriend, (id[0])?id:NULL,
+			(in[0])?in:NULL, minAge, maxAge),
 			"NetSearch retornou uma string incorreta.");
 
 	} else if (! strcmp (CmdTeste,NETADDFRIEND)) {
@@ -118,16 +119,15 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 	} else if (! strcmp (CmdTeste,NETWRITE    )) {
 
 		char msg[BUFFSIZE];
-		char id[15], *p, **pp;
-		p = id;
-		pp = &p;
+		char id[15];
+		const char *p=id;
 
 		argc = LER_LerParametros ("ss",
 			id, msg);
 		if (argc != 2) return TST_CondRetParm;
 
 		return TST_CompararString ("Mensagem enviada.\n",
-			(char*)NetWrite(msg, 1, (const char**) pp),
+			(char*)NetWrite(msg, 1, &p),
 			"NetWrite nao enviou mensagem.");
 
 	} else if (! strcmp (CmdTeste,NETREAD     )) {
