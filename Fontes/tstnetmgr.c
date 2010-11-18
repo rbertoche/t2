@@ -22,7 +22,6 @@ static const char NETUNFRIEND       [] = "=NetUnfriend";
 static const char NETWRITE          [] = "=NetWrite";
 static const char NETREAD           [] = "=NetRead";
 static const char NETDELMSG         [] = "=NetDelMsg";
-static const char NETWHOAMI         [] = "=NetWhoAmI";
 static const char NETMAIL           [] = "=NetMail";
 
 
@@ -36,6 +35,16 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 				"Erro de Autenticacao.");
 
 	} else if (! strcmp (CmdTeste,NETNEWUSER  )) {
+
+		char id[15];
+
+		argc = LER_LerParametros ("s",
+			&id);
+		if (argc != 1) return TST_CondRetParm;
+		return TST_CompararString ( "Novo usuario criado.\n",
+			(char*) NetNewUser(id),
+			"NetNewUser falhou.");
+
 	} else if (! strcmp (CmdTeste,NETDELME    )) {
 	} else if (! strcmp (CmdTeste,NETEDITME   )) {
 
@@ -108,7 +117,6 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			(char*) NetDelMsg(msg),
 			"NetDelMsg falhou.");
 
-	} else if (! strcmp (CmdTeste,NETWHOAMI   )) {
 	} else if (! strcmp (CmdTeste,NETMAIL  )) {
 
 		char buffer[BUFFSIZE];
