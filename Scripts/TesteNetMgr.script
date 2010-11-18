@@ -1,0 +1,20 @@
+// Script:    TesteLista.script
+// Autor:     Arndt von Staa
+// Data:      02/abr/2008
+// Propósito: Testar superficialmente o módulo
+// 		lista genérica duplamente encadeada
+//
+
+== Inicializar valores
+
+=declararparm   Ok			int 1
+=declararparm   NoUser			int 0
+
+== Testa se existe algum usuario Logado.
+=NetIsAuthenticated	NoUser
+
+== Forca erro de Autenticacao.
+=NetIsAuthenticated	Ok
+=recuperar
+
+// fim

@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "netmgr.h"
 #include "usr.h"
 
 #include "tst_espc.h"
@@ -28,6 +29,11 @@ static const char NETNETMAIL        [] = "=NetNetMail";
 TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 {
 	if (! strcmp (CmdTeste ,  NETISAUTHENTICATED) ){
+		int logado, argc = LER_LerParametros ("i", &logado);
+		if (argc != 1) return TST_CondRetParm;
+		return TST_CompararInt (logado, NetIsAuthenticated(),
+				"Erro de Autenticacao.");
+
 	} else if (! strcmp (CmdTeste,NETNEWUSER  )) {
 	} else if (! strcmp (CmdTeste,NETDELME    )) {
 	} else if (! strcmp (CmdTeste,NETEDITME   )) {

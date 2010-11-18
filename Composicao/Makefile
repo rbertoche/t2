@@ -50,6 +50,14 @@ $(OBJ)/lista.o\
 $(OBJ)/usr.o\
 $(OBJ)/tstusr.o
 
+NETMGROBJ=\
+$(OBJ)/libArcaboucoTeste.a\
+$(OBJ)/lista.o\
+$(OBJ)/graph.o\
+$(OBJ)/usr.o\
+$(OBJ)/netmgr.o\
+$(OBJ)/tstnetmgr.o
+
 REDSOC=\
 $(OBJ)/cli.o\
 $(OBJ)/lista.o\
@@ -58,13 +66,13 @@ $(OBJ)/graph.o\
 $(OBJ)/netmgr.o\
 $(OBJ)/main.o
 
-
 #  Alvos a serem compilados com `make all`
 ALLTARGS = \
 testcli\
 testgraph\
 testlista\
 testusr\
+testnetmgr\
 rede_social
 
 all:$(ALLTARGS)
@@ -86,6 +94,9 @@ testgraph: $(GRAPHOBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
 	
 testusr: $(USROBJ)
+	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
+
+testnetmgr: $(NETMGROBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
 
 rede_social: $(REDSOC)
