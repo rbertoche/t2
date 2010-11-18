@@ -10,16 +10,33 @@
 
 ==Testa se eles tem 0 mensagens
 =NetUsrChange "a"
+=NetIsAuthenticated 1
 =NetMail ""
+=recuperar
 =NetUsrChange "b"
+=NetIsAuthenticated 1
 =NetMail ""
+=recuperar
 =NetUsrChange "c"
+=NetIsAuthenticated 1
+=NetMail ""
+=recuperar
+
+==Testa Write com read
+=NetWrite "a" msg1
+=NetUsrChange "a"
+=NetRead 0  msg1
+
+==Testa Write com mail
+=NetUsrChange "a"
+=NetWrite "b" msg1
+=NetUsrChange "b"
 =NetMail ""
 
-==Testa Write e Read
-=NetWrite 2 "a" "b" msg1
+==Testa search
+=NetSearch 0 "" "Invalid" -1 -1 "a\n\nIdade: 0\nInteresse: Invalid\n\nb\n\nIdade: 0\nInteresse: Invalid\n\nc\n\nIdade: 0\nInteresse: Invalid\n\n"
+=NetSearch 0 "b" "Invalid" -1 -1 "b\n\nIdade: 0\nInteresse: Invalid\n\n"
+==Testa search com editme
 =NetUsrChange "b"
-=NetRead 0  msg1
-=NetUsrChange "a" msg1
-
-
+=NetEditMe "Bobba Fett" "Work" 233
+=NetSearch 0 "b" "Invalid" -1 -1 "b\nBobba Fett\nIdade: 233\nInteresse: Work\n\n"
