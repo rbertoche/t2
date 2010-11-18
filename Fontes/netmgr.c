@@ -11,6 +11,7 @@ static const char NEWUSER_INVALID[  ] = "ID contem caracteres invalidos.\n";
 static const char NETDELME_OK[  ] = "Usuario excluido com sucesso.\n";
 static const char NETADDFRIEND_OK[  ] = "Amigo adicionado com sucesso.\n";
 static const char NETADDFRIEND_NOTFOUND[  ] = "Usuario nao encontrado.\n";
+static const char NETADDFRIEND_INVALID[  ] = "Usuario ja e seu amigo.\n";
 static const char NETUNFRIEND_OK[  ] = "Amigo removido com sucesso.\n";
 static const char NETUNFRIEND_NOTFOUND[  ] = "Amigo nao encontrado.\n";
 static const char NETSEARCH_NOTFOUND[ ] = "Nenhum usuario casou com a busca.\n";
@@ -102,8 +103,9 @@ const char* NetAddFriend (char *id)
 	u = searchUsr(id);
 	if (!u)
 		return NETADDFRIEND_NOTFOUND;
-	GraphAddLink(getGraphInstance(),u);
-	return NETADDFRIEND_OK;
+	if (!GraphAddLink(getGraphInstance(),u))
+		return NETADDFRIEND_OK;
+	return NETADDFRIEND_INVALID;
 }
 
 const char* NetUnfriend (char *id)
@@ -262,7 +264,7 @@ const char* NetEditMe (const char* name, const char *in, int age)
 	if (age > 0){
 		usr->age = age;
 	}
-	if (*name || *in || age > 0)
+	if (*name!='\n' || *in!='\n' || age > 0)
 		return NETEDITME_OK;
 	return NETEDITME_NOCHANGES;
 }

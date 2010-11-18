@@ -40,3 +40,10 @@
 =NetUsrChange "b"
 =NetEditMe "Bobba Fett" "Work" 233
 =NetSearch 0 "b" "Invalid" -1 -1 "b\nBobba Fett\nIdade: 233\nInteresse: Work\n\n"
+
+==Testa amizades
+=NetUsrChange "c"
+=NetAddFriend "b"
+=NetSearch 1 "b" "Invalid" -1 -1 "b\n\nIdade: 0\nInteresse: Invalid\n\n"
+=NetAddFriend "a"
+=NetSearch 1 "b" "Invalid" -1 -1 "a\n\nIdade: 0\nInteresse: Invalid\n\nb\n\nIdade: 0\nInteresse: Invalid\n\n"
