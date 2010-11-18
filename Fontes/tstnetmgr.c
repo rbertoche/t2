@@ -37,12 +37,23 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 	} else if (! strcmp (CmdTeste,NETNEWUSER  )) {
 	} else if (! strcmp (CmdTeste,NETDELME    )) {
 	} else if (! strcmp (CmdTeste,NETEDITME   )) {
+
+		char name[50]; char in[15]; int age;
+
+		argc = LER_LerParametros ("ssi",
+			name, in, &age);
+		if (argc != 3) return TST_CondRetParm;
+		return TST_CompararString (
+			"Perfil salvo.\n",
+			NetSearch( name, id, age )
+			"NetSearch nao salvou.");
+
 	} else if (! strcmp (CmdTeste,NETUSRCHANGE)) {
 	} else if (! strcmp (CmdTeste,NETSEARCH   )) {
 
-		char buffer[]; int buffsize; int isFriend;
+		char buffer[BUFFSIZE]; int buffsize; int isFriend;
 		char id[15], in[15]; int minAge, maxAge;
-		char expected[]
+		char expected[BUFFSIZE]
 
 		argc = LER_LerParametros ("issiis",
 			&isFriend, id, in, &minAge, &maxAge, expected);
