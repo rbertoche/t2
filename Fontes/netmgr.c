@@ -229,7 +229,8 @@ const char* NetSearch (		char *buffer,
 
 const char* NetMail (char *buffer, int buffsize)
 {
-	UsrMsgList(usr, buffer, buffsize);
+	if (!UsrMsgList(usr, buffer, buffsize))
+		return "Lista de mensagens vazia\n";
 	return buffer;
 }
 

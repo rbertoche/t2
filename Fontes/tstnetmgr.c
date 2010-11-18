@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 /*#include <stdlib.h>*/
 
 #include "netmgr.h"
@@ -88,7 +89,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			&isFriend, id, in, &minAge, &maxAge, expected);
 		if (argc != 6) return TST_CondRetParm;
 		return TST_CompararString (expected,(char*) NetSearch(
-			buffer, BUFFSIZE, isFriend, id, in, minAge, maxAge),
+			buffer, BUFFSIZE, isFriend, (*id)?id:NULL, in, minAge, maxAge),
 			"NetSearch retornou uma string incorreta.");
 
 	} else if (! strcmp (CmdTeste,NETADDFRIEND)) {
@@ -116,21 +117,16 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 	} else if (! strcmp (CmdTeste,NETWRITE    )) {
 
 		char msg[BUFFSIZE];
-		const char to[10][15];
-		int toc,i;
+		char id[15], *p, **pp;
+		p = id;
+		pp = &p;
 
-		argc = LER_LerParametros ("i",
-			&toc);
-		if (argc != 1 || toc > 10) return TST_CondRetParm;
-		for (i=0;i<toc;i++){
-			i = strlen(to[i]);
-			argc = LER_LerParametros ("s", to[i]);
-			if (argc != 1) return TST_CondRetParm;
-		}
-		argc = LER_LerParametros ("s", msg);
-		if (argc != 1) return TST_CondRetParm;
+		argc = LER_LerParametros ("ss",
+			id, msg);
+		if (argc != 2) return TST_CondRetParm;
+
 		return TST_CompararString ("Mensagem enviada.\n",
-			(char*)NetWrite(msg, toc, to),
+			(char*)NetWrite(msg, 1, (const char**) pp),
 			"NetWrite nao enviou mensagem.");
 
 	} else if (! strcmp (CmdTeste,NETREAD     )) {
