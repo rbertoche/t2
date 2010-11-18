@@ -116,7 +116,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		int argc, usr, msg;
 
 		argc = LER_LerParametros("iis", &usr , &msg, expected);
-		if (argc != 4 || usr > USRVSIZE || usr < 0 )
+		if (argc != 3 || usr > USRVSIZE || usr < 0 )
 			return TST_CondRetParm;
 
 		return TST_CompararString ( expected,(char*) UsrMsgPrint(vUsr[usr], msg), \
