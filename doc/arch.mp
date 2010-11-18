@@ -46,7 +46,7 @@ Class.netmgr ("NetworkManager")
 	"+ DelMe () : string",
 	"+ EditMe (name : string, interesse : int, idade : int) : string",
 	"+ UsrChange (id : name) : void",
-	"+ Search (buffer : string, isFriend : bool, id : string, interesse : string, minAge : int, maxAge : int) : string",
+	"+ Search (buffer : string, isFriend : bool, id : string, in: string, minAge : int, maxAge : int) : string",
 	"+ AddFriend (id : string) : string",
 	"+ UnFriend (id : string) : string",
 	"+ Write (buffer : string, int destC, destV[] : string) : string",
@@ -74,10 +74,14 @@ Class.user ("user")
 );
 
 beginfig(1);
-topToBottom (25)(cli, netmgr, graph, list);
-leftToRight (25)( graph, msg);
-topToBottom (100)( msg, user);
+cli.nw = (0, 0);
+netmgr.nw = cli.sw + (-130, -15);
+graph.nw = netmgr.sw + (-15, -15);
+list.nw = graph.sw + (-15, -15);
+user.nw = graph.ne + (60, 0);
+
 drawObjects (cli, netmgr, graph, list, user);
+
 clink(associationUni)(cli, netmgr);
 clink(associationUni)(netmgr, graph);
 clink(associationUni)(netmgr, user);
