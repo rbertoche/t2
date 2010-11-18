@@ -29,6 +29,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 {
 	int argc;
 	if (! strcmp (CmdTeste ,  NETISAUTHENTICATED) ){
+
 		int logado, argc = LER_LerParametros ("i", &logado);
 		if (argc != 1) return TST_CondRetParm;
 		return TST_CompararInt (logado, NetIsAuthenticated(),
@@ -46,6 +47,14 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			"NetNewUser falhou.");
 
 	} else if (! strcmp (CmdTeste,NETDELME    )) {
+
+		argc = LER_LerParametros ("");
+		if (argc != 0) return TST_CondRetParm;
+		return TST_CompararString (
+			"Usuario excluido com sucesso.\n",
+			(char*)NetDelMe(),
+			"NetDelMe falhou.");
+
 	} else if (! strcmp (CmdTeste,NETEDITME   )) {
 
 		char name[50]; char in[15]; int age;
@@ -59,6 +68,16 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			"NetEditMe nao salvou.");
 
 	} else if (! strcmp (CmdTeste,NETUSRCHANGE)) {
+
+		char id[15];
+
+		argc = LER_LerParametros ("s",
+			&id);
+		if (argc != 1) return TST_CondRetParm;
+		return TST_CondRetOK;
+
+
+
 	} else if (! strcmp (CmdTeste,NETSEARCH   )) {
 
 		char buffer[BUFFSIZE]; int isFriend;
@@ -73,7 +92,27 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			"NetSearch retornou uma string incorreta.");
 
 	} else if (! strcmp (CmdTeste,NETADDFRIEND)) {
+
+		char id[15];
+
+		argc = LER_LerParametros ("s",
+			&id);
+		if (argc != 1) return TST_CondRetParm;
+		return TST_CompararString ( "Amigo adicionado com sucesso.\n",
+			(char*) NetAddFriend(id),
+			"NetAddFriend falhou.");
+
 	} else if (! strcmp (CmdTeste,NETUNFRIEND )) {
+
+		char id[15];
+
+		argc = LER_LerParametros ("s",
+			&id);
+		if (argc != 1) return TST_CondRetParm;
+		return TST_CompararString ( "Amigo removido com sucesso.\n",
+			(char*) NetUnfriend(id),
+			"NetUnfriend falhou.");
+
 	} else if (! strcmp (CmdTeste,NETWRITE    )) {
 
 		char msg[BUFFSIZE];
