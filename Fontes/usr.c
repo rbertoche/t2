@@ -170,7 +170,7 @@ const char *UsrMsgPrint( Usr *u, int msgNumber )
 		IrInicioLista( u->msgs ) ;
 		return getmsgcontent( msg );
 	}
-	return 0;
+	return "Mensagem nao encontrada\n";
 }
 
 enum interest UsrStrToIn ( const char * s)
