@@ -103,7 +103,7 @@ const char* NetAddFriend (char *id)
 	u = searchUsr(id);
 	if (!u)
 		return NETADDFRIEND_NOTFOUND;
-	if (!GraphAddLink(getGraphInstance(),u))
+	if (graphOk == GraphAddLink(getGraphInstance(),u))
 		return NETADDFRIEND_OK;
 	return NETADDFRIEND_INVALID;
 }
