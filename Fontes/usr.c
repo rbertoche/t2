@@ -100,6 +100,8 @@ remetente:destinatario1:destinatario2: ... :destinatarioN::Assunto\nconteudodame
 
 	/* printa assunto */
 	bToWrite = 1 + strchr( msg, '\n' ) - msg;
+	if (bToWrite < 0)
+		return buffer - _buffer;
 	memcpy ( buffer, msg, bToWrite );
 	buffer += bToWrite;
 	(*buffer++) = '\n';
