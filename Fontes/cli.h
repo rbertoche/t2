@@ -15,6 +15,7 @@
 *	$ED Descrição do módulo
 *           Módulo de implementação da linha de comando responsável
 *           por todas alterações na rede de relacionamentos
+
 ***************************************************************************/
 typedef const char * (*fncallback) (int argc, const char *argv[]);
 
