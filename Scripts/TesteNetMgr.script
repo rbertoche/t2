@@ -1,20 +1,25 @@
-// Script:    TesteLista.script
-// Autor:     Arndt von Staa
-// Data:      02/abr/2008
-// Propósito: Testar superficialmente o módulo
-// 		lista genérica duplamente encadeada
-//
+==Declara parametros
+=declararparm   msg1      string  "Prova de amanha\nVoces vao estudar comigo?\n"
+=declararparm   msg2      string  "Prova de amanha\nPo, nao sei.. To sem tempo\n"
+=declararparm   msggrande string  "Pra quem tem prova de amanha\nVai uma colinha pra voces\n Starting program: /home/raphael/p/aula/t2/Produto/rede_social\nadmin $ register me\nNovo"
 
-== Inicializar valores
+==Cria alguns usuarios
+=NetNewUser "a"
+=NetNewUser "b"
+=NetNewUser "c"
 
-=declararparm   Ok			int 1
-=declararparm   NoUser			int 0
+==Testa se eles tem 0 mensagens
+=NetUsrChange "a"
+=NetMail ""
+=NetUsrChange "b"
+=NetMail ""
+=NetUsrChange "c"
+=NetMail ""
 
-== Testa se existe algum usuario Logado.
-=NetIsAuthenticated	NoUser
+==Testa Write e Read
+=NetWrite 2 "a" "b" msg1
+=NetUsrChange "b"
+=NetRead 0  msg1
+=NetUsrChange "a" msg1
 
-== Forca erro de Autenticacao.
-=NetIsAuthenticated	Ok
-=recuperar
 
-// fim
