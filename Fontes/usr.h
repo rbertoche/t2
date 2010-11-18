@@ -71,14 +71,12 @@ Usr *UsrNew( const char id[15] );
 *	$FC Funcao: UsrDel
 *
 *	$EP Parametros
-*		$P u - ponteiro para estrutura usr, contendo o usuário a ser deletado
+*		$P u - ponteiro para estrutura usr, contendo o usuário a
+*			ser deletado
 *
 *	$ED Descricao da funcao
-*		Desaloca a lista de mensagens do usuário bem como a sua estrutura
-*       da memória.
-*
-*	$FV Valor retornado
-*		Número de caractreres impressos.
+*		Desaloca a lista de mensagens do usuário bem como a
+*			sua estrutura da memória.
 *
 ***********************************************************************/
 void UsrDel( void *u );
@@ -89,15 +87,15 @@ void UsrDel( void *u );
 *
 *	$EP Parametros
 *		$P u - ponteiro para estrutura usr, contendo o usuario desejado
-*       $P buffer - string onde ficara o resultado da "impressao"
-*       $i buffersize - delimitador de tamanho da string buffer
+*       	$P buffer - string onde ficara o resultado da "impressao"
+*       	$i buffersize - delimitador de tamanho da string buffer
 *
 *	$ED Descricao da funcao
 *		Gera uma string de informacoes sobre o usuario sobre buffer, com menos
 *       que buffersize caracteres.
 *
 *	$FV Valor retornado
-*		Nï¿½mero de caractreres impressos.
+*		Numero de caractreres impressos.
 *
 ***********************************************************************/
 int UsrPrint( Usr *u, char *buffer, int buffersize );
