@@ -116,7 +116,7 @@ const char* NetUnfriend (char *id)
 	return NETUNFRIEND_OK;
 }
 
-const char* NetWrite (char * buffer, int destC, const char ** destV)
+const char* NetWrite (char * buffer, int destC, const char * destV[])
 {
 	Msg msg;
 	int i,size;

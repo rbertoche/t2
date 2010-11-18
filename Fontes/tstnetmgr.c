@@ -1,6 +1,6 @@
-//#include <stdio.h>
-//#include <string.h>
-//#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+/*#include <stdlib.h>*/
 
 #include "netmgr.h"
 #include "usr.h"
@@ -28,6 +28,7 @@ static const char NETNETMAIL        [] = "=NetNetMail";
 
 TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 {
+	int argc;
 	if (! strcmp (CmdTeste ,  NETISAUTHENTICATED) ){
 		int logado, argc = LER_LerParametros ("i", &logado);
 		if (argc != 1) return TST_CondRetParm;
@@ -45,26 +46,45 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if (argc != 3) return TST_CondRetParm;
 		return TST_CompararString (
 			"Perfil salvo.\n",
-			NetSearch( name, id, age )
-			"NetSearch nao salvou.");
+			(char*)NetEditMe( name, in, age ),
+			"NetEditMe nao salvou.");
 
 	} else if (! strcmp (CmdTeste,NETUSRCHANGE)) {
 	} else if (! strcmp (CmdTeste,NETSEARCH   )) {
 
-		char buffer[BUFFSIZE]; int buffsize; int isFriend;
+		char buffer[BUFFSIZE]; int isFriend;
 		char id[15], in[15]; int minAge, maxAge;
-		char expected[BUFFSIZE]
+		char expected[BUFFSIZE];
 
 		argc = LER_LerParametros ("issiis",
 			&isFriend, id, in, &minAge, &maxAge, expected);
 		if (argc != 6) return TST_CondRetParm;
-		return TST_CompararString (expected, NetSearch(
-			buffer, buffsize, isFriend, id, in, minAge, maxAge)
+		return TST_CompararString (expected,(char*) NetSearch(
+			buffer, BUFFSIZE, isFriend, id, in, minAge, maxAge),
 			"NetSearch retornou uma string incorreta.");
 
 	} else if (! strcmp (CmdTeste,NETADDFRIEND)) {
 	} else if (! strcmp (CmdTeste,NETUNFRIEND )) {
 	} else if (! strcmp (CmdTeste,NETWRITE    )) {
+
+		char msg[BUFFSIZE];
+		const char to[10][15];
+		int toc,i;
+
+		argc = LER_LerParametros ("i",
+			&toc);
+		if (argc != 1 || toc > 10) return TST_CondRetParm;
+		for (i=0;i<toc;i++){
+			i = strlen(to[i]);
+			argc = LER_LerParametros ("s", to[i]);
+			if (argc != 1) return TST_CondRetParm;
+		}
+		argc = LER_LerParametros ("s", msg);
+		if (argc != 1) return TST_CondRetParm;
+		return TST_CompararString ("Mensagem enviada.\n",
+			(char*)NetWrite(msg, toc, to),
+			"NetWrite nao enviou mensagem.");
+
 	} else if (! strcmp (CmdTeste,NETREAD     )) {
 	} else if (! strcmp (CmdTeste,NETDELMSG   )) {
 	} else if (! strcmp (CmdTeste,NETWHOAMI   )) {
