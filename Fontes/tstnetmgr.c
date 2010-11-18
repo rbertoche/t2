@@ -46,21 +46,21 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if (argc != 3) return TST_CondRetParm;
 		return TST_CompararString (
 			"Perfil salvo.\n",
-			NetSearch( name, id, age )
-			"NetSearch nao salvou.");
+			(char*)NetEditMe( name, in, age ),
+			"NetEditMe nao salvou.");
 
 	} else if (! strcmp (CmdTeste,NETUSRCHANGE)) {
 	} else if (! strcmp (CmdTeste,NETSEARCH   )) {
 
-		char buffer[BUFFSIZE]; int buffsize; int isFriend;
+		char buffer[BUFFSIZE]; int isFriend;
 		char id[15], in[15]; int minAge, maxAge;
-		char expected[BUFFSIZE]
+		char expected[BUFFSIZE];
 
 		argc = LER_LerParametros ("issiis",
 			&isFriend, id, in, &minAge, &maxAge, expected);
 		if (argc != 6) return TST_CondRetParm;
-		return TST_CompararString (expected, NetSearch(
-			buffer, buffsize, isFriend, id, in, minAge, maxAge)
+		return TST_CompararString (expected,(char*) NetSearch(
+			buffer, BUFFSIZE, isFriend, id, in, minAge, maxAge),
 			"NetSearch retornou uma string incorreta.");
 
 	} else if (! strcmp (CmdTeste,NETADDFRIEND)) {
