@@ -108,17 +108,9 @@ remetente:destinatario1:destinatario2: ... :destinatarioN::Assunto\nconteudodame
 	return buffer - _buffer;
 }
 
-int printmsgcontent ( char * msg, char *buffer, int size)
+const char* getmsgcontent ( char * msg )
 {
-	int msgLen;
-	msg = 2 + strstr(msg,"::");
-	msgLen = 1 + strlen(msg);
-	if ( size < msgLen )
-		return 0;
-	strcpy(buffer,msg);
-	*(buffer+msgLen-1) = '\n';
-	*(buffer+msgLen) = '\0';
-	return msgLen;
+	return 2 + strstr(msg,"::");
 }
 
 int UsrMsgDeliver ( Usr *u, Msg m)
@@ -164,7 +156,7 @@ int UsrMsgList( Usr *u, char *_buffer, int size )
 	return buffer - _buffer;
 }
 
-int UsrMsgPrint( Usr *u, int msgNumber, char *buffer, int size )
+const char *UsrMsgPrint( Usr *u, int msgNumber )
 {
 	LIS_tpCondRet condRet;
 	char * msg;
@@ -174,7 +166,7 @@ int UsrMsgPrint( Usr *u, int msgNumber, char *buffer, int size )
 	if (LIS_CondRetOK == condRet){
 		msg = LIS_ObterValor ( u->msgs ) ;
 		IrInicioLista( u->msgs ) ;
-		return printmsgcontent( msg, buffer, size);
+		return getmsgcontent( msg );
 	}
 	return 0;
 }

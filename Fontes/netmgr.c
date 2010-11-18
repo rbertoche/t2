@@ -1,11 +1,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <ctype.h>
 #include "netmgr.h"
 #include "graph.h"
 
-enum { BUFFERSIZE = 10000 };
 
 static const char NEWUSER_OK[  ] = "Novo usuario criado.\n";
 static const char NEWUSER_USEDID[  ] = "ID escolhido ja' em uso.\n";
@@ -15,26 +13,25 @@ static const char NETADDFRIEND_OK[  ] = "Amigo adicionado com sucesso.\n";
 static const char NETADDFRIEND_NOTFOUND[  ] = "Usuario nao encontrado.\n";
 static const char NETUNFRIEND_OK[  ] = "Amigo removido com sucesso.\n";
 static const char NETUNFRIEND_NOTFOUND[  ] = "Amigo nao encontrado.\n";
-static const char NETSEARCH_NOTFOUND[  ] = "Nenhum usuario casou com a busca.\n";
+static const char NETSEARCH_NOTFOUND[ ] = "Nenhum usuario casou com a busca.\n";
 static const char NETDELMSG_OK[  ] = "Mensagem deletada.\n";
 static const char NETDELMSG_NOTFOUND[  ] = "Numero de mensagem invalido.\n";
 static const char NETWRITE_MEMERROR[  ] = "Erro: Nao pude alocar memoria.\n";
-static const char NETWRITE_DELIVERERROR[  ] = "Erro: Funcao de entrega do modulo usr falhou.\n";
+static const char NETWRITE_DELIVERERROR[  ] =
+		"Erro: Funcao de entrega do modulo usr falhou.\n";
 static const char NETWRITE_OK[  ] = "Mensagem enviada.\n";
 static const char NETEDITME_OK[  ] = "Perfil salvo.\n";
+static const char NETEDITME_NOCHANGES[  ] = "Sem mudancas..\n";
 
 
 
-static const char ARGNUMERROR[  ] = "Numero de argumentos menor que o esperado.\n";
+static const char ARGNUMERROR[  ] =
+		"Numero de argumentos menor que o esperado.\n";
 
 
 /* Atencao, cuidado ao deletar esse usr porque normalmente o grafo o deleta */
 Usr *usr = NULL;
 
-/* Buffer para armazenar as strings geradas a serem retornadas */
-char buffer[BUFFERSIZE];
-/* Indice para atual posicao no buffer */
-int offset;
 
 /* use essa funcao para acessar o ponteiro de grafo */
 int NetIsAuthenticated()
@@ -119,12 +116,12 @@ const char* NetUnfriend (char *id)
 	return NETUNFRIEND_OK;
 }
 
-const char* NetWrite (int destC, const char ** destV)
+const char* NetWrite (char * buffer, int buffsize, int destC, const char ** destV)
 {
 	Msg msg;
 	int i,size;
 	char *msgptr;
-	offset = 0;
+	int offset = 0;
 
 	/* testa se ha algum destinatario */
 	if (destC == 0)
@@ -138,7 +135,7 @@ const char* NetWrite (int destC, const char ** destV)
 		return buffer;
 
 	/* recebe o conteudo da mensagem de stdin */
-	while (offset < BUFFERSIZE-4)
+	while (offset < buffsize-4)
 	{
 		buffer[offset++] = getchar();
 		if ( buffer[offset-3] == '#' && (buffer[offset-2] == '#')
@@ -192,7 +189,9 @@ const char* NetWrite (int destC, const char ** destV)
 	return NETWRITE_OK;
 }
 
-const char* NetSearch (		int isFriend,
+const char* NetSearch (		char *buffer,
+				int buffsize,
+				int isFriend,
 				const char *id,
 				const char *in,
 				int minAge,
@@ -203,7 +202,7 @@ const char* NetSearch (		int isFriend,
 	void *(*pFuncGetNext)(pGraph);
 	/* Ponteiro para funcao que contera' um getnext */
 
-	offset=0;
+	int offset=0;
 	*buffer = 0;
 	if (!id)
 		fid=1;
@@ -230,7 +229,7 @@ const char* NetSearch (		int isFriend,
 					&& u->age <= maxAge)) )
 		{
 			offset += UsrPrint(u,buffer + offset,
-					 BUFFERSIZE - offset);
+					 buffsize - offset);
 		}
 	}
 	if (offset==0)
@@ -239,20 +238,15 @@ const char* NetSearch (		int isFriend,
 		return buffer;
 }
 
-const char* NetMail ()
+const char* NetMail (char *buffer, int buffsize)
 {
-	offset = 0;
-	*buffer = 0;
-	offset += UsrMsgList(usr,buffer,BUFFERSIZE - offset);
-	return buffer;
+	UsrMsgList(usr, buffer, buffsize);
+	return NULL;
 }
 
-const char* NetRead (int msgNumber)
+const char* NetRead ( int msgNumber)
 {
-	offset = 0;
-	*buffer = 0;
-	offset += UsrMsgPrint(usr,msgNumber,buffer,BUFFERSIZE -offset);
-	return buffer;
+	return UsrMsgPrint(usr,msgNumber);
 }
 
 const char* NetDelMsg (int msgNumber)
@@ -267,24 +261,18 @@ const char* NetWhoAmI (void)
 	return usr->id;
 }
 
-const char* NetEditMe (int argc, const char *argv[])
+const char* NetEditMe (const char* name, const char *in, int age)
 {
-	char str[50];
-	int i;
-	printf("Entre um novo nome ate 50 caracteres ou pressione enter\n");
-	if (fgets(str,50,stdin) && ! isspace( *str )){
-		str[strlen(str)-1]='\0';
-		strcpy(usr->name,str);
+	if (*name){
+		strcpy(usr->name,name);
 	}
-	printf("Entre um novo interesse ou pressione enter\n");
-	if (fgets(str,50,stdin) && ! isspace( *str )){
-		str[strlen(str)-1]='\0';
-		usr->interest = UsrStrToIn(str);
+	if (*in){
+		usr->interest = UsrStrToIn(in);
 	}
-	printf("Entre uma nova idade ou pressione enter\n");
-	if (fgets(str,50,stdin) && ! isspace( *str )){
-		sscanf(str,"%d\n",&i);
-		usr->age = i;
+	if (age > 0){
+		usr->age = age;
 	}
-	return NETEDITME_OK;
+	if (*name || *in || age > 0)
+		return NETEDITME_OK;
+	return NETEDITME_NOCHANGES;
 }

@@ -77,7 +77,7 @@ const char* NetDelMe();
 *		"Perfil salvo.\n"
 *
 ***********************************************************************/
-const char* NetEditMe();
+const char* NetEditMe(const char *name, const char *in,int age);
 
 /***********************************************************************
 *
@@ -105,11 +105,12 @@ void NetUsrChange (const char *id);
 *		Realiza uma busca dentre os usuarios.
 *
 *	$FV Valor retornado
-*		Lista de usuarios.
+*		Lista de informacoes sobre usuarios que casaram com a
+* 		busca ou uma mensagem de erro.
 *
 ***********************************************************************/
-const char* NetSearch (int isFriend, const char *id, const char *in,
-		int minAge, int maxAge);
+const char* NetSearch (char *buffer, int buffsize, int isFriend,
+		const char *id, const char *in,	int minAge, int maxAge);
 
 /***********************************************************************
 *
@@ -149,7 +150,8 @@ const char* NetAddFriend (char *id);
 const char* NetUnfriend (char *id);
 
 
-const char* NetWrite (int destC, const char ** destV);
+const char* NetWrite (char * buffer, int buffsize, int destC,
+		const char ** destV);
 
 /***********************************************************************
 *
@@ -205,14 +207,14 @@ const char* NetWhoAmI ();
 *	$FC Funcao: NetMail
 *
 *	$ED Descricao da funcao
-*		Retorna as mensagens recebidas com uma formatacao mais amigavel.
-*		Com: "From:", "To:", id da mensagem e a mensagem.
+*		Retorna uma lista formatada de mensagens recebidas.
+*		Com: "From:", "To:", primeira linha da mensagem.
 *
 *	$FV Valor retornado
 *		String terminada em '\0'.
 *
 ***********************************************************************/
-const char* NetMail ();
+const char* NetMail (char *buffer, int buffsize);
 
 #endif /* NETMGR_ */
 

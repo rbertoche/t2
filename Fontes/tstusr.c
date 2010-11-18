@@ -112,19 +112,15 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 
 	} else if (! strcmp (CmdTeste, USRMSGPRINT)) {
 
-		char buffer[BUFFSIZE];
 		char expected[BUFFSIZE];
-		char zeros[BUFFSIZE];
-		int argc, i,limit, tstret=0, usrret, usr, msg;
+		int argc, usr, msg;
 
-		argc = LER_LerParametros("iiis", &usr , &msg, &limit, expected);
-		if (argc != 4 || usr > USRVSIZE || usr < 0 || limit > BUFFSIZE)
+		argc = LER_LerParametros("iis", &usr , &msg, expected);
+		if (argc != 4 || usr > USRVSIZE || usr < 0 )
 			return TST_CondRetParm;
 
-		__TestFWithBuffer__( UsrMsgPrint(vUsr[usr], msg, buffer, limit),
-				"UsrMsgPrint")
-
-		return (tstret) ? (TST_CondRetErro) : (TST_CondRetOK);
+		return TST_CompararString ( expected,(char*) UsrMsgPrint(vUsr[usr], msg), \
+				"UsrMsgPrint emitiu uma string incorreta.");
 
 	} else if (! strcmp (CmdTeste, USRMSGDELIVER)) {
 

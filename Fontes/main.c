@@ -1,9 +1,13 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "cli.h"
 #include "netmgr.h"
 #include "usr.h"
 
+/* Buffer para armazenar as strings geradas dinamicamente ou coisas
+ * grandes lidas de stdin */
 int handle_commands (void);
 
 const char *cmd_exit (int argc, const char *argv[]);
@@ -54,6 +58,9 @@ struct cli_cmd_tuple logged_cmds[] = {
 static char cmd_buff[1024];
 static int logged = 0;
 static int ScriptMode = 0;
+enum { BUFFSIZE = 10000 };
+char buffer[BUFFSIZE];
+
 
 int main (int argc, char *argv[])
 {
@@ -73,6 +80,7 @@ const char *cmd_exit (int argc, const char *argv[])
 
 int handle_commands (void)
 {
+	const char *ret;
 	while (!feof(stdin)){
 		if (!ScriptMode){
 			if (logged){
@@ -83,7 +91,9 @@ int handle_commands (void)
 		}
 		cmd_buff[0] = '\0';
 		fgets (cmd_buff, sizeof (cmd_buff), stdin);
-		cli_call (cmd_buff);
+		ret = cli_call (cmd_buff);
+		if (ret)
+			fprintf(stdout,"%s",ret);
 	}
 	return 0;
 }
@@ -154,7 +164,8 @@ const char *lcmd_help (int argc, const char *argv[])
 			"\t+ write\n"
 			"\t+ addfriend <user_id> [user_id ...]\n"
 			"\t+ rmfriend <user_id> [user_id ...]\n"
-			"\t+ search [-f] [-u id] [-i interest] [-a maxAge-minAge]\n"
+			"\t+ search [-f] [-u id] [-i interest] "
+				"[-a maxAge-minAge]\n"
 			"\t+ mail\n"
 			"\t+ exit\n"
 			);
@@ -182,8 +193,7 @@ const char *lcmd_addfriend (int argc, const char *argv[])
 const char *lcmd_delme (int argc, const char *argv[])
 {
 	lcmd_logoff (0, NULL);
-	printf ("%s", NetDelMe());
-	return NULL;
+	return NetDelMe();
 }
 
 const char *lcmd_unfriend (int argc, const char *argv[])
@@ -208,8 +218,7 @@ const char *lcmd_read (int argc, const char *argv[])
 
 const char *lcmd_write (int argc, const char *argv[])
 {
-	printf("%s", NetWrite (argc-1, ++argv));
-	return NULL;
+	return NetWrite (buffer,BUFFSIZE,argc-1, ++argv);
 }
 
 const char *lcmd_search (int argc, const char *argv[])
@@ -219,7 +228,8 @@ const char *lcmd_search (int argc, const char *argv[])
 
 	for (i=1; i < argc; i++){
 		if (argv[i][0] != '-'){
-			printf("Erro: Argumento %d, %s nao e uma opcao valida\n",i,argv[i]);
+			printf("Erro: Argumento %d, %s"
+				" nao e uma opcao valida\n",i,argv[i]);
 			return NULL;
 		}
 		switch (argv[i][1]){
@@ -236,26 +246,38 @@ const char *lcmd_search (int argc, const char *argv[])
 				sscanf(argv[++i],"%d:%d",&minAge,&maxAge);
 				break;
 			default:
-				printf("Erro: Argumento %d, %s nao e uma opcao valida\n",i,argv[i]);
+				printf("Erro: Argumento %d, %s"
+					" nao e uma opcao valida\n",i,argv[i]);
 				return NULL;
 
 		}
 	}
-
-	printf ("%s", NetSearch (isFriend, id, in, minAge, maxAge));
-	return NULL;
+	return NetSearch (buffer, BUFFSIZE, isFriend, id, in, minAge, maxAge);
 }
 
 const char *lcmd_mail (int argc, const char *argv[])
 {
-	printf ("%s", NetMail ());
-	return NULL;
+	return NetMail(buffer, BUFFSIZE);
 }
 
 const char *lcmd_editme (int argc, const char *argv[])
 {
-	printf("%s", NetEditMe());
-	return NULL;
+	char in[15], name[50], str[10];
+	int age;
+	*in = 0; *name = 0; age = -1;
+	printf("Entre um novo nome ate 50 caracteres ou pressione enter\n");
+	if (fgets(name,50,stdin) && ! isspace( *name )){
+		str[strlen(name)-1]='\0';
+	}
+	printf("Entre um novo interesse ou pressione enter\n");
+	if (fgets(in,50,stdin) && ! isspace( *in )){
+		in[strlen(in)-1]='\0';
+	}
+	printf("Entre uma nova idade ou pressione enter\n");
+	if (fgets(str,10,stdin) && ! isspace( *str )){
+		sscanf(str,"%d\n",&age);
+	}
+	return NetEditMe(name,in,age);
 }
 
 const char *lcmd_delmsg (int argc, const char *argv[])

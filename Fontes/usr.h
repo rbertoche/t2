@@ -116,7 +116,7 @@ int UsrPrint( Usr *u, char *buffer, int buffersize );
 *       que buffersize caracteres.
 *
 *	$FV Valor retornado
-*		N�mero de caractreres impressos.
+*		Numero de caractreres impressos.
 *
 ***********************************************************************/
 int UsrMsgList( Usr *u, char *buffer, int buffersize );
@@ -153,15 +153,14 @@ int UsrMsgDeliver ( Usr *u, Msg m);
 *       $i buffersize - delimitador de tamanho da string buffer
 *
 *	$ED Descricao da funcao
-*		Gera uma string contendo a mensagem numero msg da lista de mensagens
-*       de u sobre buffer, com menos que buffersize caracteres.
-*
+*		Retorna uma string contendo a mensagem numero msg da lista
+*	de mensagens de u sobre buffer, com menos que buffersize caracteres.
 *
 *	$FV Valor retornado
-*       N�mero de caracteres impressos.
+*	Ponteiro para conteudo da msg.
 *
 ***********************************************************************/
-int UsrMsgPrint( Usr *u, int msg, char *buffer, int buffersize );
+const char *UsrMsgPrint( Usr *u, int msg );
 
 /***********************************************************************
 *
