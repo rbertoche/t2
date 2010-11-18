@@ -98,6 +98,16 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			"NetRead retornou uma string incorreta.");
 
 	} else if (! strcmp (CmdTeste,NETDELMSG   )) {
+
+		int msg;
+
+		argc = LER_LerParametros ("i",
+			&msg);
+		if (argc != 1) return TST_CondRetParm;
+		return TST_CompararString ( "Mensagem deletada.\n",
+			(char*) NetDelMsg(msg),
+			"NetDelMsg falhou.");
+
 	} else if (! strcmp (CmdTeste,NETWHOAMI   )) {
 	} else if (! strcmp (CmdTeste,NETMAIL  )) {
 
