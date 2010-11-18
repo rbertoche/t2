@@ -31,19 +31,59 @@
 =NetUsrChange "a"
 =NetWrite "b" msg1
 =NetUsrChange "b"
-=NetMail ""
+=NetMail "0 - From: a\nTo: b\nProva de amanha\n\n"
 
 ==Testa search
 =NetSearch 0 "" "Invalid" -1 -1 "a\n\nIdade: 0\nInteresse: Invalid\n\nb\n\nIdade: 0\nInteresse: Invalid\n\nc\n\nIdade: 0\nInteresse: Invalid\n\n"
 =NetSearch 0 "b" "Invalid" -1 -1 "b\n\nIdade: 0\nInteresse: Invalid\n\n"
+
 ==Testa search com editme
 =NetUsrChange "b"
 =NetEditMe "Bobba Fett" "Work" 233
-=NetSearch 0 "b" "Invalid" -1 -1 "b\nBobba Fett\nIdade: 233\nInteresse: Work\n\n"
+=NetUsrChange "c"
+=NetSearch 0 "b" "" -1 -1 "b\nBobba Fett\nIdade: 233\nInteresse: Work\n\n"
 
 ==Testa amizades
+
 =NetUsrChange "c"
 =NetAddFriend "b"
-=NetSearch 1 "b" "Invalid" -1 -1 "b\n\nIdade: 0\nInteresse: Invalid\n\n"
+=NetSearch 1 "" "" -1 -1 "b\nBobba Fett\nIdade: 233\nInteresse: Work\n\n"
 =NetAddFriend "a"
-=NetSearch 1 "b" "Invalid" -1 -1 "a\n\nIdade: 0\nInteresse: Invalid\n\nb\n\nIdade: 0\nInteresse: Invalid\n\n"
+=NetSearch 1 "" "" -1 -1 "b\nBobba Fett\nIdade: 233\nInteresse: Work\n\na\n\nIdade: 0\nInteresse: Invalid\n\n"
+=NetUnfriend "a"
+=NetSearch 1 "" "" -1 -1 "b\nBobba Fett\nIdade: 233\nInteresse: Work\n\n"
+=NetAddFriend "a"
+=NetSearch 1 "" "" -1 -1 "b\nBobba Fett\nIdade: 233\nInteresse: Work\n\na\n\nIdade: 0\nInteresse: Invalid\n\n"
+=NetAddFriend "c"
+=NetSearch 1 "" "" -1 -1 "b\nBobba Fett\nIdade: 233\nInteresse: Work\n\na\n\nIdade: 0\nInteresse: Invalid\n\nc\n\nIdade: 0\nInteresse: Invalid\n\n"
+=NetUnfriend "a"
+=NetSearch 1 "" "" -1 -1 "b\nBobba Fett\nIdade: 233\nInteresse: Work\n\nc\n\nIdade: 0\nInteresse: Invalid\n\n"
+=NetAddFriend "b"
+=recuperar
+
+==Testa mensagens mais a fundo
+=NetNewUser "d"
+=NetUsrChange "c"
+=NetWrite "d" msg1 //0
+=NetWrite "d" msg2 //1
+=NetWrite "d" msg1 //2
+=NetWrite "d" msg1 //3
+=NetWrite "d" msg2 //4
+=NetWrite "d" msg1 //5
+=NetUsrChange "d"
+=NetMail "0 - From: c\nTo: d\nProva de amanha\n\n1 - From: c\nTo: d\nProva de amanha\n\n2 - From: c\nTo: d\nProva de amanha\n\n3 - From: c\nTo: d\nProva de amanha\n\n4 - From: c\nTo: d\nProva de amanha\n\n5 - From: c\nTo: d\nProva de amanha\n\n"
+=NetRead 0 msg1
+=NetRead 1 msg2
+=NetRead 2 msg1
+=NetRead 3 msg1
+=NetRead 4 msg2
+=NetRead 5 msg1
+
+==Sai apagando mensagens e ve se ele sobrevive
+=NetDelMsg 2
+=NetDelMsg 0
+=NetDelMsg 3
+
+=NetRead 0 msg2
+=NetRead 1 msg1
+=NetRead 2 msg2
