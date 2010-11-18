@@ -1,41 +1,14 @@
 input metauml;
 
-Class.cli ("cli") ()
-(
-	"+ run (cmd : string) : condRet",
-	"+ print () : void",
-	"+ readline ( line : string) : void",
+Class.cli ("cli")
+(	"- cmds : cli_reg"
+)(
+ 	"+ call (cmd : string) : string",
+	"+ register (reg : cli_reg) : void"
 );
 
-Class.gman ("GraphManager") ()
-(
-	"+ login (nick : string, passwd : string) : CondRet",
-	"+ logout () : void",
-	"+ send (msg : string) : CondRet",
-	"+ receive (msg : string) : void",
-	"+ reply (msg : string) : CondRet",
-	"+ show_log () : void",
-);
-
-Class.msg ("msg")
-(
-)
-(
-	"+ New (m : string, from : string, to : string) : Msg",
-	"+ GetSender (msg : Msg) : string",
-	"+ GetccList (msg : Msg) : List",
-);
-
-Class.user ("user")
-(
-)
-(
-	"+ appendMsg (msg : Msg) void",
-	"+ allMsg() void",
-	"+ delMsg() void",
-);
-
-Class.graph ("graph") ()
+Class.graph ("graph")
+()
 (
 	"+ New (DestroyFunction) : Graph",
 	"+ Del (g : Graph) : void",
@@ -49,8 +22,9 @@ Class.graph ("graph") ()
 	"+ GetNodes (g : Graph) : List",
 );
 
-Class.list ("list") ()
+Class.list ("list")
 (
+)(
 	"+ CriarLista (DestroyFunction) : List",
 	"+ DestruirLista (l : List) : void",
 	"+ EsvaziarLista (l : List) : void",
@@ -64,18 +38,51 @@ Class.list ("list") ()
 	"+ ProcurarValor (l : Lista, dat : Data) : CondRet",
 );
 
+Class.netmgr ("NetworkManager")
+("- u : Usr (Singleton)"
+)(
+	"+ IsAuthenticated () : bool",
+	"+ NewUser (id : string) : string",
+	"+ DelMe () : string",
+	"+ EditMe (name : string, interesse : int, idade : int) : string",
+	"+ UsrChange (id : name) : void",
+	"+ Search (buffer : string, isFriend : bool, id : string, interesse : string, minAge : int, maxAge : int) : string",
+	"+ AddFriend (id : string) : string",
+	"+ UnFriend (id : string) : string",
+	"+ Write (buffer : string, int destC, destV[] : string) : string",
+	"+ Read (id : int) : string",
+	"+ DelMsg (id : int) : string",
+	"+ WhoAmI () : string",
+	"+ Mail (buffer : string)"
+);
+
+Class.user ("user")
+(		"+ id : string",
+		"+ name : string",
+		"+ age : int",
+		"+ interest : Interest",
+		"+ msgs : List",
+)(
+	"+ New (id : string) : Usr",
+	"+ Del (id : string)",
+	"+ Print (u : Usr, buffer : string) : int",
+	"+ MsgList (u : Usr, buffer : string) : int",
+	"+ MsgDeliver (u : Usr, m : Msg) : int",
+	"+ MsgPrint (u : Usr, msgId : int) : string",
+	"+ MsgDel (u : Usr, msgId : int) : int",
+	"+ StrToIn ( s : string ) : int"
+);
+
 beginfig(1);
-topToBottom (25)(cli, gman, graph, list);
+topToBottom (25)(cli, netmgr, graph, list);
 leftToRight (25)( graph, msg);
 topToBottom (100)( msg, user);
-drawObjects (cli, gman, graph, list, user, msg);
-clink(associationUni)(cli, gman);
-clink(associationUni)(gman, graph);
-clink(associationUni)(gman, user);
+drawObjects (cli, netmgr, graph, list, user);
+clink(associationUni)(cli, netmgr);
+clink(associationUni)(netmgr, graph);
+clink(associationUni)(netmgr, user);
 clink(associationUni)(graph, list);
-clink(associationUni)(user, msg);
 clink(associationUni)(user, list);
-clink(associationUni)(gman, msg);
 endfig;
 
 end
