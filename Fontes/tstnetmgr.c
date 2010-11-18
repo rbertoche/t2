@@ -86,6 +86,17 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			"NetWrite nao enviou mensagem.");
 
 	} else if (! strcmp (CmdTeste,NETREAD     )) {
+
+		char expected[BUFFSIZE];
+		int msg;
+
+		argc = LER_LerParametros ("is",
+			&msg, expected);
+		if (argc != 2) return TST_CondRetParm;
+		return TST_CompararString (expected,(char*) NetRead(
+			msg),
+			"NetRead retornou uma string incorreta.");
+
 	} else if (! strcmp (CmdTeste,NETDELMSG   )) {
 	} else if (! strcmp (CmdTeste,NETWHOAMI   )) {
 	} else if (! strcmp (CmdTeste,NETNETMAIL  )) {

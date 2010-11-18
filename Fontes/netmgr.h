@@ -151,7 +151,7 @@ const char* NetUnfriend (char *id);
 
 
 const char* NetWrite (char * buffer, int destC,
-		const char ** destV);
+		const char * destV[]);
 
 /***********************************************************************
 *
