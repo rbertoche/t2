@@ -205,7 +205,15 @@ void delLink (Link *l)
 
 enum graphRet linkTwoNodes(Node *n1, Node *n2)
 {
-	Link *l1,*l2;
+	Link *l1,*l2,*l;
+	IrInicioLista(n1->links);
+	do{ /* Assertiva: Nao repetir links */
+		l = LIS_ObterValor(n1->links);
+		if( l && l->n2 == n2 ){
+			return graphInvalidLink;
+		}
+	}while (LIS_CondRetOK == LIS_AvancarElementoCorrente (n1->links,1));
+
 	l1 = (Link*) malloc (sizeof(Link));
 	l2 = (Link*) malloc (sizeof(Link));
 	l1->n1=n1;
@@ -214,9 +222,6 @@ enum graphRet linkTwoNodes(Node *n1, Node *n2)
 	l2->n1=n2;
 	l2->n2=n1;
 	l2->brother=l1;
-	if( LIS_CondRetOK == LIS_ProcurarValor(n1->links,n2)
-		|| LIS_CondRetOK == LIS_ProcurarValor(n1->links,n2) )
-		return graphInvalidLink; /* Assertiva: Nao repetir links */
 
 	IrFinalLista(n1->links);
 	IrFinalLista(n2->links);
