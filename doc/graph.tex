@@ -89,11 +89,35 @@ amigos.
 
 \end{enumerate}
 
+\section{Modificações na arquitetura}
+
+As modificações na arquitetura definida durante t2 foram:
+
+\begin{enumerate}
+\item Extinção do módulo Mensagem
+
+Concluimos que a separação de Usuário e Mensagem traria mais
+dificuldades de manter clareza de código e de utilização do que vantagens
+devido ao encapsulamento, pois a mensagem, que terminou por ser apenas uma
+string com separadores, só era tratada dentro do módulo Usuário e só fazia
+sentido junto com este. Em uma implementação OO faríamos os dois como classes
+dentro de um mesmo módulo.
+
+\item Modificações na interface de NetManager e Usuário
+
+Durante t2 tivemos problemas para entregar uma lista de requesitos funcionais
+consistente, portanto a definição de funcionalidades dos nossos módulos e da
+própria aplicação estava precária. Foi necessário reescrever praticamente toda
+a interface de ambos os módulos.
+
+\end{enumerate}
+
 
 \section{Diagramas}
 \subsection{Arquitetura}
 
 \includegraphics{arch.1}
+
 
 \subsection{Modelo Físico}
 
