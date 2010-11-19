@@ -7,7 +7,6 @@
 # C build files
 *.o
 *.a
-Produto
 
 # Arcabouco/windows temp files
 
@@ -18,5 +17,4 @@ Produto
 *.build
 *.list
 *.obj
-*.exe
 
