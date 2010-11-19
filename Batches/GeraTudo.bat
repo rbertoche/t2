@@ -5,6 +5,9 @@ cls
 
 pushd  .
 
+mkdir ..\Produto
+mkdir ..\Tabelas
+
 
 gmake  /b..\composicao  /cTesteLista
 gmake  /b..\composicao  /cTestGraph
