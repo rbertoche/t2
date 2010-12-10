@@ -56,8 +56,10 @@ $(TEXIMGEXT): %.svg
 ifeq ($(LATEX),pdflatex)
 %.pdf: %.tex $(PDFLATEXDEPS)
 	pdflatex $<
+	pdflatex $<
 else
 %.dvi: %.tex $(LATEXDEPS)
+	latex $<
 	latex $<
 %.pdf: %.dvi %.tex $(LATEXDEPS)
 	dvipdf $<
