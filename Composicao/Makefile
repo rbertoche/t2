@@ -25,7 +25,8 @@ $(SRC)/cli.h\
 $(SRC)/graph.h\
 $(SRC)/lista.h\
 $(SRC)/netmgr.h\
-$(SRC)/usr.h
+$(SRC)/usr.h\
+$(SRC)/cespdin.h
 
 #  Dependencias de cada modulo
 CLIOBJ=\

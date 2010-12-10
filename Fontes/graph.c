@@ -38,6 +38,9 @@ responsabilidade pelo desalocamento
 #include "graph.h"
 #include "lista.h"
 
+#ifdef _DEBUG
+#include "cespdin.h"
+#endif
 
 typedef struct graph Graph;
 typedef struct node Node;

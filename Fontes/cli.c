@@ -23,7 +23,10 @@ static int clitok (char *s,const char **argv)
 			instring = 1;
 			continue;
 		}
-		if (!instring && (isspace (s[i]) || s[i] == '\0' || s[i] == '"')){
+		if (!instring
+				&& (isspace(s[i])
+				|| s[i] == '\0'
+				|| s[i] == '"')){
 			if (!last_isspace){
 				if (argc >= MAXARGC) return -1;
 				last_isspace = 1;
