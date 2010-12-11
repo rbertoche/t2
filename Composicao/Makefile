@@ -9,9 +9,9 @@ CXX=g++
 OBJ=../Objetos
 TRG=../Produto
 SRC=../Fontes
-CFLAGS= -I. -I$(SRC) -ansi -Wall -g -O0 $(MORECFLAGS)
-LFLAGS= -L../Objetos -lArcaboucoTeste
-
+MYCFLAGS= -I. -I$(SRC) -ansi -Wall -g -O0 $(CFLAGS)
+MYLFLAGS= -L../Objetos -lArcaboucoTeste $(LFLAGS)
+DBGCFLAGS= -D_DEBUG
 
 ARCABDEPS=\
 $(SRC)/generico.h\
@@ -37,7 +37,7 @@ $(OBJ)/tstcli.o
 GRAPHOBJ=\
 $(OBJ)/libArcaboucoTeste.a\
 $(OBJ)/lista.o\
-$(OBJ)/graph.o\
+$(OBJ)/graph.dbg.o\
 $(OBJ)/tstgraph.o
 
 LISTAOBJ=\
@@ -77,40 +77,42 @@ $(TRG)/testnetmgr\
 $(TRG)/rede_social
 
 
+.PHONY: clean all debug
+
 all:$(ALLTARGS)
 
-%.o: $(SRC)/%.c $(ALLDEPS)
-	$(CC) -c -o $@ $(CFLAGS) $<
+clean:
+	rm -f $(OBJ)/*.o
+	rm $(TRG)/$(ALLTARGS) 2>/dev/null || true
 
-.PHONY: clean all
+
+%.o: $(SRC)/%.c $(ALLDEPS)
+	$(CC) -c -o $@ $(MYCFLAGS) $<
+
+# Compiled with debug only
+%.dbg.o: $(SRC)/%.c $(ALLDEPS)
+	$(CC) -c -o $@ $(DBGFLAGS) $(MYCFLAGS) $<
 
 $(OBJ)/libArcaboucoTeste.a:
 	make -C ../arcalin/arcabouc/Fontes/ libArcaboucoTeste.a
 	cp ../arcalin/arcabouc/Fontes/libArcaboucoTeste.a $@
 
 $(TRG)/testcli: $(CLIOBJ)
-	$(CC) -o $@ $(LFLAGS) $^ $(CFLAGS)
+	$(CC) -o $@ $(MYLFLAGS) $^ $(MYCFLAGS)
 
 $(TRG)/testlista: $(LISTAOBJ)
-	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS) 
+	$(CC) -o $(TRG)/$@ $(MYLFLAGS) $^ $(MYCFLAGS)
 
 $(TRG)/testgraph: $(GRAPHOBJ)
-	$(CC) -c -o $(OBJ)/graph.o $(CFLAGS) -D_DEBUG $(SRC)/graph.c
-	$(CC) -c -o $(OBJ)/tstgraph.o $(CFLAGS) -D_DEBUG $(SRC)/tstgraph.c
-	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
+	$(CC) -o $(TRG)/$@ $(MYLFLAGS) $^ $(MYCFLAGS)
 	
 $(TRG)/testusr: $(USROBJ)
-	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
+	$(CC) -o $(TRG)/$@ $(MYLFLAGS) $^ $(MYCFLAGS)
 
 $(TRG)/testnetmgr: $(NETMGROBJ)
-	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
+	$(CC) -o $(TRG)/$@ $(MYLFLAGS) $^ $(MYCFLAGS)
 
 $(TRG)/rede_social: $(REDSOC)
-	$(CC) -c -o $(OBJ)/graph.o $(CFLAGS) $(SRC)/graph.c
-	$(CC) -o $(TRG)/$@ $^ $(CFLAGS)
-
-clean:
-	rm -f $(OBJ)/*.o 
-	rm $(TRG)/$(ALLTARGS) 2>/dev/null || true
+	$(CC) -o $(TRG)/$@ $^ $(MYCFLAGS)
 
 
