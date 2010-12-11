@@ -41,6 +41,7 @@ responsabilidade pelo desalocamento
 
 #ifdef _DEBUG
 #include "cespdin.h"
+#include <string.h>
 #endif
 
 typedef struct graph Graph;
@@ -56,7 +57,7 @@ struct graph {
 #ifdef _DEBUG
 	int nOfNodes;
 	int nOfLinks;
-#endif /* _DEBUG_ */
+#endif /* _DEBUG */
 };
 
 /* Node definition */
@@ -91,7 +92,7 @@ Graph *GraphNew (FDelData fdd)
 #ifdef _DEBUG
 	g->nOfNodes = 0;
 	g->nOfLinks = 0;
-#endif /* _DEBUG_ */
+#endif /* _DEBUG */
 	return g;
 }
 
@@ -138,6 +139,10 @@ enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 enum graphRet GraphNewNode (Graph *g, void *data)
 {
 	Node *n;
+#ifdef _DEBUG
+	Node *mirror;
+	void *offset;
+#endif /* _DEBUG */
 	LIS_tppLista ln;
 /* Inicio do bloco de codigo com tratamento de excecao */
 	if (!g)
@@ -180,10 +185,17 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 
 	n->data = data;
 	n->delData = g->delData;
-#ifdef _DEBUG
-	g->nOfNodes++;
-#endif /* _DEBUG_ */
 	g->currentNode = ln;
+#ifdef _DEBUG
+	offset = malloc( 0x200 );
+		/* Apenas para que o proximo malloc esteja longe do dado replicado*/
+	mirror = (Node *) malloc(sizeof(Node));
+	free(offset);
+	memcpy(mirror,n, sizeof(Node));
+	LIS_InserirElementoApos( ln, mirror );
+	IrInicioLista( ln );
+	g->nOfNodes++;
+#endif /* _DEBUG */
 	return graphOk;
 }
 void GraphDelNode (Graph *g)
@@ -195,9 +207,6 @@ void GraphDelNode (Graph *g)
 /* assertiva caso nao retornasse void (Change Current ja' testou isso) */
 	assert( n!=NULL );
 	delNode(g,n);
-#ifdef _DEBUG
-	g->nOfNodes++;
-#endif /* _DEBUG_ */
 	g->currentNode = LIS_ObterValor(g->nodes);
 }
 
@@ -207,8 +216,10 @@ void delNode (Graph *g, void *n_)
 	LIS_DestruirLista( n->links );
 	( *g->delData )( n->data );
 #ifdef _DEBUG
+	IrFinalLista( g->currentNode );
+	free(LIS_ObterValor( g->currentNode ));
 	g->nOfNodes--;
-#endif /* _DEBUG_ */
+#endif /* _DEBUG */
 	free (n);
 }
 
@@ -310,7 +321,7 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 #ifdef _DEBUG
 	if (ret == graphOk)
 		g->nOfLinks += 2;
-#endif /* _DEBUG_ */
+#endif /* _DEBUG */
 	return ret;
 }
 
@@ -336,7 +347,7 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 				/* isso deleta deleta link e link->brother */
 			#ifdef _DEBUG
 			g->nOfLinks -= 2 ;
-			#endif /* _DEBUG_ */
+			#endif /* _DEBUG */
 			return graphOk;
 		}
 	}while (LIS_AvancarElementoCorrente(curr->links, 1)
