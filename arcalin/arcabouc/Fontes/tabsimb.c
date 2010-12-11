@@ -31,7 +31,7 @@
 #undef TABSIMB_OWN
 
 #ifdef _DEBUG
-   #include   "CESPDIN.H"
+   #include   "cespdin.h"
 #endif
 
 /***********************************************************************

@@ -6,8 +6,8 @@
 
 CC=gcc
 CXX=g++
-CFLAGS= -I. -ansi -Wall -g -O0 $(MORECFLAGS)
-LFLAGS= -lm
+MYCFLAGS= -I. -ansi -Wall -g -O0 $(CFLAGS)
+MYLFLAGS= -lm $(LFLAGS)
 
 ALLDEPS = \
 cespdin.h\
@@ -78,28 +78,28 @@ libArcaboucoTeste.a: $(CRIALIBOBJ)
 all:$(ALLTARGS)
 
 %.o: %.c $(ALLDEPS)
-	$(CC) -c -o $@ $(CFLAGS) $<
+	$(CC) -c -o $@ $(MYCFLAGS) $<
 
 TesteAleatorio: $(ALEATORIOOBJ)
-	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
+	$(CC) -o $@ $^  $(MYCFLAGS) $(MYLFLAGS)
 
 TesteContadores: $(CONTADORESOBJ)
-	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
+	$(CC) -o $@ $^  $(MYCFLAGS) $(MYLFLAGS)
 
 TesteControleEspaco: $(CEDOBJ)
-	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
+	$(CC) -o $@ $^  $(MYCFLAGS) $(MYLFLAGS)
 	
 TesteFuncoes: $(GENOBJ)
-	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
+	$(CC) -o $@ $^  $(MYCFLAGS) $(MYLFLAGS)
 	
 TesteLerParametros: $(LEROBJ)
-	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
+	$(CC) -o $@ $^  $(MYCFLAGS) $(MYLFLAGS)
 	
 TesteTabelaSimbolos: $(TBSOBJ)
-	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
+	$(CC) -o $@ $^  $(MYCFLAGS) $(MYLFLAGS)
 	
 GeraPermutacao: $(PERMUTAOBJ)
-	$(CC) -o $@ $^  $(CFLAGS) $(LFLAGS)
+	$(CC) -o $@ $^  $(MYCFLAGS) $(MYLFLAGS)
 	
 
 

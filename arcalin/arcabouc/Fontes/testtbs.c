@@ -31,7 +31,7 @@
 #include    "lerparm.h"
 
 #ifdef _DEBUG
-   #include   "CESPDIN.H"
+   #include   "cespdin.h"
 #endif
 
 static const char RESET_TAB_CMD           [ ] = "=resettestetab"  ;

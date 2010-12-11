@@ -29,7 +29,7 @@
 #include    "tabsimb.h"
 
 #ifdef _DEBUG
-   #include   "CESPDIN.H"
+   #include   "cespdin.h"
 #endif
 
 #define CONTA_OWN

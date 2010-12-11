@@ -33,7 +33,7 @@
 #include    "generico.h"
 #include    "geraalt.h"
 
-#include    "../Tabelas/IdTiposEspaco.def"
+#include    "../Tabelas/idtiposespaco.def"
 
     /* O pragma é necessário para assegurar alinhamento a byte,
        uma vez que toda a aritmética com ponteiros assume isso */
