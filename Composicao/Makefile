@@ -91,7 +91,7 @@ clean:
 
 # Compiled with debug only
 %.dbg.o: $(SRC)/%.c $(ALLDEPS)
-	$(CC) -c -o $@ $(DBGFLAGS) $(MYCFLAGS) $<
+	$(CC) -c -o $@ $(DBGCFLAGS) $(MYCFLAGS) $<
 
 $(OBJ)/libArcaboucoTeste.a:
 	make -C ../arcalin/arcabouc/Fontes/ libArcaboucoTeste.a
