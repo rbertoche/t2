@@ -34,11 +34,17 @@ $(OBJ)/libArcaboucoTeste.a\
 $(OBJ)/cli.o\
 $(OBJ)/tstcli.o
 
-GRAPHOBJ=\
+GRAPHDBGOBJ=\
 $(OBJ)/libArcaboucoTeste.a\
 $(OBJ)/lista.o\
 $(OBJ)/graph.dbg.o\
 $(OBJ)/tstgraph.dbg.o
+
+GRAPHOBJ=\
+$(OBJ)/libArcaboucoTeste.a\
+$(OBJ)/lista.o\
+$(OBJ)/graph.o\
+$(OBJ)/tstgraph.o
 
 LISTAOBJ=\
 $(OBJ)/libArcaboucoTeste.a\
@@ -71,6 +77,7 @@ $(OBJ)/main.o
 ALLTARGS = \
 $(TRG)/testcli\
 $(TRG)/testgraph\
+$(TRG)/testgraphdbg\
 $(TRG)/testlista\
 $(TRG)/testusr\
 $(TRG)/testnetmgr\
@@ -106,6 +113,9 @@ $(TRG)/testlista: $(LISTAOBJ)
 $(TRG)/testgraph: $(GRAPHOBJ)
 	$(CC) -o $(TRG)/$@ $(MYLFLAGS) $^ $(MYCFLAGS)
 	
+$(TRG)/testgraphdbg: $(GRAPHDBGOBJ)
+	$(CC) -o $(TRG)/$@ $(MYLFLAGS) $^ $(MYCFLAGS)
+
 $(TRG)/testusr: $(USROBJ)
 	$(CC) -o $(TRG)/$@ $(MYLFLAGS) $^ $(MYCFLAGS)
 
