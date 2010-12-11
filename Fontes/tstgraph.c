@@ -6,6 +6,11 @@
 
 #include    "../lista/lista.h"
 */
+
+#ifdef _DEBUG
+#include    "cespdin.h"
+#endif
+
 #include    "graph.h"
 #include    "tst_espc.h"
 #include    "generico.h"
@@ -19,6 +24,7 @@ static char * vData[ MAXDATAS ];
 
 static int DataAlocCount = 0;
 
+static const char GRAPH_INIT_CESPDIN      [ ] = "=GraphInitCespdin"   ;
 static const char GRAPHNEW_CMD            [ ] = "=GraphNew"           ;
 static const char GRAPHDEL_CMD            [ ] = "=GraphDel"           ;
 static const char GRAPHCCUR_CMD           [ ] = "=GraphCCurrent"      ;
