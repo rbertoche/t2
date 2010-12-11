@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <assert.h>
 /*
 
 Diagrama UML do modelo fisico da implementacao de grafo
@@ -50,10 +51,12 @@ struct graph {
 	LIS_tppLista nodes;
 	LIS_tppLista currentNode;
 	FDelData delData;
-	int nOfNodes;
-	int nOfLinks;
 	void *nodesOld;
 	void *linksOld;
+#ifdef _DEBUG
+	int nOfNodes;
+	int nOfLinks;
+#endif /* _DEBUG_ */
 };
 
 /* Node definition */
@@ -85,8 +88,10 @@ Graph *GraphNew (FDelData fdd)
 	}
 	g->delData = fdd;
 	g->currentNode = NULL;
+#ifdef _DEBUG
 	g->nOfNodes = 0;
 	g->nOfLinks = 0;
+#endif /* _DEBUG_ */
 	return g;
 }
 
@@ -175,23 +180,24 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 
 	n->data = data;
 	n->delData = g->delData;
+#ifdef _DEBUG
 	g->nOfNodes++;
+#endif /* _DEBUG_ */
 	g->currentNode = ln;
 	return graphOk;
 }
 void GraphDelNode (Graph *g)
 {
 	Node *n;
-/* assertiva caso nao retornasse void (Change Current ja' testou isso):
-	if (!g)
-		return graphInvalidGraph;
-*/
+/* assertiva caso nao retornasse void (Change Current ja' testou isso) */
+	assert( g!=NULL );
 	n = (Node *) LIS_ObterValor(g->currentNode);
-/* assertiva caso nao retornasse void (Change Current ja' testou isso):
-	if (!n)
-		return graphInvalidCurrentNode;
-*/
+/* assertiva caso nao retornasse void (Change Current ja' testou isso) */
+	assert( n!=NULL );
 	delNode(g,n);
+#ifdef _DEBUG
+	g.nOfNodes++;
+#endif /* _DEBUG_ */
 	g->currentNode = LIS_ObterValor(g->nodes);
 }
 
@@ -200,6 +206,9 @@ void delNode (Graph *g, void *n_)
 	Node * n=n_;
 	LIS_DestruirLista( n->links );
 	( *g->delData )( n->data );
+#ifdef _DEBUG
+	g.nOfNodes--;
+#endif /* _DEBUG_ */
 	free (n);
 }
 
@@ -297,7 +306,12 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 		return graphInvalidArgNode;
 	n2 = LIS_ObterValor(LIS_ObterValor(g->nodes));
 
-	return linkTwoNodes(n1,n2);
+	ret = linkTwoNodes(n1, n2);
+#ifdef _DEBUG
+	if (ret == graphOk)
+		g.nOfLinks += 2;
+#endif /* _DEBUG_ */
+	return ret;
 }
 
 enum graphRet GraphRemLink (Graph *g, void *d)
@@ -320,6 +334,9 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 			/* deleta de curr -> n2 */
 			LIS_ExcluirElemento(curr->links);
 				/* isso deleta deleta link e link->brother */
+			#ifdef _DEBUG
+			g.nOfLinks -= 2 ;
+			#endif /* _DEBUG_ */
 			return graphOk;
 		}
 	}while (LIS_AvancarElementoCorrente(curr->links, 1)
