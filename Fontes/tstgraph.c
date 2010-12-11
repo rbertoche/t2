@@ -43,6 +43,8 @@ static const char CMPDATA_CMD             [ ] = "=CmpData"            ;
 
 #ifdef _DEBUG
 static const char SHOW_MEMSPACES          [ ] = "=ShowMem"            ;
+static const char CNT_VERIFY              [ ] = "=CntVerify"          ;
+static const char CNT_INIT                [ ] = "=CntInit"            ;
 #endif
 
 void *NewData ( char data )
@@ -77,6 +79,19 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 
 
 #ifdef _DEBUG
+	}else if(! strcmp( CmdTeste , 		CNT_INIT) ){
+
+
+		CNT_InicializarContadores( NULL );
+		CNT_IniciarContagem( );
+		return TST_CondRetOk;
+
+
+	}else if(! strcmp( CmdTeste , 		CNT_VERIFY) ){
+
+		CNT_VerificarContagem( );
+		return TST_CondRetOk;
+
 	}else if(! strcmp( CmdTeste , 		SHOW_MEMSPACES) ){
 
 
