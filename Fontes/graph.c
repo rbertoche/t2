@@ -445,9 +445,9 @@ void AssertLink(Link *l)
 	assert( l->n2->links == b->n1->links );
 
 	IrInicioLista( l->n1->links );
-	IrInicioLista( l->n2->links );
+	IrInicioLista( b->n1->links );
 	assert( LIS_CondRetOK == LIS_ProcurarValor( l->n1->links , l) );
-	assert( LIS_CondRetOK == LIS_ProcurarValor( l->n2->links , b) );
+	assert( LIS_CondRetOK == LIS_ProcurarValor( b->n1->links , b) );
 }
 
 void AssertNode(Node *n, Graph *g)
