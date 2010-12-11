@@ -38,7 +38,7 @@ GRAPHOBJ=\
 $(OBJ)/libArcaboucoTeste.a\
 $(OBJ)/lista.o\
 $(OBJ)/graph.dbg.o\
-$(OBJ)/tstgraph.o
+$(OBJ)/tstgraph.dbg.o
 
 LISTAOBJ=\
 $(OBJ)/libArcaboucoTeste.a\
