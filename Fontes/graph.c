@@ -217,6 +217,7 @@ void GraphDelNode (Graph *g)
 	n = (Node *) LIS_ObterValor(g->currentNode);
 	assert( n!=NULL );
 	delNode(g,n);
+	LIS_ExcluirElemento(g->nodes);
 	g->currentNode = LIS_ObterValor(g->nodes);
 }
 
@@ -229,7 +230,6 @@ void delNode (Graph *g, void *n_)
 #ifdef _DEBUG
 	IrFinalLista( g->currentNode );
 	free(LIS_ObterValor( g->currentNode ));
-	g->nOfNodes--;
 	IrInicioLista( g->currentNode );
 #endif /* _DEBUG */
 	free (n);
