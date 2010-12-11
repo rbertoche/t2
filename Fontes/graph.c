@@ -214,7 +214,8 @@ void delNode (Graph *g, void *n_)
 {
 	Node * n=n_;
 	LIS_DestruirLista( n->links );
-	( *g->delData )( n->data );
+	if ( g->delData )
+		( *g->delData )( n->data );
 #ifdef _DEBUG
 	IrFinalLista( g->currentNode );
 	free(LIS_ObterValor( g->currentNode ));
