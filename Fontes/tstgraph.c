@@ -152,7 +152,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 
 
 		argc = LER_LerParametros ( "i", &iGraph);
-		if ( argc != 2 
+		if ( argc != 1
 			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
 		GraphDelNode ( vGraph[iGraph] );
