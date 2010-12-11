@@ -95,6 +95,8 @@ $(TRG)/testlista: $(LISTAOBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS) 
 
 $(TRG)/testgraph: $(GRAPHOBJ)
+	$(CC) -c -o $(OBJ)/graph.o $(CFLAGS) -D_DEBUG $(SRC)/graph.c
+	$(CC) -c -o $(OBJ)/tstgraph.o $(CFLAGS) -D_DEBUG $(SRC)/tstgraph.c
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
 	
 $(TRG)/testusr: $(USROBJ)
@@ -104,6 +106,7 @@ $(TRG)/testnetmgr: $(NETMGROBJ)
 	$(CC) -o $(TRG)/$@ $(LFLAGS) $^ $(CFLAGS)
 
 $(TRG)/rede_social: $(REDSOC)
+	$(CC) -c -o $(OBJ)/graph.o $(CFLAGS) $(SRC)/graph.c
 	$(CC) -o $(TRG)/$@ $^ $(CFLAGS)
 
 clean:

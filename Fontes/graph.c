@@ -196,7 +196,7 @@ void GraphDelNode (Graph *g)
 	assert( n!=NULL );
 	delNode(g,n);
 #ifdef _DEBUG
-	g.nOfNodes++;
+	g->nOfNodes++;
 #endif /* _DEBUG_ */
 	g->currentNode = LIS_ObterValor(g->nodes);
 }
@@ -207,7 +207,7 @@ void delNode (Graph *g, void *n_)
 	LIS_DestruirLista( n->links );
 	( *g->delData )( n->data );
 #ifdef _DEBUG
-	g.nOfNodes--;
+	g->nOfNodes--;
 #endif /* _DEBUG_ */
 	free (n);
 }
@@ -309,7 +309,7 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 	ret = linkTwoNodes(n1, n2);
 #ifdef _DEBUG
 	if (ret == graphOk)
-		g.nOfLinks += 2;
+		g->nOfLinks += 2;
 #endif /* _DEBUG_ */
 	return ret;
 }
@@ -335,7 +335,7 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 			LIS_ExcluirElemento(curr->links);
 				/* isso deleta deleta link e link->brother */
 			#ifdef _DEBUG
-			g.nOfLinks -= 2 ;
+			g->nOfLinks -= 2 ;
 			#endif /* _DEBUG_ */
 			return graphOk;
 		}

@@ -24,7 +24,6 @@ static char * vData[ MAXDATAS ];
 
 static int DataAlocCount = 0;
 
-static const char GRAPH_INIT_CESPDIN      [ ] = "=GraphInitCespdin"   ;
 static const char GRAPHNEW_CMD            [ ] = "=GraphNew"           ;
 static const char GRAPHDEL_CMD            [ ] = "=GraphDel"           ;
 static const char GRAPHCCUR_CMD           [ ] = "=GraphCCurrent"      ;
@@ -41,6 +40,10 @@ static const char GRAPHLINKSGETNEXT_CMD   [ ] = "=GraphLinksGetNext"  ;
 
 static const char NEWDATA_CMD             [ ] = "=NewData"            ;
 static const char CMPDATA_CMD             [ ] = "=CmpData"            ;
+
+#ifdef _DEBUG
+static const char SHOW_MEMSPACES          [ ] = "=ShowMem"            ;
+#endif
 
 void *NewData ( char data )
 {
@@ -71,6 +74,15 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		vGraph[iGraph] = GraphNew ( DelData );
             	return TST_CompararPonteiroNulo( 1 , vGraph[iGraph],
 			"Erro: Ponteiro para novo grafo e' nulo." );
+
+
+#ifdef _DEBUG
+	}else if(! strcmp( CmdTeste , 		SHOW_MEMSPACES) ){
+
+
+		CED_ExibirTodosEspacos( CED_ExibirTodos );
+		return TST_CondRetOK;
+#endif
 
 
 	}else if(! strcmp( CmdTeste , 		GRAPHDEL_CMD) ){
