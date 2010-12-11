@@ -198,6 +198,8 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 #endif /* _DEBUG */
 	return graphOk;
 }
+
+
 void GraphDelNode (Graph *g)
 {
 	Node *n;
@@ -418,3 +420,49 @@ void *GraphLinksGetNext (Graph *g)
 	return ret;
 }
 
+#ifdef _DEBUG
+/* Assertivas estruturais de cara uma das structs */
+
+void AssertLink(Link *l)
+{
+	Link *b = l->brother;
+	assert(	b->brother == l );
+	assert( l != b );
+	assert( l->n1 == b->n2 );
+	assert( l->n2 == b->n1 );
+	assert( l->n1->links == b->n2->links );
+	assert( l->n2->links == b->n1->links );
+
+	IrInicioLista( l->n1->links );
+	IrInicioLista( l->n2->links );
+	assert( LIS_CondRetOK == LIS_ProcurarValor( l->n1->links , l) );
+	assert( LIS_CondRetOK == LIS_ProcurarValor( l->n2->links , b) );
+}
+
+void AssertNode(Node *n, Graph *g)
+{
+	IrInicioLista(g->nodes);
+	do{
+		if (n == LIS_ObterValor(LIS_ObterValor( g->nodes )))
+			assert( n->delData == g->delData );
+			return;
+	} while(LIS_CondRetOK == LIS_AvancarElementoCorrente ( g->nodes , 1));
+	/* Nao deveria cruzar esse ponto: Significa que nao foi encontrado
+	 * n na lista g->nodes
+	 */
+	assert( 0 );
+}
+
+void AssertGraph(Graph *g)
+{
+	int i;
+	assert( g->nOfNodes == 0 || g->currentNode !=NULL );
+	assert( g->nOfLinks % 2 == 0 );
+
+	IrInicioLista(g->nodes);
+	for (	i=0;
+			LIS_CondRetOK == LIS_AvancarElementoCorrente ( g->nodes , 1);
+			i++ ){}
+	assert( i == g->nOfNodes );
+}
+#endif /* _DEBUG */
