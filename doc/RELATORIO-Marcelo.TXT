@@ -1,9 +1,6 @@
-13/11/2010|2|especificar funcoes	|Especificacao das funcoes do Grafo
-14/11/2010|3|especificar funcoes	|Especificacao das funcoes do Grafo
-14/11/2010|3|codificar modulo		|modulo Grafo.
-14/11/2010|1|estudar			|Estudo da Arquitetura proposta.
-14/11/2010|2|redigir script de teste	|script da lista.
-15/11/2010|1|revisar script de teste	|script da lista.
-15/11/2010|3|revisar projeto		|revisao da organizacao das pastas.
-17/11/2010|2|documentacao		|revisao e documentacao do netmgr
-18/11/2010|3|documentacao		|revisao e documentacao dos modelos UML
+08/12/2010|2|estudo do cespdin		|Descobrindo o porque do exemplo do
+					|cespdin voar
+09/12/2010|2|estudo do cespdin		|Estudo dos exemplos
+11/12/2010|1|revisao de codigo		|Adicionando cespdin a graph.
+11/12/2010|2|revisao de codigo		|Revisando o Makefile para compilacao
+					|condicional
