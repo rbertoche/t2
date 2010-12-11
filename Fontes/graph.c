@@ -219,6 +219,7 @@ void delNode (Graph *g, void *n_)
 	IrFinalLista( g->currentNode );
 	free(LIS_ObterValor( g->currentNode ));
 	g->nOfNodes--;
+	IrInicioLista( g->currentNode );
 #endif /* _DEBUG */
 	free (n);
 }
@@ -255,9 +256,14 @@ void delNode (Graph *g, void *n_)
 
 void delLink (Link *l)
 {
-	if ( LIS_CondRetOK == LIS_ProcurarValor(l->n2->links,l->brother) )
+	static int RecursionCnt = 0;
+	RecursionCnt++;
+	IrInicioLista( l->n2->links );
+	if ( RecursionCnt <= 1 &&
+			LIS_CondRetOK == LIS_ProcurarValor(l->n2->links,l->brother) )
 		LIS_ExcluirElemento(l->n2->links);
 	free (l);
+	RecursionCnt--;
 }
 
 
