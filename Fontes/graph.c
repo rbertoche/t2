@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <assert.h>
 /*
 
 Diagrama UML do modelo fisico da implementacao de grafo
@@ -42,11 +41,22 @@ responsabilidade pelo desalocamento
 #ifdef _DEBUG
 #include "cespdin.h"
 #include <string.h>
-#endif
+#undef NDEBUG /* Habilita assert */
+#endif /* _DEBUG */
+#include <assert.h>
 
 typedef struct graph Graph;
 typedef struct node Node;
 typedef struct link Link;
+
+#ifdef _DEBUG
+/* Declara funcoes de assertivas estruturais*/
+void AssertLink(Link *l);
+void AssertGraph(Graph *g);
+void AssertNode(Node *n, Graph *g);
+#endif /* _DEBUG */
+
+
 /* Graph definition */
 struct graph {
 	LIS_tppLista nodes;
@@ -203,10 +213,8 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 void GraphDelNode (Graph *g)
 {
 	Node *n;
-/* assertiva caso nao retornasse void (Change Current ja' testou isso) */
 	assert( g!=NULL );
 	n = (Node *) LIS_ObterValor(g->currentNode);
-/* assertiva caso nao retornasse void (Change Current ja' testou isso) */
 	assert( n!=NULL );
 	delNode(g,n);
 	g->currentNode = LIS_ObterValor(g->nodes);
@@ -421,7 +429,10 @@ void *GraphLinksGetNext (Graph *g)
 }
 
 #ifdef _DEBUG
-/* Assertivas estruturais de cara uma das structs */
+/* Assertivas estruturais de cara uma das structs
+ * Para descobrir em que funcao uma assertiva dessas foi quebrada, rode o
+ * programa com algum debugger e veja as pilha de chamadas (stacktrace)
+ */
 
 void AssertLink(Link *l)
 {
@@ -460,9 +471,10 @@ void AssertGraph(Graph *g)
 	assert( g->nOfLinks % 2 == 0 );
 
 	IrInicioLista(g->nodes);
-	for (	i=0;
+	for (	i=1;
 			LIS_CondRetOK == LIS_AvancarElementoCorrente ( g->nodes , 1);
 			i++ ){}
-	assert( i == g->nOfNodes );
+
+	assert( i == g->nOfNodes || g->nOfNodes == 0 );
 }
 #endif /* _DEBUG */
