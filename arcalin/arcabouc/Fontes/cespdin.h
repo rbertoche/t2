@@ -41,7 +41,7 @@
 *     definição deste módulo. Idealmente use uma construção similar a:
 *
 *     #ifdef _DEBUG
-*        #include "CESPDIN.H"
+*        #include "cespdin.h"
 *     #endif
 *
 *     Isto fará com que todas as chamadas malloc e free do módulo controlado
