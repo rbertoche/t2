@@ -102,12 +102,16 @@ Graph *GraphNew (FDelData fdd)
 #ifdef _DEBUG
 	g->nOfNodes = 0;
 	g->nOfLinks = 0;
+	AssertGraph(g);
 #endif /* _DEBUG */
 	return g;
 }
 
 void GraphDel (Graph *g)
 {
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 	IrInicioLista ( g->nodes );
 	do {
 		g->currentNode = LIS_ObterValor( g->nodes );
@@ -136,6 +140,9 @@ enum graphRet searchData(LIS_tppLista l, void *data)
 }
 enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 {
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 	if (!g)
 		return graphInvalidGraph;
 	if (!newCurrent)
@@ -144,6 +151,9 @@ enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 		return graphInvalidArgNode;
 	g->currentNode = LIS_ObterValor(g->nodes);
 	return graphOk;
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 } 
 
 enum graphRet GraphNewNode (Graph *g, void *data)
@@ -154,6 +164,9 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 	void *offset;
 #endif /* _DEBUG */
 	LIS_tppLista ln;
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 /* Inicio do bloco de codigo com tratamento de excecao */
 	if (!g)
 		return graphInvalidGraph;
@@ -205,6 +218,8 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 	LIS_InserirElementoApos( ln, mirror );
 	IrInicioLista( ln );
 	g->nOfNodes++;
+	AssertGraph(g);
+	AssertNode(n,g);
 #endif /* _DEBUG */
 	return graphOk;
 }
@@ -212,13 +227,25 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 
 void GraphDelNode (Graph *g)
 {
+#ifdef _DEBUG
+	int nOfNodesAntigo = g->nOfNodes;
+	AssertGraph(g);
+#endif /* _DEBUG */
 	Node *n;
 	assert( g!=NULL );
 	n = (Node *) LIS_ObterValor(g->currentNode);
 	assert( n!=NULL );
+#ifdef _DEBUG
+	AssertNode(n,g);
+#endif /* _DEBUG */
 	delNode(g,n);
 	LIS_ExcluirElemento(g->nodes);
 	g->currentNode = LIS_ObterValor(g->nodes);
+#ifdef _DEBUG
+	g->nOfNodes--;
+	assert ( g->nOfNodes == (nOfNodesAntigo - 1) );
+	AssertGraph(g);
+#endif /* _DEBUG */
 }
 
 void delNode (Graph *g, void *n_)
@@ -313,11 +340,18 @@ enum graphRet linkTwoNodes(Node *node1, Node *node2)
 		LIS_ExcluirElemento(node1->links);
 		return graphMemoryError;
 	}
+#ifdef _DEBUG
+	AssertLink(link1);
+	AssertLink(link2);
+#endif /* _DEBUG */
 	return graphOk;
 }
 
 enum graphRet GraphAddLink (Graph *g, void *n)
 {
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 	Node *n1, *n2;
 	enum graphRet ret;
 	if (!g)
@@ -327,23 +361,32 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 	if (!g->currentNode)
 		return graphInvalidCurrentNode;
 	n1 = LIS_ObterValor(g->currentNode);
-	if (!n1)
-		return graphInvalidCurrentNode;
+	assert(n1);
 
 	if (searchData (g->nodes, n) != graphOk)
 		return graphInvalidArgNode;
 	n2 = LIS_ObterValor(LIS_ObterValor(g->nodes));
 
+#ifdef _DEBUG
+	AssertNode(n1,g);
+	AssertNode(n2,g);
+#endif /* _DEBUG */
 	ret = linkTwoNodes(n1, n2);
 #ifdef _DEBUG
 	if (ret == graphOk)
 		g->nOfLinks += 2;
+		AssertNode(n1,g);
+		AssertNode(n2,g);
+		AssertGraph(g);
 #endif /* _DEBUG */
 	return ret;
 }
 
 enum graphRet GraphRemLink (Graph *g, void *d)
 {
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 	Node *curr;
 	Link *l;
 	if (!g)
@@ -353,17 +396,24 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 	if (!g->currentNode)
 		return graphInvalidCurrentNode;
 	curr = LIS_ObterValor (g->currentNode);
+#ifdef _DEBUG
+	AssertNode(curr,g);
+#endif /* _DEBUG */
 
 
 	IrInicioLista (curr->links);
 	do{
 		l = (Link*)LIS_ObterValor (curr->links);
+		#ifdef _DEBUG
+		AssertLink(l);
+		#endif /* _DEBUG */
 		if (l->n2->data == d){
 			/* deleta de curr -> n2 */
 			LIS_ExcluirElemento(curr->links);
 				/* isso deleta deleta link e link->brother */
 			#ifdef _DEBUG
 			g->nOfLinks -= 2 ;
+			AssertGraph(g);
 			#endif /* _DEBUG */
 			return graphOk;
 		}
@@ -375,6 +425,9 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 
 void *GraphGetData (Graph *g)
 {
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 	if (g->currentNode)
 		return ((Node *)LIS_ObterValor ( g->currentNode ))->data;
 	return NULL;
@@ -382,18 +435,27 @@ void *GraphGetData (Graph *g)
 
 void GraphNodesStart (Graph *g)
 {
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 	g->nodesOld = NULL;
 	IrInicioLista ( g->nodes );
 }
 
 void GraphLinksStart (Graph *g)
 {
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 	g->linksOld = NULL;
 	IrInicioLista ( ((Node *)LIS_ObterValor (g->currentNode))->links );
 }
 
 void *GraphNodesGetNext (Graph *g)
 {
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 	void *ret;
 	LIS_tppLista l;
 	if (!g || !g->currentNode)
@@ -407,11 +469,17 @@ void *GraphNodesGetNext (Graph *g)
 	}
 	g->nodesOld = ret;
 	LIS_AvancarElementoCorrente (l, 1);
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 	return ret;
 }
 
 void *GraphLinksGetNext (Graph *g)
 {
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 	void *ret;
 	LIS_tppLista l;
 	if (!g || !g->currentNode)
@@ -425,6 +493,9 @@ void *GraphLinksGetNext (Graph *g)
 	}
 	g->linksOld = ret;
 	LIS_AvancarElementoCorrente (l, 1);
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 	return ret;
 }
 
