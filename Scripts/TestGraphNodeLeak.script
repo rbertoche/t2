@@ -1,0 +1,73 @@
+// O Objetivo desse script é ajudar a detectar vazamentos no GraphDelNode.
+// Nao chamamos o DelGraph de proposito: Caso contrario nunca veriamos os
+// vazamentos de GraphDelNode. Portanto, vai sempre vazar algo proximo de 
+// 2 mallocs
+
+== Inicializar valores
+
+=declararparm   c0      char  'l'
+=declararparm   c1      char  'i'
+=declararparm   c2      char  'n'
+=declararparm   c3      char  'u'
+=declararparm   c4      char  'x'
+=declararparm   c5      char  '1'
+
+=declararparm   g0      int 0
+=declararparm   g1      int 1
+=declararparm   g2      int 2
+=declararparm   g3      int 3
+=declararparm   g4      int 4
+
+=declararparm   d0      int 0
+=declararparm   d1      int 1
+=declararparm   d2      int 2
+=declararparm   d3      int 3
+=declararparm   d4      int 4
+=declararparm   d5      int 5
+=declararparm   d6      int 6
+=declararparm   d7      int 7
+=declararparm   d8      int 8
+=declararparm   d9      int 9
+
+=declararparm   Ok                  int 0
+=declararparm   InvalidGraph        int 1
+=declararparm   InvalidCurrentNode  int 2
+=declararparm   InvalidArgNode      int 3
+=declararparm   InvalidLink         int 4
+=declararparm   NullData            int 5
+=declararparm   MemoryError         int 6
+
+== Criar o grafo 0
+=GraphNew		g0
+
+== Criar node c0
+=NewData		d0	c0
+=GraphNewNode		g0	d0	Ok
+
+== Verificar se c0 esta armazenado
+=GraphGetData		g0	d9
+=CmpData		d9	c0
+
+== Criar node c1
+=NewData		d1	c1
+
+=GraphNewNode		g0	d1	Ok
+
+== Verificar se c1 esta armazenado
+=GraphGetData		g0	d9
+=CmpData		d9	c1
+
+== Criar node c2
+=NewData		d2	c2
+=GraphNewNode		g0	d2	Ok
+
+== Criar node c3
+=NewData		d3	c3
+=GraphNewNode		g0	d3	Ok
+
+=GraphDelNode	g0
+=GraphDelNode	g0
+=GraphDelNode	g0
+=GraphDelNode	g0
+
+// fim
