@@ -203,40 +203,77 @@ void delNode (Graph *g, void *n_)
 	free (n);
 }
 
+
+/* Deleta automagicamente um link e seu link-complemento/brother, removendo
+ * ambos das listas.
+ * !! Essa funcao NUNCA deve ser chamada diretamente. Apenas a lista link
+ * a deve chamar, do contrario essa lista tera um elemento com um ponteiro
+ * invalido. !!
+ * delLink(link) e' chamada durante a execucao de algum LIS_ExcluirElemento.
+ * quando isso acontece, link ja nao pertence a essa lista. delLink
+ * invoca um outro LIS_ExcluirElemento para remover o link irmao.
+ * Achei bom incluir um certo chines:
+ *  - sendo LIS1 a lista a que link pertence,
+ *  - LIS2 a lista a que link->brother pertence:
+ *
+ *  LIS_ExcluirElemento ( LIS1 ) e' chamada{
+ *  	link e' removido da lista LIS1;
+ *  	delLink (link) e' chamada{
+ * 			LIS_ProcurarValor ( LIS2, link->brother ) {} retorna OK;
+ *  		LIS_ExcluirElemento ( LIS2 ) e' chamada{
+ *  			link->brother e' removido da lista LIS2;
+ *    			delLink (link->brother) e' chamada{
+ *		 			LIS_ProcurarValor ( LIS1, link->brother->brother ){
+ * 						} retorna nao OK;
+ *				link->brother e' liberado
+ *    			}
+ *   		}
+ *   		link e' liberado
+ *  	}
+ *  }
+ */
+
 void delLink (Link *l)
 {
-	LIS_ProcurarValor(l->n2->links,l->brother);
-	LIS_ExcluirElemento(l->n2->links);
-	LIS_ProcurarValor(l->n1->links,l);
-	LIS_ExcluirElemento(l->n1->links);
+	if ( LIS_CondRetOK == LIS_ProcurarValor(l->n2->links,l->brother) )
+		LIS_ExcluirElemento(l->n2->links);
+	free (l);
 }
 
-enum graphRet linkTwoNodes(Node *n1, Node *n2)
+
+/* Essa funcao e' responsavel por criar e compor 2 links ligando
+ * 2 nos.
+ */
+enum graphRet linkTwoNodes(Node *node1, Node *node2)
 {
-	Link *l1,*l2,*l;
-	IrInicioLista(n1->links);
+	Link *link1, *link2, *link;
+	IrInicioLista(node1->links);
 	do{ /* Assertiva: Nao repetir links */
-		l = LIS_ObterValor(n1->links);
-		if( l && l->n2 == n2 ){
+		link = LIS_ObterValor(node1->links);
+		if( link && link->n2 == node2 ){
 			return graphInvalidLink;
 		}
-	}while (LIS_CondRetOK == LIS_AvancarElementoCorrente (n1->links,1));
+	}while (LIS_CondRetOK == LIS_AvancarElementoCorrente (node1->links,1));
 
-	l1 = (Link*) malloc (sizeof(Link));
-	l2 = (Link*) malloc (sizeof(Link));
-	l1->n1=n1;
-	l1->n2=n2;
-	l1->brother=l2;
-	l2->n1=n2;
-	l2->n2=n1;
-	l2->brother=l1;
+	link1 = (Link*) malloc (sizeof(Link));
+	link2 = (Link*) malloc (sizeof(Link));
 
-	IrFinalLista(n1->links);
-	IrFinalLista(n2->links);
-	if( LIS_CondRetOK != LIS_InserirElementoApos( n1->links,l1 ) )
+	/* Compoe os dois links */
+	link1->n1 = node1;
+	link1->n2 = node2;
+	link1->brother = link2;
+	link2->n1 = node2;
+	link2->n2 = node1;
+	link2->brother = link1;
+
+	IrFinalLista(node1->links);
+	IrFinalLista(node2->links);
+
+	/* Tenta inserir cada link em uma lista, limpa se nao der certo */
+	if( LIS_CondRetOK != LIS_InserirElementoApos(node1->links, link1) )
 		return graphMemoryError;
-	if( LIS_CondRetOK != LIS_InserirElementoApos( n2->links,l2 ) ){
-		LIS_ExcluirElemento(n1->links);
+	if( LIS_CondRetOK != LIS_InserirElementoApos(node2->links, link2) ){
+		LIS_ExcluirElemento(node1->links);
 		return graphMemoryError;
 	}
 	return graphOk;
@@ -245,6 +282,7 @@ enum graphRet linkTwoNodes(Node *n1, Node *n2)
 enum graphRet GraphAddLink (Graph *g, void *n)
 {
 	Node *n1, *n2;
+	enum graphRet ret;
 	if (!g)
 		return graphInvalidGraph;
 	if (!n)
@@ -280,7 +318,8 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 		l = (Link*)LIS_ObterValor (curr->links);
 		if (l->n2->data == d){
 			/* deleta de curr -> n2 */
-			delLink(l);
+			LIS_ExcluirElemento(curr->links);
+				/* isso deleta deleta link e link->brother */
 			return graphOk;
 		}
 	}while (LIS_AvancarElementoCorrente(curr->links, 1)
