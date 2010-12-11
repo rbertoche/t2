@@ -116,44 +116,46 @@ Dois usuários ligados, um usuário sem amigos, todos possuem mensagem
 
 \section{Assertivas estruturais do módulo grafo}
 
-Chamaremos de G a struct Graph (cabeça) de uma dada instância de grafo;
-
+Assertivas marcadas com $\oplus$ são executáveis.\newline
+Para qualquer \texttt{struct Graph G}:
 \begin{enumerate}
 
 \item \texttt{struct Graph} (cabeça)
-		\begin{enumerate}
-				\item $\oplus$ O valor de \texttt{G.nOfNodes} equivale ao número de
-					elementos de Nodes alocados e ao número de elementos em
-					list of Nodes.
-				\item $\oplus$ O valor de \texttt{G.nOfLinks} equivale ao número de
-					elementos de Links alocados.
-				\item $\oplus$ O valor de \texttt{G.nOfLinks} é sempre par.
-				\item $\oplus$ \texttt{G.nOfNodes != 0} $\Rightarrow$
-					\texttt{ G.currentNode != NULL}
-		\end{enumerate}
+	\begin{enumerate}
+		\item O valor de \texttt{G.nodes} é sempre o enderço de uma
+			lista válida.
+		\item $\oplus$ O número de \texttt{struct Node} alocados é sempre
+			o número de elementos na lista \texttt{G.nodes}
+		\item $\oplus$ O número de \texttt{struct Link} alocados é sempre par.
+		\item $\oplus$ \texttt{G.nOfNodes != 0} $\Rightarrow$
+			\texttt{ G.currentNode != NULL}
+		\item \texttt{G.nOfNodes != 0} $\Rightarrow$
+			\texttt{ G.currentNode } é o endereço de uma lista válida.
+	\end{enumerate}
 
 \item \texttt{struct Node} (nó)
-		\begin{enumerate}
-				\item Para qualquer struct node N, existe uma lista L tal
-					que \newline \texttt{N.links == \&L}
-				\item $\oplus$ Para qualquer struct node N pertencente à lista
-					\texttt{G.nodes}, \newline \texttt{N.delData == G.delData}
-		\end{enumerate}
+	Para qualquer \texttt{struct Node N}:
+	\begin{enumerate}
+		\item O valor de \texttt{N.links} é sempre o endereço de uma lista válida.
+		\item $\oplus$ Se N pertence à lista \texttt{G.nodes},
+			\texttt{N.delData == G.delData}
+	\end{enumerate}
 
 \item \texttt{struct Link} (aresta)
-		\begin{enumerate}
-				\item $\oplus$ Para toda struct link L, existe uma struct link irmão
-					B tal que:
-				\begin{verbatim}
-						&L != &B
-						L->brother == &B
-						B->brother == &L
-						L->n1 == B->n2
-						L->n2 == B->n1
-						\end{verbatim}
-				\item $\oplus$ Para qualquer link L, L é um elemento da lista
-					\texttt{L->n2.links}
-		\end{enumerate}
+	Para qualquer \texttt{struct Link L}:
+	\begin{enumerate}
+		\item $\oplus$ Existe uma \texttt{struct link B} tal que
+			\begin{verbatim}
+				L.brother == &B
+				B.brother == &L
+				&L != &B
+				L.n1 == B.n2
+				L.n2 == B.n1
+			\end{verbatim}
+		\item $\oplus$ L é um elemento da lista \texttt{L.n2->links}
+		\item $\oplus$ \texttt{L.brother} é um elemento da lista
+			\texttt{L.n1->links}
+	\end{enumerate}
 \end{enumerate}
 
 
