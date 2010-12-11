@@ -15,11 +15,11 @@
 \fi
 
 \newcommand{\smartmakeincludegraphics}[2][]{
-\ifpdf
-\includegraphics[#1]{#2.pdf}
-\else
-\includegraphics[#1]{#2.eps}
-\fi
+	\ifpdf
+		\includegraphics[#1]{#2.pdf}
+	\else
+		\includegraphics[#1]{#2.eps}
+	\fi
 }
 
 
@@ -30,44 +30,45 @@
 
 \maketitle
 
+\tableofcontents
 \section{Requisitos Funcionais}
 
 
 \begin{enumerate}
 \item Criar um usuário com uma UserID de até 15 caracteres, composta por
-		[a-z;0-9;.-\_@]. (é acessado no menu de login.)
+	[a-z;0-9;.-\_@]. (é acessado no menu de login.)
 
 \item Logar com usuário já existente, que significa modificar o usuário
-		corrente (nao é possível logar com usuário inexistente, é acessado no menu
-		de login.)
+	corrente (nao é possível logar com usuário inexistente, é acessado no menu
+	de login.)
 
 \subsection{Requisitos que definem comandos}
 \item Excluir perfil
-		\newline\texttt{delme}
+	\newline\texttt{delme}
 
 \item Editar perfil e interesses (Amizade, Trabalho, relacionamento aberto...)
-		\newline\texttt{editme}
+	\newline\texttt{editme}
 
 \item Procurar perfis de outros usuários filtrando por: interesse, amizade,
-		idade, ID, nome
-		\newline\texttt{search [-f] [-u userid] [-i interest] [-a minage-maxage]}
-		\newline-f - mostra apenas amigos
+	idade, ID, nome
+	\newline\texttt{search [-f] [-u userid] [-i interest] [-a minage-maxage]}
+	\newline-f - mostra apenas amigos
 \item Extinção do módulo Mensagem
 
 \item Adicionar novo contato (incluir usuário nos contatos)
-		\newline\texttt{addfriend userid}
+	\newline\texttt{addfriend userid}
 
 \item Retirar contato (excluir usuário dos contatos)
-		\newline\texttt{unfriend userid}
+	\newline\texttt{unfriend userid}
 
 \item Enviar mensagens para mais de um destinatário dentre os usuários já
-		adicionados.
-		\newline\texttt{write [destinatario1] [destinatario2] ...}
+	adicionados.
+	\newline\texttt{write [destinatario1] [destinatario2] ...}
 
 \item Arquivar mais de uma mensagem na caixa de mensagens de cada usuário
-		\newline\texttt{msglist []}
-		\newline\texttt{msgread number}
-		\newline\texttt{msgdel number}
+	\newline\texttt{msglist []}
+	\newline\texttt{msgread number}
+	\newline\texttt{msgdel number}
 
 \end{enumerate}
 
@@ -75,24 +76,24 @@
 
 \begin{enumerate}
 
-		\item Portabilidade
+	\item Portabilidade
 
-		O projeto deve suportar compilação tanto utilizando os Gnu-Make e GCC quanto
-		utilizando o Visual Studio e o GMake;
+	O projeto deve suportar compilação tanto utilizando os Gnu-Make e GCC quanto
+	utilizando o Visual Studio e o GMake;
 
-		\item Performance
+	\item Performance
 
-		Nenhum comando pode demorar mais que 10ms por usuário registrado;
+	Nenhum comando pode demorar mais que 10ms por usuário registrado;
 
-		\item Segurança
+	\item Segurança
 
-		As funções que lêem da entrada padrão devem estar protegidas de
-		overflow de qualquer espécie;
+	As funções que lêem da entrada padrão devem estar protegidas de
+	overflow de qualquer espécie;
 
-		\item Privacidade
+	\item Privacidade
 
-		Deve ser impossível de se ler mensagens alheias e de conhecer listas de
-		amigos.
+	Deve ser impossível de se ler mensagens alheias e de conhecer listas de
+	amigos.
 
 \end{enumerate}
 
