@@ -162,7 +162,7 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 		return graphMemoryError;
 	}
 
-	n->links = LIS_CriarLista( NULL );
+	n->links = LIS_CriarLista((FDelData) delLink );
 	if (!n->links){
 		free (n);
 		LIS_DestruirLista( ln );
