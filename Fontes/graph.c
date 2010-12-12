@@ -38,9 +38,9 @@ responsabilidade pelo desalocamento
 
 #include "graph.h"
 #include "lista.h"
+#include "conta.h"
 
 #ifdef _DEBUG
-#include "conta.h"
 #include <string.h>
 #include "cespdin.h"
 #include    "../Tabelas/idtiposespaco.def"
