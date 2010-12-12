@@ -38,12 +38,7 @@
 
 == Iniciar contagem
 =inicializarcontadores  ""
-=lercontadores          "..\\scripts\\graph"
-=iniciarcontagem
-
-== Iniciar contagem
-=inicializarcontadores  ""
-=lercontadores          "..\\scripts\\graph"
+=lercontadores          "../Scripts/graph.count"
 =iniciarcontagem
 
 
