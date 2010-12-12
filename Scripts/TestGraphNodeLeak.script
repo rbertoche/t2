@@ -1,6 +1,6 @@
 // O Objetivo desse script é ajudar a detectar vazamentos no GraphDelNode.
 // Nao chamamos o DelGraph de proposito: Caso contrario nunca veriamos os
-// vazamentos de GraphDelNode. Portanto, vai sempre vazar algo proximo de 
+// vazamentos de GraphDelNode. Portanto, vai sempre vazar algo proximo de
 // 2 mallocs
 
 == Inicializar valores
@@ -50,7 +50,6 @@
 
 == Criar node c1
 =NewData		d1	c1
-
 =GraphNewNode		g0	d1	Ok
 
 == Verificar se c1 esta armazenado
@@ -65,9 +64,14 @@
 =NewData		d3	c3
 =GraphNewNode		g0	d3	Ok
 
+== Deleta c3
 =GraphDelNode	g0
+== Deleta c2
 =GraphDelNode	g0
+== Deleta c1
 =GraphDelNode	g0
+== Deleta c0
 =GraphDelNode	g0
+=ShowMem
 
 // fim

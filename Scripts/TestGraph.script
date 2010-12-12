@@ -181,11 +181,13 @@
 =GraphLinksGetNext
 =recuperar
 
-
-
+==Mostra campos alocados antes de deletar os grafos
+=ShowMem
 == Deleta grafo 0
 =GraphDel		g0
 == Deleta grafo 1
 =GraphDel		g1
 
+==Mostra campos alocados depois de deletar os grafos
+=ShowMem
 // fim
