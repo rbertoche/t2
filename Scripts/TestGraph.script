@@ -1,3 +1,6 @@
+// Teste principal do grafo
+// Deve passar por todos os contadores
+
 
 == Inicializar valores
 
@@ -32,6 +35,17 @@
 =declararparm   InvalidLink         int 4
 =declararparm   NullData            int 5
 =declararparm   MemoryError         int 6
+
+== Iniciar contagem
+=inicializarcontadores  ""
+=lercontadores          "..\\scripts\\graph"
+=iniciarcontagem
+
+== Iniciar contagem
+=inicializarcontadores  ""
+=lercontadores          "..\\scripts\\graph"
+=iniciarcontagem
+
 
 == Criar o grafo 0
 =GraphNew		g0
@@ -190,4 +204,18 @@
 
 ==Mostra campos alocados depois de deletar os grafos
 =ShowMem
+
+== Terminar controlar contadores
+=pararcontagem
+=verificarcontagens    0
+
+== Terminar contagem
+=terminarcontadores
+== Terminar controlar contadores
+=pararcontagem
+=verificarcontagens    0
+
+== Terminar contagem
+=terminarcontadores
+
 // fim
