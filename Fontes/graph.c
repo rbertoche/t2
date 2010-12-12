@@ -553,7 +553,7 @@ void GraphLinksStart (Graph *g)
 	AssertGraph(g);
 #endif /* _DEBUG */
 
-    CNT_CONTA("GraphNodesStart - Finalizando");
+    CNT_CONTA("GraphLinksStart - Finalizando");
 	g->linksOld = NULL;
 	IrInicioLista ( ((Node *)LIS_ObterValor (g->currentNode))->links );
 }
@@ -625,7 +625,7 @@ void *GraphLinksGetNext (Graph *g)
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
-    CNT_CONTA("GraphNodesGetNext - Finalizando");
+    CNT_CONTA("GraphLinksGetNext - Finalizando");
 	return ret;
 }
 
