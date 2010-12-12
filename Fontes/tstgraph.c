@@ -79,18 +79,6 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 
 
 #ifdef _DEBUG
-	}else if(! strcmp( CmdTeste , 		CNT_INIT) ){
-
-
-		CNT_InicializarContadores( NULL );
-		CNT_IniciarContagem( );
-		return TST_CondRetOK;
-
-
-	}else if(! strcmp( CmdTeste , 		CNT_VERIFY) ){
-
-		CNT_VerificarContagem( );
-		return TST_CondRetOK;
 
 	}else if(! strcmp( CmdTeste , 		SHOW_MEMSPACES) ){
 
