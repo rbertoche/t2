@@ -55,7 +55,7 @@
 =recuperar
 
 == Verificar que a lista de nodes veio vazia
-=GraphNodesStart	g0	
+=GraphNodesStart	g0
 =GraphNodesGetNext	g0	d9
 =recuperar
 
@@ -76,7 +76,7 @@
 =CmpData		d9	c1
 
 == Verificar se a lista de links veio vazia
-=GraphLinksStart	g0	
+=GraphLinksStart	g0
 =GraphLinksGetNext	g0	d9
 =recuperar
 
