@@ -2,8 +2,7 @@
 #
 # script para criar uma lista de contadores do arcabouco.
 # deve printar, para cada linha no formato abaixo
-#    CNT_CONTA("%s");
+#    CNT_CONTAR("%s");
 # uma linha contendo apenas %s.
 
-#/^\s*CNT_CONTA(".*");/p
-s/^\s*CNT_CONTA("\(.*\)");/\1/p
+s/^\s*CNT_CONTAR("\(.*\)");/\1/p
