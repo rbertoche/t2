@@ -84,13 +84,13 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 
 		CNT_InicializarContadores( NULL );
 		CNT_IniciarContagem( );
-		return TST_CondRetOk;
+		return TST_CondRetOK;
 
 
 	}else if(! strcmp( CmdTeste , 		CNT_VERIFY) ){
 
 		CNT_VerificarContagem( );
-		return TST_CondRetOk;
+		return TST_CondRetOK;
 
 	}else if(! strcmp( CmdTeste , 		SHOW_MEMSPACES) ){
 
