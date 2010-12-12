@@ -526,9 +526,10 @@ void AssertNode(Node *n, Graph *g)
 {
 	IrInicioLista(g->nodes);
 	do{
-		if (n == LIS_ObterValor(LIS_ObterValor( g->nodes )))
+		if (n == LIS_ObterValor(LIS_ObterValor( g->nodes ))){
 			assert( n->delData == g->delData );
 			return;
+		}
 	} while(LIS_CondRetOK == LIS_AvancarElementoCorrente ( g->nodes , 1));
 	/* Nao deveria cruzar esse ponto: Significa que nao foi encontrado
 	 * n na lista g->nodes
