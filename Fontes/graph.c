@@ -157,8 +157,8 @@ enum graphRet searchData(LIS_tppLista l, void *data)
 }
 enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 {
+    CNT_CONTA("GraphCCurrent - Inicio");
 #ifdef _DEBUG
-    CNT_CONTA("GraphCCurrent - Chamando AssertGraph, In?cio");
 	AssertGraph(g);
 #endif /* _DEBUG */
 	if (!g){
@@ -191,8 +191,8 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 	void *offset;
 #endif /* _DEBUG */
 	LIS_tppLista ln;
+    CNT_CONTA("GraphNewNode - Inicio");
 #ifdef _DEBUG
-    CNT_CONTA("GraphNewNode - Chamando AssertGraph, In?cio");
 	AssertGraph(g);
 #endif /* _DEBUG */
 
@@ -274,7 +274,6 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 void GraphDelNode (Graph *g)
 {
 #ifdef _DEBUG
-    CNT_CONTA("GraphDelMode - Chamando AssertGraph, Inicio");
 	int nOfNodesAntigo = g->nOfNodes;
 	AssertGraph(g);
 #endif /* _DEBUG */
@@ -284,9 +283,7 @@ void GraphDelNode (Graph *g)
 	assert( g!=NULL );
 	n = (Node *) LIS_ObterValor(g->currentNode);
 	assert( n!=NULL );
-
 #ifdef _DEBUG
-    ("GraphDelMode - Chamando AssertNode");
 	AssertNode(n,g);
 #endif /* _DEBUG */
 
@@ -294,10 +291,8 @@ void GraphDelNode (Graph *g)
 	delNode(g,n);
 	LIS_ExcluirElemento(g->nodes);
 	g->currentNode = LIS_ObterValor(g->nodes);
-
 #ifdef _DEBUG
 	g->nOfNodes--;
-	CNT_CONTA("GraphDelNode - Chamando AssertGraph, Fim");
 	assert ( g->nOfNodes == (nOfNodesAntigo - 1) );
 	AssertGraph(g);
 #endif /* _DEBUG */
@@ -314,7 +309,6 @@ void delNode (Graph *g, void *n_)
 		( *g->delData )( n->data );
     }
 #ifdef _DEBUG
-    CNT_CONTA("delNode - Debug, free no final da lista");
 	IrFinalLista( g->currentNode );
 	free(LIS_ObterValor( g->currentNode ));
 	IrInicioLista( g->currentNode );
@@ -360,13 +354,13 @@ void delLink (Link *l)
 	RecursionCnt++;
 	IrInicioLista( l->n2->links );
 
-	CNT_CONTA("delLink - Procurando Lista de Links");
+	CNT_CONTA("delLink - Inicio");
 	if ( RecursionCnt <= 1 &&
-	      LIS_CondRetOK == LIS_ProcurarValor(l->n2->links,l->brother) ){
-        CNT_CONTA("delLink - Deletando Lista de Links");
+			LIS_CondRetOK == LIS_ProcurarValor(l->n2->links,l->brother) ){
+			CNT_CONTA("delLink - Achou: Deletando Lista de Links");
 		LIS_ExcluirElemento(l->n2->links);
-    }
-    CNT_CONTA("delLink - Finalizando");
+	}
+	CNT_CONTA("delLink - Finalizando");
 	free (l);
 	RecursionCnt--;
 }
@@ -419,7 +413,6 @@ enum graphRet linkTwoNodes(Node *node1, Node *node2)
 		return graphMemoryError;
 	}
 #ifdef _DEBUG
-    CNT_CONTA("linkTwoNodes - Chamando AsserLink i e 2");
 	AssertLink(link1);
 	AssertLink(link2);
 #endif /* _DEBUG */
@@ -429,14 +422,12 @@ enum graphRet linkTwoNodes(Node *node1, Node *node2)
 
 enum graphRet GraphAddLink (Graph *g, void *n)
 {
+    CNT_CONTA("GraphAddLink - Inicio");
 #ifdef _DEBUG
-    CNT_CONTA("GraphAddLink - Chamando AssertGraph Inicio");
 	AssertGraph(g);
 #endif /* _DEBUG */
-
 	Node *n1, *n2;
 	enum graphRet ret;
-
 	if (!g){
 	    CNT_CONTA("GraphAddLink - N?o existe g");
 		return graphInvalidGraph;
@@ -460,7 +451,6 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 	n2 = LIS_ObterValor(LIS_ObterValor(g->nodes));
 
 #ifdef _DEBUG
-    CNT_CONTA("GraphAddLink - Chamando AssertNode");
 	AssertNode(n1,g);
 	AssertNode(n2,g);
 #endif /* _DEBUG */
@@ -480,8 +470,8 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 
 enum graphRet GraphRemLink (Graph *g, void *d)
 {
+    CNT_CONTA("GraphRemLink - Inicio");
 #ifdef _DEBUG
-    CNT_CONTA("GraphRemLink - Chamando AssertGraph, inicio");
 	AssertGraph(g);
 #endif /* _DEBUG */
 	Node *curr;
@@ -500,7 +490,6 @@ enum graphRet GraphRemLink (Graph *g, void *d)
     }
 	curr = LIS_ObterValor (g->currentNode);
 #ifdef _DEBUG
-    CNT_CONTA("GraphRemLink - Chamando AssertNode");
 	AssertNode(curr,g);
 #endif /* _DEBUG */
 
@@ -509,11 +498,9 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 	do{
         CNT_CONTA("GraphRemLink - Avan?ando na lista");
 		l = (Link*)LIS_ObterValor (curr->links);
-
 		#ifdef _DEBUG
 		AssertLink(l);
 		#endif /* _DEBUG */
-
 		if (l->n2->data == d){
              CNT_CONTA("GraphRemLink - Deletando elemento");
 			/* deleta de curr -> n2 */
@@ -523,7 +510,6 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 			g->nOfLinks -= 2 ;
 			AssertGraph(g);
 			#endif /* _DEBUG */
-
 			return graphOk;
 		}
 	}while (LIS_AvancarElementoCorrente(curr->links, 1)
@@ -535,8 +521,8 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 
 void *GraphGetData (Graph *g)
 {
+    CNT_CONTA("GraphGetData - Inicio");
 #ifdef _DEBUG
-    CNT_CONTA("GraphGetData - Chamando AssertGraph, inicio");
 	AssertGraph(g);
 #endif /* _DEBUG */
 
@@ -552,7 +538,6 @@ void *GraphGetData (Graph *g)
 void GraphNodesStart (Graph *g)
 {
 #ifdef _DEBUG
-    CNT_CONTA("GraphNodesStart - Chamando AssertGraph, inicio");
 	AssertGraph(g);
 #endif /* _DEBUG */
 
@@ -564,7 +549,6 @@ void GraphNodesStart (Graph *g)
 void GraphLinksStart (Graph *g)
 {
 #ifdef _DEBUG
-     CNT_CONTA("GraphLinksStart - Chamando AssertGraph, inicio");
 	AssertGraph(g);
 #endif /* _DEBUG */
 
@@ -575,39 +559,31 @@ void GraphLinksStart (Graph *g)
 
 void *GraphNodesGetNext (Graph *g)
 {
+    CNT_CONTA("GraphNodesGetNext - inicio");
 #ifdef _DEBUG
-    CNT_CONTA("GraphNodesGetNext - Chamando AssertGraph, inicio");
 	AssertGraph(g);
 #endif /* _DEBUG */
 	void *ret;
 	LIS_tppLista l;
-
-
-	if (!g || !g->currentNode){
-        CNT_CONTA("GraphNodesGetNext - N?o existe g ou currentNode");
+	if (!g || !g->currentNode)
 		return NULL;
     }
     CNT_CONTA("GraphNodesGetNext - guardando g->nodes");
 	l = g->nodes;
-
 	if (!l){
         CNT_CONTA("GraphNodesGetNext - N?o existe g->nodes");
 		return NULL;
     }
-
     CNT_CONTA("GraphNodesGetNext - Obtendo dado");
 	ret = ((Node*)LIS_ObterValor (LIS_ObterValor(l)))->data;
-
 	if (g->nodesOld == ret){ /* Se esse dado ja' repitiu, ja terminou a lista */
 	    CNT_CONTA("GraphNodesGetNext - Dado repetido, fim da lista");
 		return NULL;
 	}
-
 	CNT_CONTA("GraphNodesGetNext - Avan?ando elemento corrente");
 	g->nodesOld = ret;
 	LIS_AvancarElementoCorrente (l, 1);
 #ifdef _DEBUG
-    CNT_CONTA("GraphNodesGetNext - Chamando AssertGraph, final");
 	AssertGraph(g);
 #endif /* _DEBUG */
     CNT_CONTA("GraphNodesGetNext - Finalizando");
@@ -616,11 +592,10 @@ void *GraphNodesGetNext (Graph *g)
 
 void *GraphLinksGetNext (Graph *g)
 {
+    CNT_CONTA("GraphLinksGetNext - inicio");
 #ifdef _DEBUG
-    CNT_CONTA("GraphLinksGetNext - Chamando AssertGraph, inicio");
 	AssertGraph(g);
 #endif /* _DEBUG */
-
 	void *ret;
 	LIS_tppLista l;
 	CNT_CONTA("GraphLinksGetNext - Inicializa??o");
@@ -631,7 +606,6 @@ void *GraphLinksGetNext (Graph *g)
     }
 	CNT_CONTA("GraphLinksGetNext - Salvando lista de links");
 	l = ((Node*)LIS_ObterValor (g->currentNode))->links;
-
 	if (!LIS_ObterValor(l)){
         CNT_CONTA("GraphLinksGetNext - N?o acessou lista de links");
 		return NULL;
@@ -639,7 +613,6 @@ void *GraphLinksGetNext (Graph *g)
 
     CNT_CONTA("GraphLinksGetNext - Salvando dados");
 	ret = ((Link*)LIS_ObterValor(l))->n2->data;
-
 	if (g->linksOld == ret){ /* Se esse dado ja' repitiu, ja terminou a lista */
 		CNT_CONTA("GraphLinksGetNext - Dado repetido, fim da lista");
         return NULL;
@@ -648,9 +621,7 @@ void *GraphLinksGetNext (Graph *g)
 	CNT_CONTA("GraphLinksGetNext - Avan?ando elemento corrente");
 	g->linksOld = ret;
 	LIS_AvancarElementoCorrente (l, 1);
-
 #ifdef _DEBUG
-     CNT_CONTA("GraphNodesGetNext - Chamando AssertGraph, final");
 	AssertGraph(g);
 #endif /* _DEBUG */
     CNT_CONTA("GraphNodesGetNext - Finalizando");
@@ -666,7 +637,6 @@ void *GraphLinksGetNext (Graph *g)
 void AssertLink(Link *l)
 {
 	Link *b = l->brother;
-
     CNT_CONTA("AssertLink - Verificando assertivas");
 	assert(	b->brother == l );
 	assert( l != b );
