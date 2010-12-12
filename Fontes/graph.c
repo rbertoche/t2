@@ -38,14 +38,19 @@ responsabilidade pelo desalocamento
 
 #include "graph.h"
 #include "lista.h"
-#include "conta.h"
 
 #ifdef _DEBUG
+#include "conta.h"
 #include <string.h>
 #include "cespdin.h"
 #include    "../Tabelas/idtiposespaco.def"
 #undef NDEBUG /* Habilita assert */
 #endif /* _DEBUG */
+
+#ifndef _DEBUG
+#define CNT_CONTAR( a ) /* Desativa contadores */
+#endif /* !_DEBUG */
+
 #include <assert.h>
 
 typedef struct graph Graph;
