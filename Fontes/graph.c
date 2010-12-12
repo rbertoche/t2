@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <CONTA.h>
 
 /*
 
@@ -42,6 +41,7 @@ responsabilidade pelo desalocamento
 
 #ifdef _DEBUG
 #include "cespdin.h"
+#include "conta.h"
 #include <string.h>
 #undef NDEBUG /* Habilita assert */
 #endif /* _DEBUG */
@@ -92,21 +92,21 @@ void delLink (Link *n);
 Graph *GraphNew (FDelData fdd)
 {
 	Graph *g;
-	CNT_CONTA("GraphNew - Inicialização");
+	CNT_CONTA("GraphNew - Inicializa??o");
 	g = (Graph *) malloc(sizeof(Graph));
 	if (!g){
-	CNT_CONTA("GraphNew - Não alocou g");
+	CNT_CONTA("GraphNew - N?o alocou g");
 		return NULL;
     }
 	g->nodes = LIS_CriarLista((FDelData) LIS_DestruirLista );
 	CNT_CONTA("GraphNew - Alocando nodes");
 	if (!g->nodes){
-        CNT_CONTA("GraphNew - Não alocou nodes");
+        CNT_CONTA("GraphNew - N?o alocou nodes");
 		return NULL;
 	}
 	g->delData = fdd;
 	g->currentNode = NULL;
-	CNT_CONTA("GraphNew - Atribuições, finalização");
+	CNT_CONTA("GraphNew - Atribui??es, finaliza??o");
 #ifdef _DEBUG
 	g->nOfNodes = 0;
 	g->nOfLinks = 0;
@@ -119,10 +119,9 @@ Graph *GraphNew (FDelData fdd)
 void GraphDel (Graph *g)
 {
 #ifdef _DEBUG
-    CNT_CONTA("GraphDel - Chamando AssertGraph");
 	AssertGraph(g);
 #endif /* _DEBUG */
-    CNT_CONTA("GraphDel - Inicialização");
+    CNT_CONTA("GraphDel - Inicializa??o");
 	IrInicioLista ( g->nodes );
 	do {
         CNT_CONTA("GraphDel - Deletando nos");
@@ -132,7 +131,7 @@ void GraphDel (Graph *g)
 	== LIS_CondRetOK );
 /*		== 0 ); */
 
-    CNT_CONTA("GraphDel - Destruindo, finalização");
+    CNT_CONTA("GraphDel - Destruindo, finaliza??o");
 	LIS_DestruirLista( g->nodes );
 
 	free(g);
@@ -143,9 +142,9 @@ enum graphRet searchData(LIS_tppLista l, void *data)
 {
 	Node* n;
 
-	CNT_CONTA("searchData - Inicialização");
+	CNT_CONTA("searchData - Inicializa??o");
 	IrInicioLista(l);
-	do{	
+	do{
         CNT_CONTA("searchData - Procurando dado");
 		n = LIS_ObterValor(LIS_ObterValor(l));
 		if(data == n->data){
@@ -153,29 +152,29 @@ enum graphRet searchData(LIS_tppLista l, void *data)
 			return graphOk;
 		}
 	} while(LIS_CondRetOK == LIS_AvancarElementoCorrente (l, 1));
-	CNT_CONTA("searchData - Finalização");
+	CNT_CONTA("searchData - Finaliza??o");
 	return graphInvalidArgNode;
 }
 enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 {
 #ifdef _DEBUG
-    CNT_CONTA("GraphCCurrent - Chamando AssertGraph, Início");
+    CNT_CONTA("GraphCCurrent - Chamando AssertGraph, In?cio");
 	AssertGraph(g);
 #endif /* _DEBUG */
 	if (!g){
-        CNT_CONTA("GraphCCurrent - Não existe g");
+        CNT_CONTA("GraphCCurrent - N?o existe g");
 		return graphInvalidGraph;
     }
 	if (!newCurrent){
-        CNT_CONTA("GraphCCurrent - Não existe novo corrente");
+        CNT_CONTA("GraphCCurrent - N?o existe novo corrente");
 		return graphInvalidArgNode;
     }
 	if (graphOk != searchData(g->nodes,newCurrent)){
-        CNT_CONTA("GraphCCurrent - Não encontrou no grafo novo corrente");
+        CNT_CONTA("GraphCCurrent - N?o encontrou no grafo novo corrente");
 		return graphInvalidArgNode;
     }
 
-    CNT_CONTA("GraphCCurrent - Seta novo corrente, finalização");
+    CNT_CONTA("GraphCCurrent - Seta novo corrente, finaliza??o");
 	g->currentNode = LIS_ObterValor(g->nodes);
 	return graphOk;
 #ifdef _DEBUG
@@ -193,24 +192,24 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 #endif /* _DEBUG */
 	LIS_tppLista ln;
 #ifdef _DEBUG
-    CNT_CONTA("GraphNewNode - Chamando AssertGraph, Início");
+    CNT_CONTA("GraphNewNode - Chamando AssertGraph, In?cio");
 	AssertGraph(g);
 #endif /* _DEBUG */
 
-       CNT_CONTA("GraphNewMode - Inicialização");
+       CNT_CONTA("GraphNewMode - Inicializa??o");
 /* Inicio do bloco de codigo com tratamento de excecao */
 	if (!g){
-	    CNT_CONTA("GraphNewMode - Não existe g");
+	    CNT_CONTA("GraphNewMode - N?o existe g");
 		return graphInvalidGraph;
     }
 	if (!data){
-	    CNT_CONTA("GraphNewMode - Não existe data a ser inserida");
+	    CNT_CONTA("GraphNewMode - N?o existe data a ser inserida");
 		return graphNullData;
     }
-    CNT_CONTA("GraphNewMode - Alocação de no");
+    CNT_CONTA("GraphNewMode - Aloca??o de no");
 	n = (Node *) malloc(sizeof(Node));
 	if (!n){
-        CNT_CONTA("GraphNewMode - Não alocou no");
+        CNT_CONTA("GraphNewMode - N?o alocou no");
 		return graphMemoryError;
     }
 
@@ -218,14 +217,14 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 	ln = LIS_CriarLista(NULL);
 	/* Para que ln possa se tornar heterogeneo, uso NULL */
 	if (!ln){
-        CNT_CONTA("GraphNewMode - Não criou a Lista");
+        CNT_CONTA("GraphNewMode - N?o criou a Lista");
 		free (n);
 		return graphMemoryError;
 	}
 
     CNT_CONTA("GraphNewMode - Inserindo elemento apos");
 	if (LIS_CondRetOK != LIS_InserirElementoApos( ln, n )){
-        CNT_CONTA("GraphNewMode - Não inseriu elemento apos");
+        CNT_CONTA("GraphNewMode - N?o inseriu elemento apos");
 		free (n);
 		LIS_DestruirLista( ln );
 		return graphMemoryError;
@@ -234,7 +233,7 @@ enum graphRet GraphNewNode (Graph *g, void *data)
     CNT_CONTA("GraphNewMode - Criando lista de Links");
 	n->links = LIS_CriarLista((FDelData) delLink );
 	if (!n->links){
-        CNT_CONTA("GraphNewMode - Não criou lista de Links");
+        CNT_CONTA("GraphNewMode - N?o criou lista de Links");
 		free (n);
 		LIS_DestruirLista( ln );
 		return graphMemoryError;
@@ -243,7 +242,7 @@ enum graphRet GraphNewNode (Graph *g, void *data)
     CNT_CONTA("GraphNewMode - Inserindo no final da lista");
 	IrFinalLista( g->nodes );
 	if ( LIS_CondRetOK != LIS_InserirElementoApos( g->nodes , ln) ){
-        CNT_CONTA("GraphNewMode - Não inseriu no final da lista");
+        CNT_CONTA("GraphNewMode - N?o inseriu no final da lista");
 		LIS_DestruirLista( n->links );
 		free (n);
 		LIS_DestruirLista( ln );
@@ -251,7 +250,7 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 	}
 /* Fim do bloco de codigo com tratamento de excecao */
 
-    CNT_CONTA("GraphNewMode - Atribuição, finalização");
+    CNT_CONTA("GraphNewMode - Atribui??o, finaliza??o");
 	n->data = data;
 	n->delData = g->delData;
 	g->currentNode = ln;
@@ -266,7 +265,7 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 	g->nOfNodes++;
 	AssertGraph(g);
 	AssertNode(n,g);
-	CNT_CONTA("267 GraphNewNode - NÃO SEI O QUE ESCREVER FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIM");
+	CNT_CONTA("267 GraphNewNode - N?O SEI O QUE ESCREVER FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIM");
 #endif /* _DEBUG */
 	return graphOk;
 }
@@ -280,7 +279,7 @@ void GraphDelNode (Graph *g)
 	AssertGraph(g);
 #endif /* _DEBUG */
 
-    CNT_CONTA("GraphdelNode - Inicialização");
+    CNT_CONTA("GraphdelNode - Inicializa??o");
 	Node *n;
 	assert( g!=NULL );
 	n = (Node *) LIS_ObterValor(g->currentNode);
@@ -380,7 +379,7 @@ enum graphRet linkTwoNodes(Node *node1, Node *node2)
 {
 	Link *link1, *link2, *link;
 	IrInicioLista(node1->links);
-	CNT_CONTA("linkTwoNodes - Inicialização");
+	CNT_CONTA("linkTwoNodes - Inicializa??o");
 	do{ /* Assertiva: Nao repetir links */
 	    CNT_CONTA("linkTwoNodes - Procurando link igual");
 		link = LIS_ObterValor(node1->links);
@@ -409,13 +408,13 @@ enum graphRet linkTwoNodes(Node *node1, Node *node2)
 
 	CNT_CONTA("linkTwoNodes - Inserindo link 1 na lista");
 	if( LIS_CondRetOK != LIS_InserirElementoApos(node1->links, link1) ){
-        CNT_CONTA("linkTwoNodes - Não inseriu link 1 na lista");
+        CNT_CONTA("linkTwoNodes - N?o inseriu link 1 na lista");
 		return graphMemoryError;
     }
 
     CNT_CONTA("linkTwoNodes - Inserindo link 2 na lista");
 	if( LIS_CondRetOK != LIS_InserirElementoApos(node2->links, link2) ){
-        CNT_CONTA("linkTwoNodes - Não inseriu link 2 na lista");
+        CNT_CONTA("linkTwoNodes - N?o inseriu link 2 na lista");
 		LIS_ExcluirElemento(node1->links);
 		return graphMemoryError;
 	}
@@ -439,15 +438,15 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 	enum graphRet ret;
 
 	if (!g){
-	    CNT_CONTA("GraphAddLink - Não existe g");
+	    CNT_CONTA("GraphAddLink - N?o existe g");
 		return graphInvalidGraph;
     }
 	if (!n){
-	    CNT_CONTA("GraphAddLink - Não existe n");
+	    CNT_CONTA("GraphAddLink - N?o existe n");
 		return graphNullData;
     }
 	if (!g->currentNode){
-        CNT_CONTA("GraphAddLink - Não existe g->currentNode");
+        CNT_CONTA("GraphAddLink - N?o existe g->currentNode");
 		return graphInvalidCurrentNode;
     }
 	n1 = LIS_ObterValor(g->currentNode);
@@ -455,7 +454,7 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 
     CNT_CONTA("GraphAddLink - Procurando no");
 	if (searchData (g->nodes, n) != graphOk){
-        CNT_CONTA("GraphAddLink - Não encontrou no");
+        CNT_CONTA("GraphAddLink - N?o encontrou no");
 		return graphInvalidArgNode;
     }
 	n2 = LIS_ObterValor(LIS_ObterValor(g->nodes));
@@ -488,15 +487,15 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 	Node *curr;
 	Link *l;
 	if (!g){
-        CNT_CONTA("GraphRemLink - Não existe g");
+        CNT_CONTA("GraphRemLink - N?o existe g");
 		return graphInvalidGraph;
     }
 	if (!d){
-        CNT_CONTA("GraphRemLink - Não existe d");
+        CNT_CONTA("GraphRemLink - N?o existe d");
 		return graphNullData;
     }
 	if (!g->currentNode){
-        CNT_CONTA("GraphRemLink - Não existe g->currentNode");
+        CNT_CONTA("GraphRemLink - N?o existe g->currentNode");
 		return graphInvalidCurrentNode;
     }
 	curr = LIS_ObterValor (g->currentNode);
@@ -508,7 +507,7 @@ enum graphRet GraphRemLink (Graph *g, void *d)
     CNT_CONTA("GraphRemLink - Procurando elemento");
 	IrInicioLista (curr->links);
 	do{
-        CNT_CONTA("GraphRemLink - Avançando na lista");
+        CNT_CONTA("GraphRemLink - Avan?ando na lista");
 		l = (Link*)LIS_ObterValor (curr->links);
 
 		#ifdef _DEBUG
@@ -585,14 +584,14 @@ void *GraphNodesGetNext (Graph *g)
 
 
 	if (!g || !g->currentNode){
-        CNT_CONTA("GraphNodesGetNext - Não existe g ou currentNode");
+        CNT_CONTA("GraphNodesGetNext - N?o existe g ou currentNode");
 		return NULL;
     }
     CNT_CONTA("GraphNodesGetNext - guardando g->nodes");
 	l = g->nodes;
 
 	if (!l){
-        CNT_CONTA("GraphNodesGetNext - Não existe g->nodes");
+        CNT_CONTA("GraphNodesGetNext - N?o existe g->nodes");
 		return NULL;
     }
 
@@ -604,7 +603,7 @@ void *GraphNodesGetNext (Graph *g)
 		return NULL;
 	}
 
-	CNT_CONTA("GraphNodesGetNext - Avançando elemento corrente");
+	CNT_CONTA("GraphNodesGetNext - Avan?ando elemento corrente");
 	g->nodesOld = ret;
 	LIS_AvancarElementoCorrente (l, 1);
 #ifdef _DEBUG
@@ -624,17 +623,17 @@ void *GraphLinksGetNext (Graph *g)
 
 	void *ret;
 	LIS_tppLista l;
-	CNT_CONTA("GraphLinksGetNext - Inicialização");
+	CNT_CONTA("GraphLinksGetNext - Inicializa??o");
 
 	if (!g || !g->currentNode){
-	    CNT_CONTA("GraphLinksGetNext - Não existe g ou currentNode");
+	    CNT_CONTA("GraphLinksGetNext - N?o existe g ou currentNode");
 		return NULL;
     }
 	CNT_CONTA("GraphLinksGetNext - Salvando lista de links");
 	l = ((Node*)LIS_ObterValor (g->currentNode))->links;
 
 	if (!LIS_ObterValor(l)){
-        CNT_CONTA("GraphLinksGetNext - Não acessou lista de links");
+        CNT_CONTA("GraphLinksGetNext - N?o acessou lista de links");
 		return NULL;
     }
 
@@ -646,7 +645,7 @@ void *GraphLinksGetNext (Graph *g)
         return NULL;
 	}
 
-	CNT_CONTA("GraphLinksGetNext - Avançando elemento corrente");
+	CNT_CONTA("GraphLinksGetNext - Avan?ando elemento corrente");
 	g->linksOld = ret;
 	LIS_AvancarElementoCorrente (l, 1);
 
@@ -697,7 +696,7 @@ void AssertNode(Node *n, Graph *g)
 	/* Nao deveria cruzar esse ponto: Significa que nao foi encontrado
 	 * n na lista g->nodes
 	 */
-	CNT_CONTA("AssertLink - Valor não encontrado");
+	CNT_CONTA("AssertLink - Valor n?o encontrado");
 	assert( 0 );
 }
 
@@ -713,7 +712,7 @@ void AssertGraph(Graph *g)
 	for (	i=1;
 			LIS_CondRetOK == LIS_AvancarElementoCorrente ( g->nodes , 1);
 			i++ ){
-            CNT_CONTA("AssertGraph - Avançando elemento corrente");
+            CNT_CONTA("AssertGraph - Avan?ando elemento corrente");
         }
 
     CNT_CONTA("AssertGraph - Verificando assertivas, finalizando");
