@@ -16,6 +16,8 @@ DBGCFLAGS= -D_DEBUG
 ARCABDEPS=\
 $(SRC)/generico.h\
 $(SRC)/lerparm.h\
+$(SRC)/cespdin.h\
+$(SRC)/conta.h\
 $(SRC)/tst_espc.h
 
 #  Dependencias de todos os .o (headers)
@@ -25,8 +27,7 @@ $(SRC)/cli.h\
 $(SRC)/graph.h\
 $(SRC)/lista.h\
 $(SRC)/netmgr.h\
-$(SRC)/usr.h\
-$(SRC)/cespdin.h
+$(SRC)/usr.h
 
 #  Dependencias de cada modulo
 CLIOBJ=\
