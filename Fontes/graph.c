@@ -39,8 +39,9 @@ responsabilidade pelo desalocamento
 #include "lista.h"
 
 #ifdef _DEBUG
-#include "cespdin.h"
 #include <string.h>
+#include "cespdin.h"
+#include    "../Tabelas/idtiposespaco.def"
 #undef NDEBUG /* Habilita assert */
 #endif /* _DEBUG */
 #include <assert.h>
