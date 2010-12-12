@@ -181,7 +181,7 @@ enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
     CNT_CONTA("GraphCCurrent - Chamando AssertGraph, Fim");
 	AssertGraph(g);
 #endif /* _DEBUG */
-} 
+}
 
 enum graphRet GraphNewNode (Graph *g, void *data)
 {
