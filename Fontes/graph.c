@@ -40,9 +40,10 @@ responsabilidade pelo desalocamento
 #include "lista.h"
 
 #ifdef _DEBUG
-#include "cespdin.h"
 #include "conta.h"
 #include <string.h>
+#include "cespdin.h"
+#include    "../Tabelas/idtiposespaco.def"
 #undef NDEBUG /* Habilita assert */
 #endif /* _DEBUG */
 #include <assert.h>
@@ -661,7 +662,7 @@ void AssertNode(Node *n, Graph *g)
             CNT_CONTA("AssertLink - Valor encontrado");
 			assert( n->delData == g->delData );
 			return;
-        }
+		}
 	} while(LIS_CondRetOK == LIS_AvancarElementoCorrente ( g->nodes , 1));
 	/* Nao deveria cruzar esse ponto: Significa que nao foi encontrado
 	 * n na lista g->nodes
