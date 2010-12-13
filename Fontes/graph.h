@@ -102,7 +102,7 @@ void GRA_Del (pGraph g);
 *			nenhum 'Node' contendo newCurretData exista.
 *
 ***********************************************************************/
-enum GRA_Ret GraphCCurrent (pGraph g, void *newCurrentData);
+enum GRA_Ret GRA_CCurrent (pGraph g, void *newCurrentData);
 
 /***********************************************************************
 *
@@ -166,7 +166,7 @@ void GRA_DelNode (pGraph g);
 *		GRA_InvalidArgNode
 *
 ***********************************************************************/
-enum GRA_Ret GraphAddLink (pGraph g, void *d);
+enum GRA_Ret GRA_AddLink (pGraph g, void *d);
 
 /***********************************************************************
 *
@@ -187,7 +187,7 @@ enum GRA_Ret GraphAddLink (pGraph g, void *d);
 *		GRA_InvalidLink
 *
 ***********************************************************************/
-enum GRA_Ret GraphRemLink (pGraph g, void *d);
+enum GRA_Ret GRA_RemLink (pGraph g, void *d);
 
 /***********************************************************************
 *
