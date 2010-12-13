@@ -16,6 +16,7 @@
 =declararparm   g2      int 2
 =declararparm   g3      int 3
 =declararparm   g4      int 4
+=declararparm   g5      int 5
 =declararparm	nullPointer		int 5
 
 =declararparm   d0      int 0
@@ -237,6 +238,25 @@
 =GraphNodesGetNext	g4 d9
 =recuperar
 
+
+== Exercita falta de memoria em GraphNew
+=limitarnumeroespacos 1
+=GraphNew g5 
+=recuperar
+=limitarnumeroespacos 0
+
+== Exercita falta de memoria em GraphNewNode
+=GraphNew 	     g5                         Ok
+=limitarnumeroespacos 1
+=GraphNewNode        g5  d0                     Ok
+=recuperar
+=limitarnumeroespacos 0
+=GraphNewNode        g5  d0                     Ok
+=GraphNewNode        g5  d1                     Ok
+=limitarnumeroespacos 1
+=GraphAddLink        g5  d0                     Ok
+=recuperar
+	
 
 //==Mostra campos alocados antes de deletar os grafos
 //=ShowMem
