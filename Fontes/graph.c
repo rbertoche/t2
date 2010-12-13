@@ -201,8 +201,6 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
-
-       CNT_CONTAR("GraphNewMode - Inicializa??o");
 /* Inicio do bloco de codigo com tratamento de excecao */
 	if (!data){
 	    CNT_CONTAR("GraphNewMode - N?o existe data a ser inserida");
@@ -282,10 +280,7 @@ void GraphDelNode (Graph *g)
 
     CNT_CONTAR("GraphdelNode - Inicializa??o");
 	Node *n;
-	if (!g->currentNode){
-	CNT_CONTAR("GraphdelNode - InvalidCurrentNode");
-		return graphInvalidCurrentNode;
-	}
+	assert(g->currentNode);
 	n = (Node *) LIS_ObterValor(g->currentNode);
 	assert( n!=NULL );
 #ifdef _DEBUG
