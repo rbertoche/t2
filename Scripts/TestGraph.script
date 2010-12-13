@@ -125,6 +125,7 @@
 =GraphLinksGetNext	g0	d9
 =GraphLinksGetNext	g0	d9
 =recuperar
+
 == Verifica se os links estao corretos
 =GraphLinksStart	g0
 =GraphLinksGetNext	g0	d9
@@ -269,6 +270,11 @@
 // grafo 3 ja foi deletado
 == Deleta grafo 4
 =GraphDel		g4
+
+== Testes de falta de memoria mais profundos para varredura de arestas
+=limitarnumeroespacos 2
+=GraphNew		g0
+=recuperar
 
 //==Mostra campos alocados depois de deletar os grafos
 //=ShowMem
