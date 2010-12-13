@@ -95,24 +95,24 @@ struct link {
 void delNode (Graph *g, void *n);
 void delLink (Link *n);
 
-Graph *GraphNew (FDelData fdd)
+Graph *GRA_New (FDelData fdd)
 {
 	Graph *g;
-	CNT_CONTAR("GraphNew - Inicializa??o");
+	CNT_CONTAR("GraphNew - Inicializacao");
 	g = (Graph *) malloc(sizeof(Graph));
 	if (!g){
-	CNT_CONTAR("GraphNew - N?o alocou g");
+		CNT_CONTAR("GraphNew - Nao alocou g");
 		return NULL;
-    }
+	}
 	g->nodes = LIS_CriarLista((FDelData) LIS_DestruirLista );
 	CNT_CONTAR("GraphNew - Alocando nodes");
 	if (!g->nodes){
-        CNT_CONTAR("GraphNew - N?o alocou nodes");
+		CNT_CONTAR("GraphNew - Nao alocou nodes");
 		return NULL;
 	}
 	g->delData = fdd;
 	g->currentNode = NULL;
-	CNT_CONTAR("GraphNew - Atribui??es, finaliza??o");
+	CNT_CONTAR("GraphNew - Atribuicoes, finalizacao");
 #ifdef _DEBUG
 	g->nOfNodes = 0;
 	g->nOfLinks = 0;
@@ -122,74 +122,75 @@ Graph *GraphNew (FDelData fdd)
 	return g;
 }
 
-void GraphDel (Graph *g)
+void GRA_Del (Graph *g)
 {
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
-    CNT_CONTAR("GraphDel - Inicializa??o");
+	CNT_CONTAR("GraphDel - Inicializacao");
 	IrInicioLista ( g->nodes );
-	if ( g->currentNode || !LIS_AvancarElementoCorrente ( g->nodes , 1)){
-	CNT_CONTAR("GraphDel - Grafo vazio");
+	if ( !g->currentNode || !LIS_AvancarElementoCorrente ( g->nodes , 1)){
+		CNT_CONTAR("GraphDel - Grafo vazio");
+		free (g);
 		return;
 	}
 	IrInicioLista ( g->nodes );
 	do {
-        CNT_CONTAR("GraphDel - Deletando nos");
+		CNT_CONTAR("GraphDel - Deletando nos");
 		g->currentNode = LIS_ObterValor( g->nodes );
-		GraphDelNode( g );
+		GRA_DelNode( g );
 	} while ( LIS_AvancarElementoCorrente ( g->nodes , 1)
-	== LIS_CondRetOK );
-/*		== 0 ); */
+			== LIS_CondRetOK );
+	/*		== 0 ); */
 
-    CNT_CONTAR("GraphDel - Destruindo, finaliza??o");
+	CNT_CONTAR("GraphDel - Destruindo, finalizacao");
 	LIS_DestruirLista( g->nodes );
 
 	free(g);
 	return;
 }
 
-enum graphRet searchData(LIS_tppLista l, void *data)
+enum GRA_Ret searchData(LIS_tppLista l, void *data)
 {
 	Node* n;
 
-	CNT_CONTAR("searchData - Inicializa??o");
+	CNT_CONTAR("searchData - Inicializacao");
 	IrInicioLista(l);
 	do{
-        CNT_CONTAR("searchData - Procurando dado");
+		CNT_CONTAR("searchData - Procurando dado");
 		n = LIS_ObterValor(LIS_ObterValor(l));
 		if(data == n->data){
-            CNT_CONTAR("searchData - Achou o dado");
-			return graphOk;
+			CNT_CONTAR("searchData - Achou o dado");
+			return GRA_Ok;
 		}
 	} while(LIS_CondRetOK == LIS_AvancarElementoCorrente (l, 1));
-	CNT_CONTAR("searchData - Finaliza??o");
-	return graphInvalidArgNode;
+	CNT_CONTAR("searchData - Finalizacao");
+	return GRA_InvalidArgNode;
 }
-enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
+enum GRA_Ret GRA_CCurrent (Graph *g, void *newCurrent)
 {
-    CNT_CONTAR("GraphCCurrent - Inicio");
+	CNT_CONTAR("GraphCCurrent - Inicio");
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
 	if (!newCurrent){
-        CNT_CONTAR("GraphCCurrent - N?o existe novo corrente");
-		return graphInvalidArgNode;
-    }
-	if (graphOk != searchData(g->nodes,newCurrent)){
-        CNT_CONTAR("GraphCCurrent - N?o encontrou no grafo novo corrente");
-		return graphInvalidArgNode;
-    }
+		CNT_CONTAR("GraphCCurrent - Nao existe novo corrente");
+		return GRA_InvalidArgNode;
+	}
+	if (GRA_Ok != searchData(g->nodes,newCurrent)){
+		CNT_CONTAR("GraphCCurrent - Nao encontrou no grafo novo corrente");
+		return GRA_InvalidArgNode;
+	}
 
-    CNT_CONTAR("GraphCCurrent - Seta novo corrente, finaliza??o");
+	CNT_CONTAR("GraphCCurrent - Seta novo corrente, finalizacao");
 	g->currentNode = LIS_ObterValor(g->nodes);
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
-	return graphOk;
+	return GRA_Ok;
 }
 
-enum graphRet GraphNewNode (Graph *g, void *data)
+enum GRA_Ret GRA_NewNode (Graph *g, void *data)
 {
 	Node *n;
 #ifdef _DEBUG
@@ -197,66 +198,66 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 	void *offset;
 #endif /* _DEBUG */
 	LIS_tppLista ln;
-    CNT_CONTAR("GraphNewNode - Inicio");
+	CNT_CONTAR("GraphNewNode - Inicio");
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
-/* Inicio do bloco de codigo com tratamento de excecao */
+	/* Inicio do bloco de codigo com tratamento de excecao */
 	if (!data){
-	    CNT_CONTAR("GraphNewMode - N?o existe data a ser inserida");
-		return graphNullData;
-    }
-    CNT_CONTAR("GraphNewMode - Aloca??o de no");
+		CNT_CONTAR("GraphNewNode - Nao existe data a ser inserida");
+		return GRA_NullData;
+	}
+	CNT_CONTAR("GraphNewNode - Alocacao de no");
 	n = (Node *) malloc(sizeof(Node));
 	if (!n){
-        CNT_CONTAR("GraphNewMode - N?o alocou no");
-		return graphMemoryError;
-    }
+		CNT_CONTAR("GraphNewNode - Nao alocou no");
+		return GRA_MemoryError;
+	}
 
-    CNT_CONTAR("GraphNewMode - Criando Lista");
+	CNT_CONTAR("GraphNewNode - Criando Lista");
 	ln = LIS_CriarLista(NULL);
 	/* Para que ln possa se tornar heterogeneo, uso NULL */
 	if (!ln){
-        CNT_CONTAR("GraphNewMode - N?o criou a Lista");
+		CNT_CONTAR("GraphNewNode - Nao criou a Lista");
 		free (n);
-		return graphMemoryError;
+		return GRA_MemoryError;
 	}
 
-    CNT_CONTAR("GraphNewMode - Inserindo elemento apos");
+	CNT_CONTAR("GraphNewNode - Inserindo elemento apos");
 	if (LIS_CondRetOK != LIS_InserirElementoApos( ln, n )){
-        CNT_CONTAR("GraphNewMode - N?o inseriu elemento apos");
+		CNT_CONTAR("GraphNewNode - Nao inseriu elemento apos");
 		free (n);
 		LIS_DestruirLista( ln );
-		return graphMemoryError;
+		return GRA_MemoryError;
 	}
 
-    CNT_CONTAR("GraphNewMode - Criando lista de Links");
+	CNT_CONTAR("GraphNewNode - Criando lista de Links");
 	n->links = LIS_CriarLista((FDelData) delLink );
 	if (!n->links){
-        CNT_CONTAR("GraphNewMode - N?o criou lista de Links");
+		CNT_CONTAR("GraphNewNode - Nao criou lista de Links");
 		free (n);
 		LIS_DestruirLista( ln );
-		return graphMemoryError;
+		return GRA_MemoryError;
 	}
 
-    CNT_CONTAR("GraphNewMode - Inserindo no final da lista");
+	CNT_CONTAR("GraphNewNode - Inserindo no final da lista");
 	IrFinalLista( g->nodes );
 	if ( LIS_CondRetOK != LIS_InserirElementoApos( g->nodes , ln) ){
-        CNT_CONTAR("GraphNewMode - N?o inseriu no final da lista");
+		CNT_CONTAR("GraphNewNode - Nao inseriu no final da lista");
 		LIS_DestruirLista( n->links );
 		free (n);
 		LIS_DestruirLista( ln );
-		return graphMemoryError;
+		return GRA_MemoryError;
 	}
-/* Fim do bloco de codigo com tratamento de excecao */
+	/* Fim do bloco de codigo com tratamento de excecao */
 
-    CNT_CONTAR("GraphNewMode - Atribui??o, finaliza??o");
+	CNT_CONTAR("GraphNewNode - Atribuicao, finalizacao");
 	n->data = data;
 	n->delData = g->delData;
 	g->currentNode = ln;
 #ifdef _DEBUG
 	offset = malloc( 0x200 );
-		/* Apenas para que o proximo malloc esteja longe do dado replicado*/
+	/* Apenas para que o proximo malloc esteja longe do dado replicado*/
 	mirror = (Node *) malloc(sizeof(Node));
 	free(offset);
 	memcpy(mirror,n, sizeof(Node));
@@ -265,20 +266,20 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 	g->nOfNodes++;
 	AssertGraph(g);
 	AssertNode(n,g);
-	CNT_CONTAR("267 GraphNewNode - N?O SEI O QUE ESCREVER FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIM");
+	CNT_CONTAR("267 GraphNewNode - NAO SEI O QUE ESCREVER FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIM");
 #endif /* _DEBUG */
-	return graphOk;
+	return GRA_Ok;
 }
 
 
-void GraphDelNode (Graph *g)
+void GRA_DelNode (Graph *g)
 {
 #ifdef _DEBUG
 	int nOfNodesAntigo = g->nOfNodes;
 	AssertGraph(g);
 #endif /* _DEBUG */
 
-    CNT_CONTAR("GraphdelNode - Inicializa??o");
+	CNT_CONTAR("GraphdelNode - Inicializacao");
 	Node *n;
 	assert(g->currentNode);
 	n = (Node *) LIS_ObterValor(g->currentNode);
@@ -287,7 +288,7 @@ void GraphDelNode (Graph *g)
 	AssertNode(n,g);
 #endif /* _DEBUG */
 
-    CNT_CONTAR("GraphdelNode - Deletando no");
+	CNT_CONTAR("GraphdelNode - Deletando no");
 	delNode(g,n);
 	LIS_ExcluirElemento(g->nodes);
 	g->currentNode = LIS_ObterValor(g->nodes);
@@ -305,15 +306,15 @@ void delNode (Graph *g, void *n_)
 	CNT_CONTAR("delNode - Destruindo lista de links");
 	LIS_DestruirLista( n->links );
 	if ( g->delData ){
-         CNT_CONTAR("delNode - Existe g->delData");
+		CNT_CONTAR("delNode - Existe g->delData");
 		( *g->delData )( n->data );
-    }
+	}
 #ifdef _DEBUG
 	IrFinalLista( g->currentNode );
 	free(LIS_ObterValor( g->currentNode ));
 	IrInicioLista( g->currentNode );
 #endif /* _DEBUG */
-    CNT_CONTAR("delNode - Finalizando");
+	CNT_CONTAR("delNode - Finalizando");
 	free (n);
 }
 
@@ -357,7 +358,7 @@ void delLink (Link *l)
 	CNT_CONTAR("delLink - Inicio");
 	if ( RecursionCnt <= 1 &&
 			LIS_CondRetOK == LIS_ProcurarValor(l->n2->links,l->brother) ){
-			CNT_CONTAR("delLink - Achou: Deletando Lista de Links");
+		CNT_CONTAR("delLink - Achou: Deletando Lista de Links");
 		LIS_ExcluirElemento(l->n2->links);
 	}
 	CNT_CONTAR("delLink - Finalizando");
@@ -369,32 +370,32 @@ void delLink (Link *l)
 /* Essa funcao e' responsavel por criar e compor 2 links ligando
  * 2 nos.
  */
-enum graphRet linkTwoNodes(Node *node1, Node *node2)
+enum GRA_Ret linkTwoNodes(Node *node1, Node *node2)
 {
 	Link *link1, *link2, *link;
 	IrInicioLista(node1->links);
-	CNT_CONTAR("linkTwoNodes - Inicializa??o");
+	CNT_CONTAR("linkTwoNodes - Inicializacao");
 	do{ /* Assertiva: Nao repetir links */
-	    CNT_CONTAR("linkTwoNodes - Procurando link igual");
+		CNT_CONTAR("linkTwoNodes - Procurando link igual");
 		link = LIS_ObterValor(node1->links);
 		if( link && link->n2 == node2 ){
-            CNT_CONTAR("linkTwoNodes - Links iguais");
-			return graphInvalidLink;
+			CNT_CONTAR("linkTwoNodes - Links iguais");
+			return GRA_InvalidLink;
 		}
 	}while (LIS_CondRetOK == LIS_AvancarElementoCorrente (node1->links,1));
 
-    CNT_CONTAR("linkTwoNodes - Compondo Links");
+	CNT_CONTAR("linkTwoNodes - Compondo Links");
 	link1 = (Link*) malloc (sizeof(Link));
 	if (!link1){
-	CNT_CONTAR("linkTwoNodes - Alocacao de link1 falhou");
-		return graphMemoryError;
+		CNT_CONTAR("linkTwoNodes - Alocacao de link1 falhou");
+		return GRA_MemoryError;
 	}
 	link2 = (Link*) malloc (sizeof(Link));
 	if (!link2){
 		/* Muito improvavel de cair aqui num teste
-	CNT_CNTAR("linkTwoNodes - Alocacao de link2 falhou"); */
+		   CNT_CNTAR("linkTwoNodes - Alocacao de link2 falhou"); */
 		free (link1);
-		return graphMemoryError;
+		return GRA_MemoryError;
 	}
 
 	/* Compoe os dois links */
@@ -412,84 +413,84 @@ enum graphRet linkTwoNodes(Node *node1, Node *node2)
 
 	CNT_CONTAR("linkTwoNodes - Inserindo link 1 na lista");
 	if( LIS_CondRetOK != LIS_InserirElementoApos(node1->links, link1) ){
-        CNT_CONTAR("linkTwoNodes - N?o inseriu link 1 na lista");
-		return graphMemoryError;
-    }
+		CNT_CONTAR("linkTwoNodes - Nao inseriu link 1 na lista");
+		return GRA_MemoryError;
+	}
 
-    CNT_CONTAR("linkTwoNodes - Inserindo link 2 na lista");
+	CNT_CONTAR("linkTwoNodes - Inserindo link 2 na lista");
 	if( LIS_CondRetOK != LIS_InserirElementoApos(node2->links, link2) ){
-        CNT_CONTAR("linkTwoNodes - N?o inseriu link 2 na lista");
+		CNT_CONTAR("linkTwoNodes - Nao inseriu link 2 na lista");
 		LIS_ExcluirElemento(node1->links);
-		return graphMemoryError;
+		return GRA_MemoryError;
 	}
 #ifdef _DEBUG
 	AssertLink(link1);
 	AssertLink(link2);
 #endif /* _DEBUG */
-    CNT_CONTAR("linkTwoNodes - Finalizando");
-	return graphOk;
+	CNT_CONTAR("linkTwoNodes - Finalizando");
+	return GRA_Ok;
 }
 
-enum graphRet GraphAddLink (Graph *g, void *n)
+enum GRA_Ret GRA_AddLink (Graph *g, void *n)
 {
-    CNT_CONTAR("GraphAddLink - Inicio");
+	CNT_CONTAR("GraphAddLink - Inicio");
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
 	Node *n1, *n2;
-	enum graphRet ret;
+	enum GRA_Ret ret;
 	if (!n){
-	    CNT_CONTAR("GraphAddLink - N?o existe n");
-		return graphNullData;
-    }
+		CNT_CONTAR("GraphAddLink - Nao existe n");
+		return GRA_NullData;
+	}
 	if (!g->currentNode){
-        CNT_CONTAR("GraphAddLink - N?o existe g->currentNode");
-		return graphInvalidCurrentNode;
-    }
+		CNT_CONTAR("GraphAddLink - Nao existe g->currentNode");
+		return GRA_InvalidCurrentNode;
+	}
 	n1 = LIS_ObterValor(g->currentNode);
 	assert(n1);
 
-    CNT_CONTAR("GraphAddLink - Procurando no");
-	if (searchData (g->nodes, n) != graphOk){
-        CNT_CONTAR("GraphAddLink - N?o encontrou no");
-		return graphInvalidArgNode;
-    }
+	CNT_CONTAR("GraphAddLink - Procurando no");
+	if (searchData (g->nodes, n) != GRA_Ok){
+		CNT_CONTAR("GraphAddLink - Nao encontrou no");
+		return GRA_InvalidArgNode;
+	}
 	n2 = LIS_ObterValor(LIS_ObterValor(g->nodes));
 	if (n2 == n1){
-        CNT_CONTAR("GraphAddLink - Tentando criar link de n1 pra n1");
-		return graphInvalidArgNode;
+		CNT_CONTAR("GraphAddLink - Tentando criar link de n1 pra n1");
+		return GRA_InvalidArgNode;
 	}
 #ifdef _DEBUG
 	AssertNode(n1,g);
 	AssertNode(n2,g);
 #endif /* _DEBUG */
-    CNT_CONTAR("GraphAddLink - Ligando 2 nos");
+	CNT_CONTAR("GraphAddLink - Ligando 2 nos");
 	ret = linkTwoNodes(n1, n2);
 #ifdef _DEBUG
-	if (ret == graphOk){
-        CNT_CONTAR("GraphAddLink - Ligou os nos");
+	if (ret == GRA_Ok){
+		CNT_CONTAR("GraphAddLink - Ligou os nos");
 		g->nOfLinks += 2;
-    }
-		AssertNode(n1,g);
-		AssertNode(n2,g);
-		AssertGraph(g);
+	}
+	AssertNode(n1,g);
+	AssertNode(n2,g);
+	AssertGraph(g);
 #endif /* _DEBUG */
 	return ret;
 }
 
-enum graphRet GraphRemLink (Graph *g, void *d)
+enum GRA_Ret GRA_RemLink (Graph *g, void *d)
 {
-    CNT_CONTAR("GraphRemLink - Inicio");
+	CNT_CONTAR("GraphRemLink - Inicio");
 	Node *curr;
 	Link *l;
 	if (!d){
-        CNT_CONTAR("GraphRemLink - N?o existe d");
-		return graphNullData;
-    }
+		CNT_CONTAR("GraphRemLink - Nao existe d");
+		return GRA_NullData;
+	}
 	if (!g->currentNode){
-        CNT_CONTAR("GraphRemLink - N?o existe g->currentNode");
-		return graphInvalidCurrentNode;
-    }
+		CNT_CONTAR("GraphRemLink - Nao existe g->currentNode");
+		return GRA_InvalidCurrentNode;
+	}
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
@@ -498,81 +499,81 @@ enum graphRet GraphRemLink (Graph *g, void *d)
 	AssertNode(curr,g);
 #endif /* _DEBUG */
 
-    CNT_CONTAR("GraphRemLink - Procurando elemento");
+	CNT_CONTAR("GraphRemLink - Procurando elemento");
 	IrInicioLista (curr->links);
 	do{
-        CNT_CONTAR("GraphRemLink - Avan?ando na lista");
+		CNT_CONTAR("GraphRemLink - Avancando na lista");
 		l = (Link*)LIS_ObterValor (curr->links);
-		#ifdef _DEBUG
+#ifdef _DEBUG
 		AssertLink(l);
-		#endif /* _DEBUG */
+#endif /* _DEBUG */
 		if (l->n2->data == d){
-             CNT_CONTAR("GraphRemLink - Deletando elemento");
+			CNT_CONTAR("GraphRemLink - Deletando elemento");
 			/* deleta de curr -> n2 */
 			LIS_ExcluirElemento(curr->links);
-				/* isso deleta link e link->brother */
-			#ifdef _DEBUG
+			/* isso deleta link e link->brother */
+#ifdef _DEBUG
 			g->nOfLinks -= 2 ;
 			AssertGraph(g);
-			#endif /* _DEBUG */
-			return graphOk;
+#endif /* _DEBUG */
+			return GRA_Ok;
 		}
 	}while (LIS_AvancarElementoCorrente(curr->links, 1)
 			== LIS_CondRetOK);
 
-    CNT_CONTAR("GraphRemLink - Finalizando");
-	return graphInvalidArgNode;
+	CNT_CONTAR("GraphRemLink - Finalizando");
+	return GRA_InvalidArgNode;
 }
 
-void *GraphGetData (Graph *g)
+void *GRA_GetData (Graph *g)
 {
-    CNT_CONTAR("GraphGetData - Inicio");
+	CNT_CONTAR("GraphGetData - Inicio");
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
 
 	if (g->currentNode){
-        CNT_CONTAR("GraphGetData - Obtendo valor");
+		CNT_CONTAR("GraphGetData - Obtendo valor");
 		return ((Node *)LIS_ObterValor ( g->currentNode ))->data;
-    }
+	}
 
-    CNT_CONTAR("GraphGetData - currentNode nao existe, finalizando");
+	CNT_CONTAR("GraphGetData - currentNode nao existe, finalizando");
 	return NULL;
 }
 
-void GraphNodesStart (Graph *g)
+void GRA_NodesStart (Graph *g)
 {
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
 	if (!g->currentNode){
-	    CNT_CONTAR("GraphNodesStart - N?o existe currentNode");
+		CNT_CONTAR("GraphNodesStart - Nao existe currentNode");
 		return;
-    }
+	}
 
-    CNT_CONTAR("GraphNodesStart - Finalizando");
+	CNT_CONTAR("GraphNodesStart - Finalizando");
 	g->nodesOld = NULL;
 	IrInicioLista ( g->nodes );
 }
 
-void GraphLinksStart (Graph *g)
+void GRA_LinksStart (Graph *g)
 {
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
 	if (!g->currentNode){
-	    CNT_CONTAR("GraphLinksStart - N?o existe currentNode");
+		CNT_CONTAR("GraphLinksStart - Nao existe currentNode");
 		return;
-    }
+	}
 
-    CNT_CONTAR("GraphLinksStart - Finalizando");
+	CNT_CONTAR("GraphLinksStart - Finalizando");
 	g->linksOld = NULL;
 	IrInicioLista ( ((Node *)LIS_ObterValor (g->currentNode))->links );
 }
 
-void *GraphNodesGetNext (Graph *g)
+void *GRA_NodesGetNext (Graph *g)
 {
-    CNT_CONTAR("GraphNodesGetNext - inicio");
+	CNT_CONTAR("GraphNodesGetNext - inicio");
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
@@ -580,64 +581,64 @@ void *GraphNodesGetNext (Graph *g)
 	LIS_tppLista l;
 	if (!g->currentNode){
 		return NULL;
-    }
-    CNT_CONTAR("GraphNodesGetNext - guardando g->nodes");
+	}
+	CNT_CONTAR("GraphNodesGetNext - guardando g->nodes");
 	l = g->nodes;
 	if (!l){
-        CNT_CONTAR("GraphNodesGetNext - N?o existe g->nodes");
-		return NULL;
-    }
-    CNT_CONTAR("GraphNodesGetNext - Obtendo dado");
-	ret = ((Node*)LIS_ObterValor (LIS_ObterValor(l)))->data;
-	if (g->nodesOld == ret){ /* Se esse dado ja' repitiu, ja terminou a lista */
-	    CNT_CONTAR("GraphNodesGetNext - Dado repetido, fim da lista");
+		CNT_CONTAR("GraphNodesGetNext - Nao existe g->nodes");
 		return NULL;
 	}
-	CNT_CONTAR("GraphNodesGetNext - Avan?ando elemento corrente");
+	CNT_CONTAR("GraphNodesGetNext - Obtendo dado");
+	ret = ((Node*)LIS_ObterValor (LIS_ObterValor(l)))->data;
+	if (g->nodesOld == ret){ /* Se esse dado ja' repitiu, ja terminou a lista */
+		CNT_CONTAR("GraphNodesGetNext - Dado repetido, fim da lista");
+		return NULL;
+	}
+	CNT_CONTAR("GraphNodesGetNext - Avancando elemento corrente");
 	g->nodesOld = ret;
 	LIS_AvancarElementoCorrente (l, 1);
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
-    CNT_CONTAR("GraphNodesGetNext - Finalizando");
+	CNT_CONTAR("GraphNodesGetNext - Finalizando");
 	return ret;
 }
 
-void *GraphLinksGetNext (Graph *g)
+void *GRA_LinksGetNext (Graph *g)
 {
-    CNT_CONTAR("GraphLinksGetNext - inicio");
+	CNT_CONTAR("GraphLinksGetNext - inicio");
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
 	void *ret;
 	LIS_tppLista l;
-	CNT_CONTAR("GraphLinksGetNext - Inicializa??o");
+	CNT_CONTAR("GraphLinksGetNext - Inicializacao");
 
 	if (!g->currentNode){
-	    CNT_CONTAR("GraphLinksGetNext - N?o existe currentNode");
+		CNT_CONTAR("GraphLinksGetNext - Nao existe currentNode");
 		return NULL;
-    }
+	}
 	CNT_CONTAR("GraphLinksGetNext - Salvando lista de links");
 	l = ((Node*)LIS_ObterValor (g->currentNode))->links;
 	if (!LIS_ObterValor(l)){
-        CNT_CONTAR("GraphLinksGetNext - N?o acessou lista de links");
+		CNT_CONTAR("GraphLinksGetNext - Nao acessou lista de links");
 		return NULL;
-    }
+	}
 
-    CNT_CONTAR("GraphLinksGetNext - Salvando dados");
+	CNT_CONTAR("GraphLinksGetNext - Salvando dados");
 	ret = ((Link*)LIS_ObterValor(l))->n2->data;
 	if (g->linksOld == ret){ /* Se esse dado ja' repitiu, ja terminou a lista */
 		CNT_CONTAR("GraphLinksGetNext - Dado repetido, fim da lista");
-        return NULL;
+		return NULL;
 	}
 
-	CNT_CONTAR("GraphLinksGetNext - Avan?ando elemento corrente");
+	CNT_CONTAR("GraphLinksGetNext - Avancando elemento corrente");
 	g->linksOld = ret;
 	LIS_AvancarElementoCorrente (l, 1);
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
-    CNT_CONTAR("GraphLinksGetNext - Finalizando");
+	CNT_CONTAR("GraphLinksGetNext - Finalizando");
 	return ret;
 }
 
@@ -650,7 +651,7 @@ void *GraphLinksGetNext (Graph *g)
 void AssertLink(Link *l)
 {
 	Link *b = l->brother;
-    CNT_CONTAR("AssertLink - Verificando assertivas");
+	CNT_CONTAR("AssertLink - Verificando assertivas");
 	assert(	b->brother == l );
 	assert( l != b );
 	assert( l->n1 == b->n2 );
@@ -666,12 +667,12 @@ void AssertLink(Link *l)
 
 void AssertNode(Node *n, Graph *g)
 {
-    CNT_CONTAR("AssertNode - Verificando assertivas");
+	CNT_CONTAR("AssertNode - Verificando assertivas");
 	IrInicioLista(g->nodes);
 	do{
-        CNT_CONTAR("AssertNode - Procurando valor");
+		CNT_CONTAR("AssertNode - Procurando valor");
 		if (n == LIS_ObterValor(LIS_ObterValor( g->nodes ))){
-            CNT_CONTAR("AssertNode - Valor encontrado");
+			CNT_CONTAR("AssertNode - Valor encontrado");
 			assert( n->delData == g->delData );
 			return;
 		}
@@ -687,6 +688,7 @@ void AssertGraph(Graph *g)
 	int i;
 
 	CNT_CONTAR("AssertGraph - Verificando assertivas");
+	printf ("%d %p\n", g->nOfNodes, g->currentNode);
 	assert( g->nOfNodes == 0 || g->currentNode !=NULL );
 	assert( g->nOfLinks % 2 == 0 );
 
@@ -694,10 +696,10 @@ void AssertGraph(Graph *g)
 	for (	i=1;
 			LIS_CondRetOK == LIS_AvancarElementoCorrente ( g->nodes , 1);
 			i++ ){
-            CNT_CONTAR("AssertGraph - Avan?ando elemento corrente");
-        }
+		CNT_CONTAR("AssertGraph - Avancando elemento corrente");
+	}
 
-    CNT_CONTAR("AssertGraph - Verificando assertivas, finalizando");
+	CNT_CONTAR("AssertGraph - Verificando assertivas, finalizando");
 	assert( i == g->nOfNodes || g->nOfNodes == 0 );
 }
 #endif /* _DEBUG */

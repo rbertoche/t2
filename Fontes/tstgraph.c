@@ -73,7 +73,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if ( argc != 1 
 			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
-		vGraph[iGraph] = GraphNew ( DelData );
+		vGraph[iGraph] = GRA_New ( DelData );
             	return TST_CompararPonteiroNulo( 1 , vGraph[iGraph],
 			"Erro: Ponteiro para novo grafo e' nulo." );
 
@@ -96,7 +96,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if ( argc != 1 
 			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
-		GraphDel ( vGraph[iGraph] );
+		GRA_Del ( vGraph[iGraph] );
 		vGraph[iGraph] = NULL;
 
             	return TST_CondRetOK;
@@ -112,7 +112,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		Ret = GraphCCurrent ( vGraph[iGraph],  vData[iData] );
+		Ret = GRA_CCurrent ( vGraph[iGraph],  vData[iData] );
 
 		
 		return TST_CompararInt( ExpectedRet , Ret ,
@@ -129,7 +129,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		Ret = GraphNewNode ( vGraph[iGraph],  vData[iData] );
+		Ret = GRA_NewNode ( vGraph[iGraph],  vData[iData] );
 
 		
 		return TST_CompararInt( ExpectedRet , Ret ,
@@ -143,7 +143,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if ( argc != 1
 			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
-		GraphDelNode ( vGraph[iGraph] );
+		GRA_DelNode ( vGraph[iGraph] );
 
 		
 		return TST_CondRetOK;
@@ -159,7 +159,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		Ret = GraphAddLink ( vGraph[iGraph],  vData[iData] );
+		Ret = GRA_AddLink ( vGraph[iGraph],  vData[iData] );
 
 		
 		return TST_CompararInt( ExpectedRet , Ret ,
@@ -176,7 +176,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		Ret = GraphRemLink ( vGraph[iGraph],  vData[iData] );
+		Ret = GRA_RemLink ( vGraph[iGraph],  vData[iData] );
 
 		
 		return TST_CompararInt( ExpectedRet , Ret ,
@@ -191,7 +191,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		vData[iData] = GraphGetData ( vGraph[iGraph]);
+		vData[iData] = GRA_GetData ( vGraph[iGraph]);
 
 		return TST_CompararPonteiroNulo( 1 , vData[iData],
 			"Erro: GetData retornou NULL. Ainda assim, NULL\
@@ -205,7 +205,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if ( argc != 1
 			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
-		GraphNodesStart ( vGraph[iGraph] );
+		GRA_NodesStart ( vGraph[iGraph] );
 
             	return TST_CondRetOK;
 		
@@ -216,7 +216,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if ( argc != 1
 			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
-		GraphLinksStart ( vGraph[iGraph] );
+		GRA_LinksStart ( vGraph[iGraph] );
 
             	return TST_CondRetOK;
 
@@ -228,7 +228,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		vData[iData] = GraphNodesGetNext ( vGraph[iGraph] );
+		vData[iData] = GRA_NodesGetNext ( vGraph[iGraph] );
 
 		return TST_CompararPonteiroNulo( 1 , vData[iData],
 			"Erro: GraphNodesGetNext retornou NULL. Ainda assim, NULL\
@@ -242,7 +242,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		vData[iData] = GraphLinksGetNext ( vGraph[iGraph] );
+		vData[iData] = GRA_LinksGetNext ( vGraph[iGraph] );
 
 		return TST_CompararPonteiroNulo( 1 , vData[iData],
 			"Erro: GraphLinksGetNext retornou NULL. Ainda assim, NULL\

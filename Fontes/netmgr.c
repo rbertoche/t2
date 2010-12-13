@@ -44,19 +44,19 @@ pGraph getGraphInstance()
 {
 	static pGraph Net;
 	if (Net) return Net;
-	Net = GraphNew (UsrDel);
+	Net = GRA_New (UsrDel);
 	return Net;
 }
 
 Usr *searchUsr(const char *id)
 {
 	Usr* u;
-	GraphNodesStart(getGraphInstance());
-	u = GraphNodesGetNext (getGraphInstance());
+	GRA_NodesStart(getGraphInstance());
+	u = GRA_NodesGetNext (getGraphInstance());
 	while (u){
 		if(0 == strcmp(u->id,id))
 			return u;
-		u = GraphNodesGetNext (getGraphInstance());
+		u = GRA_NodesGetNext (getGraphInstance());
 	}
 	return NULL;
 }
@@ -69,12 +69,12 @@ void NetUsrChange(const char *id)
 Usr *searchLink(const char *id)
 {
 	Usr *u;
-	GraphLinksStart(getGraphInstance());
-	u = GraphLinksGetNext (getGraphInstance());
+	GRA_LinksStart(getGraphInstance());
+	u = GRA_LinksGetNext (getGraphInstance());
 	while (u){
 		if(0 == strcmp(u->id,id))
 			return u;
-		u = GraphLinksGetNext (getGraphInstance());
+		u = GRA_LinksGetNext (getGraphInstance());
 	}
 	return NULL;
 }
@@ -86,13 +86,13 @@ const char* NetNewUser (const char *id)
 	if(strchr(id,':'))
 		return NEWUSER_INVALID;
 	usr = UsrNew(id);
-	GraphNewNode( getGraphInstance(), usr);
+	GRA_NewNode( getGraphInstance(), usr);
 	return NEWUSER_OK;
 }
 
 const char* NetDelMe()
 {
-	GraphDelNode (getGraphInstance());
+	GRA_DelNode (getGraphInstance());
 	usr = NULL;
 	return NETDELME_OK;
 }
@@ -103,7 +103,7 @@ const char* NetAddFriend (char *id)
 	u = searchUsr(id);
 	if (!u)
 		return NETADDFRIEND_NOTFOUND;
-	if (graphOk == GraphAddLink(getGraphInstance(),u))
+	if (GRA_Ok == GRA_AddLink(getGraphInstance(),u))
 		return NETADDFRIEND_OK;
 	return NETADDFRIEND_INVALID;
 }
@@ -114,7 +114,7 @@ const char* NetUnfriend (char *id)
 	u = searchLink(id);
 	if (!u)
 		return NETUNFRIEND_NOTFOUND;
-	GraphRemLink(getGraphInstance(),u);
+	GRA_RemLink(getGraphInstance(),u);
 	return NETUNFRIEND_OK;
 }
 
@@ -203,13 +203,13 @@ const char* NetSearch (		char *buffer,
 		fage=1;
 
 	if (isFriend){
-		GraphLinksStart(getGraphInstance());
-		u = GraphLinksGetNext (getGraphInstance());
-		pFuncGetNext = GraphLinksGetNext;
+		GRA_LinksStart(getGraphInstance());
+		u = GRA_LinksGetNext (getGraphInstance());
+		pFuncGetNext = GRA_LinksGetNext;
 	} else {
-		GraphNodesStart(getGraphInstance());
-		u = GraphNodesGetNext (getGraphInstance());
-		pFuncGetNext = GraphNodesGetNext;
+		GRA_NodesStart(getGraphInstance());
+		u = GRA_NodesGetNext (getGraphInstance());
+		pFuncGetNext = GRA_NodesGetNext;
 	}
 
 	for(; u ; u = (*pFuncGetNext)(getGraphInstance()) )

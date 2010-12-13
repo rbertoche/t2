@@ -1,36 +1,36 @@
-GraphNew - Inicializa??o
-GraphNew - N?o alocou g
+GraphNew - Inicializacao
+GraphNew - Nao alocou g
 GraphNew - Alocando nodes
-GraphNew - N?o alocou nodes
-GraphNew - Atribui??es, finaliza??o
+GraphNew - Nao alocou nodes
+GraphNew - Atribuicoes, finalizacao
 GraphNew - Chamando AssertGraph, finalizando
-GraphDel - Inicializa??o
+GraphDel - Inicializacao
 GraphDel - Grafo vazio
 GraphDel - Deletando nos
-GraphDel - Destruindo, finaliza??o
-searchData - Inicializa??o
+GraphDel - Destruindo, finalizacao
+searchData - Inicializacao
 searchData - Procurando dado
 searchData - Achou o dado
-searchData - Finaliza??o
+searchData - Finalizacao
 GraphCCurrent - Inicio
-GraphCCurrent - N?o existe novo corrente
-GraphCCurrent - N?o encontrou no grafo novo corrente
-GraphCCurrent - Seta novo corrente, finaliza??o
+GraphCCurrent - Nao existe novo corrente
+GraphCCurrent - Nao encontrou no grafo novo corrente
+GraphCCurrent - Seta novo corrente, finalizacao
 GraphNewNode - Inicio
-GraphNewMode - N?o existe data a ser inserida
-GraphNewMode - Aloca??o de no
-GraphNewMode - N?o alocou no
-GraphNewMode - Criando Lista
-GraphNewMode - N?o criou a Lista
-GraphNewMode - Inserindo elemento apos
-GraphNewMode - N?o inseriu elemento apos
-GraphNewMode - Criando lista de Links
-GraphNewMode - N?o criou lista de Links
-GraphNewMode - Inserindo no final da lista
-GraphNewMode - N?o inseriu no final da lista
-GraphNewMode - Atribui??o, finaliza??o
-267 GraphNewNode - N?O SEI O QUE ESCREVER FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIM
-GraphdelNode - Inicializa??o
+GraphNewNode - Nao existe data a ser inserida
+GraphNewNode - Alocacao de no
+GraphNewNode - Nao alocou no
+GraphNewNode - Criando Lista
+GraphNewNode - Nao criou a Lista
+GraphNewNode - Inserindo elemento apos
+GraphNewNode - Nao inseriu elemento apos
+GraphNewNode - Criando lista de Links
+GraphNewNode - Nao criou lista de Links
+GraphNewNode - Inserindo no final da lista
+GraphNewNode - Nao inseriu no final da lista
+GraphNewNode - Atribuicao, finalizacao
+267 GraphNewNode - NAO SEI O QUE ESCREVER FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIM
+GraphdelNode - Inicializacao
 GraphdelNode - Deletando no
 delNode - Destruindo lista de links
 delNode - Existe g->delData
@@ -38,58 +38,58 @@ delNode - Finalizando
 delLink - Inicio
 delLink - Achou: Deletando Lista de Links
 delLink - Finalizando
-linkTwoNodes - Inicializa??o
+linkTwoNodes - Inicializacao
 linkTwoNodes - Procurando link igual
 linkTwoNodes - Links iguais
 linkTwoNodes - Compondo Links
 linkTwoNodes - Alocacao de link1 falhou
 linkTwoNodes - Inserindo link 1 na lista
-linkTwoNodes - N?o inseriu link 1 na lista
+linkTwoNodes - Nao inseriu link 1 na lista
 linkTwoNodes - Inserindo link 2 na lista
-linkTwoNodes - N?o inseriu link 2 na lista
+linkTwoNodes - Nao inseriu link 2 na lista
 linkTwoNodes - Finalizando
 GraphAddLink - Inicio
-GraphAddLink - N?o existe n
-GraphAddLink - N?o existe g->currentNode
+GraphAddLink - Nao existe n
+GraphAddLink - Nao existe g->currentNode
 GraphAddLink - Procurando no
-GraphAddLink - N?o encontrou no
+GraphAddLink - Nao encontrou no
 GraphAddLink - Tentando criar link de n1 pra n1
 GraphAddLink - Ligando 2 nos
 GraphAddLink - Ligou os nos
 GraphRemLink - Inicio
-GraphRemLink - N?o existe d
-GraphRemLink - N?o existe g->currentNode
+GraphRemLink - Nao existe d
+GraphRemLink - Nao existe g->currentNode
 GraphRemLink - Procurando elemento
-GraphRemLink - Avan?ando na lista
+GraphRemLink - Avancando na lista
 GraphRemLink - Deletando elemento
 GraphRemLink - Finalizando
 GraphGetData - Inicio
 GraphGetData - Obtendo valor
 GraphGetData - currentNode nao existe, finalizando
-GraphNodesStart - N?o existe currentNode
+GraphNodesStart - Nao existe currentNode
 GraphNodesStart - Finalizando
-GraphLinksStart - N?o existe currentNode
+GraphLinksStart - Nao existe currentNode
 GraphLinksStart - Finalizando
 GraphNodesGetNext - inicio
 GraphNodesGetNext - guardando g->nodes
-GraphNodesGetNext - N?o existe g->nodes
+GraphNodesGetNext - Nao existe g->nodes
 GraphNodesGetNext - Obtendo dado
 GraphNodesGetNext - Dado repetido, fim da lista
-GraphNodesGetNext - Avan?ando elemento corrente
+GraphNodesGetNext - Avancando elemento corrente
 GraphNodesGetNext - Finalizando
 GraphLinksGetNext - inicio
-GraphLinksGetNext - Inicializa??o
-GraphLinksGetNext - N?o existe currentNode
+GraphLinksGetNext - Inicializacao
+GraphLinksGetNext - Nao existe currentNode
 GraphLinksGetNext - Salvando lista de links
-GraphLinksGetNext - N?o acessou lista de links
+GraphLinksGetNext - Nao acessou lista de links
 GraphLinksGetNext - Salvando dados
 GraphLinksGetNext - Dado repetido, fim da lista
-GraphLinksGetNext - Avan?ando elemento corrente
+GraphLinksGetNext - Avancando elemento corrente
 GraphLinksGetNext - Finalizando
 AssertLink - Verificando assertivas
 AssertNode - Verificando assertivas
 AssertNode - Procurando valor
 AssertNode - Valor encontrado
 AssertGraph - Verificando assertivas
-AssertGraph - Avan?ando elemento corrente
+AssertGraph - Avancando elemento corrente
 AssertGraph - Verificando assertivas, finalizando
