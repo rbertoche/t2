@@ -129,7 +129,7 @@ void GraphDel (Graph *g)
 #endif /* _DEBUG */
     CNT_CONTAR("GraphDel - Inicializa??o");
 	IrInicioLista ( g->nodes );
-	if ( !LIS_AvancarElementoCorrente ( g->nodes , 1)){
+	if ( g->currentNode || !LIS_AvancarElementoCorrente ( g->nodes , 1)){
 	CNT_CONTAR("GraphDel - Grafo vazio");
 		return;
 	}
@@ -282,7 +282,10 @@ void GraphDelNode (Graph *g)
 
     CNT_CONTAR("GraphdelNode - Inicializa??o");
 	Node *n;
-	assert( g!=NULL );
+	if (!g->currentNode){
+	CNT_CONTAR("GraphdelNode - InvalidCurrentNode");
+		return graphInvalidCurrentNode;
+	}
 	n = (Node *) LIS_ObterValor(g->currentNode);
 	assert( n!=NULL );
 #ifdef _DEBUG
