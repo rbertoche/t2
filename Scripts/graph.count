@@ -5,6 +5,7 @@ GraphNew - N?o alocou nodes
 GraphNew - Atribui??es, finaliza??o
 GraphNew - Chamando AssertGraph, finalizando
 GraphDel - Inicializa??o
+GraphDel - Grafo vazio
 GraphDel - Deletando nos
 GraphDel - Destruindo, finaliza??o
 searchData - Inicializa??o
@@ -12,14 +13,11 @@ searchData - Procurando dado
 searchData - Achou o dado
 searchData - Finaliza??o
 GraphCCurrent - Inicio
-GraphCCurrent - N?o existe g
 GraphCCurrent - N?o existe novo corrente
 GraphCCurrent - N?o encontrou no grafo novo corrente
 GraphCCurrent - Seta novo corrente, finaliza??o
-GraphCCurrent - Chamando AssertGraph, Fim
 GraphNewNode - Inicio
 GraphNewMode - Inicializa??o
-GraphNewMode - N?o existe g
 GraphNewMode - N?o existe data a ser inserida
 GraphNewMode - Aloca??o de no
 GraphNewMode - N?o alocou no
@@ -51,7 +49,6 @@ linkTwoNodes - Inserindo link 2 na lista
 linkTwoNodes - N?o inseriu link 2 na lista
 linkTwoNodes - Finalizando
 GraphAddLink - Inicio
-GraphAddLink - N?o existe g
 GraphAddLink - N?o existe n
 GraphAddLink - N?o existe g->currentNode
 GraphAddLink - Procurando no
@@ -59,7 +56,6 @@ GraphAddLink - N?o encontrou no
 GraphAddLink - Ligando 2 nos
 GraphAddLink - Ligou os nos
 GraphRemLink - Inicio
-GraphRemLink - N?o existe g
 GraphRemLink - N?o existe d
 GraphRemLink - N?o existe g->currentNode
 GraphRemLink - Procurando elemento
@@ -69,7 +65,9 @@ GraphRemLink - Finalizando
 GraphGetData - Inicio
 GraphGetData - Obtendo valor
 GraphGetData - currentNode nao existe, finalizando
+GraphNodesStart - N?o existe currentNode
 GraphNodesStart - Finalizando
+GraphLinksStart - N?o existe currentNode
 GraphLinksStart - Finalizando
 GraphNodesGetNext - inicio
 GraphNodesGetNext - guardando g->nodes
@@ -80,7 +78,7 @@ GraphNodesGetNext - Avan?ando elemento corrente
 GraphNodesGetNext - Finalizando
 GraphLinksGetNext - inicio
 GraphLinksGetNext - Inicializa??o
-GraphLinksGetNext - N?o existe g ou currentNode
+GraphLinksGetNext - N?o existe currentNode
 GraphLinksGetNext - Salvando lista de links
 GraphLinksGetNext - N?o acessou lista de links
 GraphLinksGetNext - Salvando dados
@@ -89,9 +87,8 @@ GraphLinksGetNext - Avan?ando elemento corrente
 GraphLinksGetNext - Finalizando
 AssertLink - Verificando assertivas
 AssertNode - Verificando assertivas
-AssertLink - Procurando valor
-AssertLink - Valor encontrado
-AssertLink - Valor n?o encontrado
+AssertNode - Procurando valor
+AssertNode - Valor encontrado
 AssertGraph - Verificando assertivas
 AssertGraph - Avan?ando elemento corrente
 AssertGraph - Verificando assertivas, finalizando

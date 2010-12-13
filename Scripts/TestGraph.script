@@ -16,6 +16,7 @@
 =declararparm   g2      int 2
 =declararparm   g3      int 3
 =declararparm   g4      int 4
+=declararparm	nullPointer		int 5
 
 =declararparm   d0      int 0
 =declararparm   d1      int 1
@@ -25,7 +26,7 @@
 =declararparm   d5      int 5
 =declararparm   d6      int 6
 =declararparm   d7      int 7
-=declararparm   d8      int 8
+=declararparm   dNulo   int 8
 =declararparm   d9      int 9
 
 =declararparm   Ok                  int 0
@@ -141,6 +142,20 @@
 =GraphLinksGetNext	g0	d9
 =recuperar
 
+== Exercita excecoes de linkTwoNodes
+=GraphCCurrent		g0	d2	Ok
+=GraphAddLink		g0	d1	InvalidLink
+
+== Exercita excecoes de GraphRemLink
+=GraphRemLink		g0	d2	InvalidArgNode
+=GraphRemLink		g0	dNulo NullData
+=GraphNew			g3	Ok
+=GraphRemLink		g3	dNulo NullData
+//=GraphDel			g3
+
+=GraphCCurrent		g0	d1	Ok
+
+
 == Verifica conteudo de links em c1
 =GraphLinksStart	g0
 =GraphLinksGetNext	g0	d9
@@ -190,15 +205,48 @@
 =GraphLinksGetNext
 =recuperar
 
-==Mostra campos alocados antes de deletar os grafos
-=ShowMem
+== Exercita excecoes de GraphAddLink
+=GraphAddLink		g1 dNulo		NullData
+=GraphNew			g4 Ok
+=GraphAddLink		g4 d0			InvalidCurrentNode
+=NewData			d0 c0
+=GraphNewNode		g4 d0			Ok
+=GraphAddLink		g4 d1			InvalidArgNode
+
+== Exercita excecoes de GraphCCurrent
+=GraphCCurrent		g4 d2			InvalidArgNode
+=GraphCCurrent		g4 dNulo	InvalidArgNode
+=GraphCCurrent		g4 dNulo	InvalidArgNode
+
+== Exercita excecoes de GraphNewNode
+=GraphNewNode		g4 dNulo	NullData
+
+== Exercita excecoes de GraphLinksGetNext
+=GraphDel			g4
+=GraphNew			g4
+=GraphLinksStart	g4
+=GraphLinksGetNext	g4 d9
+=recuperar
+
+== Exercita excecoes de GraphNodesGetNext
+=NewData			d0 c0
+=GraphNewNode		g4 d0			Ok
+=GraphNodesStart	g4
+=GraphNodesGetNext	g4 d9
+=GraphNewNode		g4 d0			Ok
+=GraphNodesGetNext	g4 d9
+=recuperar
+
+
+//==Mostra campos alocados antes de deletar os grafos
+//=ShowMem
 == Deleta grafo 0
 =GraphDel		g0
 == Deleta grafo 1
 =GraphDel		g1
 
-==Mostra campos alocados depois de deletar os grafos
-=ShowMem
+//==Mostra campos alocados depois de deletar os grafos
+//=ShowMem
 
 == Terminar controlar contadores
 =pararcontagem
@@ -206,11 +254,4 @@
 
 == Terminar contagem
 =terminarcontadores
-== Terminar controlar contadores
-=pararcontagem
-=verificarcontagens    0
-
-== Terminar contagem
-=terminarcontadores
-
 // fim

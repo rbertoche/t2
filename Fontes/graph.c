@@ -129,6 +129,11 @@ void GraphDel (Graph *g)
 #endif /* _DEBUG */
     CNT_CONTAR("GraphDel - Inicializa??o");
 	IrInicioLista ( g->nodes );
+	if ( !LIS_AvancarElementoCorrente ( g->nodes , 1)){
+	CNT_CONTAR("GraphDel - Grafo vazio");
+		return;
+	}
+	IrInicioLista ( g->nodes );
 	do {
         CNT_CONTAR("GraphDel - Deletando nos");
 		g->currentNode = LIS_ObterValor( g->nodes );
@@ -167,10 +172,6 @@ enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
-	if (!g){
-        CNT_CONTAR("GraphCCurrent - N?o existe g");
-		return graphInvalidGraph;
-    }
 	if (!newCurrent){
         CNT_CONTAR("GraphCCurrent - N?o existe novo corrente");
 		return graphInvalidArgNode;
@@ -182,11 +183,10 @@ enum graphRet GraphCCurrent (Graph *g, void *newCurrent)
 
     CNT_CONTAR("GraphCCurrent - Seta novo corrente, finaliza??o");
 	g->currentNode = LIS_ObterValor(g->nodes);
-	return graphOk;
 #ifdef _DEBUG
-    CNT_CONTAR("GraphCCurrent - Chamando AssertGraph, Fim");
 	AssertGraph(g);
 #endif /* _DEBUG */
+	return graphOk;
 }
 
 enum graphRet GraphNewNode (Graph *g, void *data)
@@ -204,10 +204,6 @@ enum graphRet GraphNewNode (Graph *g, void *data)
 
        CNT_CONTAR("GraphNewMode - Inicializa??o");
 /* Inicio do bloco de codigo com tratamento de excecao */
-	if (!g){
-	    CNT_CONTAR("GraphNewMode - N?o existe g");
-		return graphInvalidGraph;
-    }
 	if (!data){
 	    CNT_CONTAR("GraphNewMode - N?o existe data a ser inserida");
 		return graphNullData;
@@ -434,10 +430,6 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 #endif /* _DEBUG */
 	Node *n1, *n2;
 	enum graphRet ret;
-	if (!g){
-	    CNT_CONTAR("GraphAddLink - N?o existe g");
-		return graphInvalidGraph;
-    }
 	if (!n){
 	    CNT_CONTAR("GraphAddLink - N?o existe n");
 		return graphNullData;
@@ -477,15 +469,8 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 enum graphRet GraphRemLink (Graph *g, void *d)
 {
     CNT_CONTAR("GraphRemLink - Inicio");
-#ifdef _DEBUG
-	AssertGraph(g);
-#endif /* _DEBUG */
 	Node *curr;
 	Link *l;
-	if (!g){
-        CNT_CONTAR("GraphRemLink - N?o existe g");
-		return graphInvalidGraph;
-    }
 	if (!d){
         CNT_CONTAR("GraphRemLink - N?o existe d");
 		return graphNullData;
@@ -494,6 +479,9 @@ enum graphRet GraphRemLink (Graph *g, void *d)
         CNT_CONTAR("GraphRemLink - N?o existe g->currentNode");
 		return graphInvalidCurrentNode;
     }
+#ifdef _DEBUG
+	AssertGraph(g);
+#endif /* _DEBUG */
 	curr = LIS_ObterValor (g->currentNode);
 #ifdef _DEBUG
 	AssertNode(curr,g);
@@ -546,6 +534,10 @@ void GraphNodesStart (Graph *g)
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
+	if (!g->currentNode){
+	    CNT_CONTAR("GraphNodesStart - N?o existe currentNode");
+		return;
+    }
 
     CNT_CONTAR("GraphNodesStart - Finalizando");
 	g->nodesOld = NULL;
@@ -557,6 +549,10 @@ void GraphLinksStart (Graph *g)
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
+	if (!g->currentNode){
+	    CNT_CONTAR("GraphLinksStart - N?o existe currentNode");
+		return;
+    }
 
     CNT_CONTAR("GraphLinksStart - Finalizando");
 	g->linksOld = NULL;
@@ -571,7 +567,7 @@ void *GraphNodesGetNext (Graph *g)
 #endif /* _DEBUG */
 	void *ret;
 	LIS_tppLista l;
-	if (!g || !g->currentNode){
+	if (!g->currentNode){
 		return NULL;
     }
     CNT_CONTAR("GraphNodesGetNext - guardando g->nodes");
@@ -606,8 +602,8 @@ void *GraphLinksGetNext (Graph *g)
 	LIS_tppLista l;
 	CNT_CONTAR("GraphLinksGetNext - Inicializa??o");
 
-	if (!g || !g->currentNode){
-	    CNT_CONTAR("GraphLinksGetNext - N?o existe g ou currentNode");
+	if (!g->currentNode){
+	    CNT_CONTAR("GraphLinksGetNext - N?o existe currentNode");
 		return NULL;
     }
 	CNT_CONTAR("GraphLinksGetNext - Salvando lista de links");
@@ -662,9 +658,9 @@ void AssertNode(Node *n, Graph *g)
     CNT_CONTAR("AssertNode - Verificando assertivas");
 	IrInicioLista(g->nodes);
 	do{
-        CNT_CONTAR("AssertLink - Procurando valor");
+        CNT_CONTAR("AssertNode - Procurando valor");
 		if (n == LIS_ObterValor(LIS_ObterValor( g->nodes ))){
-            CNT_CONTAR("AssertLink - Valor encontrado");
+            CNT_CONTAR("AssertNode - Valor encontrado");
 			assert( n->delData == g->delData );
 			return;
 		}
@@ -672,7 +668,6 @@ void AssertNode(Node *n, Graph *g)
 	/* Nao deveria cruzar esse ponto: Significa que nao foi encontrado
 	 * n na lista g->nodes
 	 */
-	CNT_CONTAR("AssertLink - Valor n?o encontrado");
 	assert( 0 );
 }
 
