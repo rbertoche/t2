@@ -24,19 +24,19 @@ static char * vData[ MAXDATAS ];
 
 static int DataAlocCount = 0;
 
-static const char GRAPHNEW_CMD            [ ] = "=GRA_New"           ;
-static const char GRAPHDEL_CMD            [ ] = "=GRA_Del"           ;
-static const char GRAPHCCUR_CMD           [ ] = "=GRA_CCurrent"      ;
-static const char GRAPHNEWNODE_CMD        [ ] = "=GRA_NewNode"       ;
-static const char GRAPHDELNODE_CMD        [ ] = "=GRA_DelNode"       ;
-static const char GRAPHADDLINK_CMD        [ ] = "=GRA_AddLink"       ;
-static const char GRAPHREMLINK_CMD        [ ] = "=GRA_RemLink"       ;
-static const char GRAPHGETDATA_CMD        [ ] = "=GRA_GetData"       ;
+static const char GRAPHNEW_CMD            [ ] = "=GraphNew"           ;
+static const char GRAPHDEL_CMD            [ ] = "=GraphDel"           ;
+static const char GRAPHCCUR_CMD           [ ] = "=GraphCCurrent"      ;
+static const char GRAPHNEWNODE_CMD        [ ] = "=GraphNewNode"       ;
+static const char GRAPHDELNODE_CMD        [ ] = "=GraphDelNode"       ;
+static const char GRAPHADDLINK_CMD        [ ] = "=GraphAddLink"       ;
+static const char GRAPHREMLINK_CMD        [ ] = "=GraphRemLink"       ;
+static const char GRAPHGETDATA_CMD        [ ] = "=GraphGetData"       ;
 
-static const char GRAPHNODESSTART_CMD     [ ] = "=GRA_NodesStart"    ;
-static const char GRAPHLINKSSTART_CMD     [ ] = "=GRA_LinksStart"    ;
-static const char GRAPHNODESGETNEXT_CMD   [ ] = "=GRA_NodesGetNext"  ;
-static const char GRAPHLINKSGETNEXT_CMD   [ ] = "=GRA_LinksGetNext"  ;
+static const char GRAPHNODESSTART_CMD     [ ] = "=GraphNodesStart"    ;
+static const char GRAPHLINKSSTART_CMD     [ ] = "=GraphLinksStart"    ;
+static const char GRAPHNODESGETNEXT_CMD   [ ] = "=GraphNodesGetNext"  ;
+static const char GRAPHLINKSGETNEXT_CMD   [ ] = "=GraphLinksGetNext"  ;
 
 static const char NEWDATA_CMD             [ ] = "=NewData"            ;
 static const char CMPDATA_CMD             [ ] = "=CmpData"            ;
