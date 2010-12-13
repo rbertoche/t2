@@ -17,7 +17,6 @@ GraphCCurrent - N?o existe novo corrente
 GraphCCurrent - N?o encontrou no grafo novo corrente
 GraphCCurrent - Seta novo corrente, finaliza??o
 GraphNewNode - Inicio
-GraphNewMode - Inicializa??o
 GraphNewMode - N?o existe data a ser inserida
 GraphNewMode - Aloca??o de no
 GraphNewMode - N?o alocou no
@@ -32,7 +31,6 @@ GraphNewMode - N?o inseriu no final da lista
 GraphNewMode - Atribui??o, finaliza??o
 267 GraphNewNode - N?O SEI O QUE ESCREVER FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIM
 GraphdelNode - Inicializa??o
-GraphdelNode - InvalidCurrentNode
 GraphdelNode - Deletando no
 delNode - Destruindo lista de links
 delNode - Existe g->delData
@@ -44,6 +42,7 @@ linkTwoNodes - Inicializa??o
 linkTwoNodes - Procurando link igual
 linkTwoNodes - Links iguais
 linkTwoNodes - Compondo Links
+linkTwoNodes - Alocacao de link1 falhou
 linkTwoNodes - Inserindo link 1 na lista
 linkTwoNodes - N?o inseriu link 1 na lista
 linkTwoNodes - Inserindo link 2 na lista

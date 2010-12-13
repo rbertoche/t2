@@ -17,7 +17,7 @@
 =declararparm   g3      int 3
 =declararparm   g4      int 4
 =declararparm   g5      int 5
-=declararparm	nullPointer		int 5
+=declararparm	nullPointer		int 6
 
 =declararparm   d0      int 0
 =declararparm   d1      int 1
@@ -155,9 +155,6 @@
 == Exercita excecoes de GraphRemLink
 =GraphRemLink		g0	d2	InvalidArgNode
 =GraphRemLink		g0	dNulo NullData
-=GraphNew			g3	Ok
-=GraphRemLink		g3	dNulo NullData
-=GraphDel			g3
 
 =GraphCCurrent		g0	d1	Ok
 
