@@ -1,0 +1,26 @@
+# Makefile TestGraph
+
+[Diretorios]
+
+Nome        =  TestGraphDbg
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+def         =  ..\Tabelas
+
+[Modulos]
+tstgraph /D_DEBUG
+graph /D_DEBUG
+lista /D_DEBUG
+
+[BuildInicio]
+/OUT:..\Produto\TestGraphDbg.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[BuildFim]
+ArcaboucoTeste.lib
+
+[Fim]
