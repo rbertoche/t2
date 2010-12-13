@@ -1,14 +1,12 @@
 Aluno: Gabriel Arrais Coelho
 
-15/10/2010|2|revisar projeto		|Modelos e desenhos pedidos
-22/10/2010|3|Estudar			|Pensar em arquitetura, esbo√ßar interfaces e estruturas
-25/10/2010|3|Estudar			|Pensar em arquitetura, esbo√ßar interfaces e estruturas
-06/11/2010|3|Estudar			|Pensar em arquitetura, esbo√ßar interfaces e estruturas
-07/11/2010|3|Estudar			|Discutir ideias de implenetacao 
-04/11/2010|3|Estudar			|Discutir ideias de implenetacao 						
-08/11/2010|3|Estudar			|Pensar em arquitetura, esbo√ßar interfaces e estruturas
-10/11/2010|3|Codificar modulo		|Pensar em arquitetura, esbo√ßar interfaces e estruturas
-05/11/2010|3|Estudar			|Pensar em arquitetura, esbo√ßar interfaces e estruturas
-16/11/2010|2|Revisar			|Revisando Diagrama de Exemplo f√≠sico
-16/11/2010|2|Codificar modulo		|Editando script de testes de usr
-
+05/12/2010|2|Revisar projeto		|Modelos e desenhos pedidos
+06/11/2010|3|Estudar			|Estudando Estruturas auto-verific·veis
+07/12/2010|3|Estudar			|Pensar e estrudar sobre assertivas
+08/12/2010|2|Estudar			|Pensar e conversar sobre implementaÁ„o das assertivas
+09/12/2010|3|Estudar			|Discutir ideias de implenetaÁ„o de deturpadores 
+10/12/2010|3|Revisar projeto		|Pensando em assertivas execut·veis 						
+11/12/2010|6|Codificar MÛdulo	        |Adicionando Contadores ao cÛdigo
+12/12/2010|4|Codificar modulo		|Adicionando e revisando contadores do cÛdigo
+12/12/2010|3|Revisar Projeto		|Editando modelo fÌsico de estrutura auto-verific·vel
+13/12/2010|5|Codificar script de teste	|Fazendo com que os casos de testes cubram todas as arestas
