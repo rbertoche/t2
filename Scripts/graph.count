@@ -1,37 +1,37 @@
-GraphNew - Inicializacao
-GraphNew - Nao alocou g
-GraphNew - Alocando nodes
-GraphNew - Nao alocou nodes
-GraphNew - Atribuicoes, finalizacao
-GraphNew - Chamando AssertGraph, finalizando
-GraphDel - Inicializacao
-GraphDel - Grafo vazio
-GraphDel - Deletando nos
-GraphDel - Destruindo, finalizacao
-searchData - Inicializacao
+GRA_New - Inicializao
+GRA_New - Nao alocou g
+GRA_New - Alocando nodes
+GRA_New - Nao alocou nodes
+GRA_New - Atribuies, finalizao
+GRA_New - Chamando AssertGraph, finalizando
+GRA_Del - Inicializao
+GRA_Del - Grafo vazio
+GRA_Del - Deletando nos
+GRA_Del - Destruindo, finalizao
+searchData - Inicializao
 searchData - Procurando dado
 searchData - Achou o dado
 searchData - Finalizacao
-GraphCCurrent - Inicio
-GraphCCurrent - Nao existe novo corrente
-GraphCCurrent - Nao encontrou no grafo novo corrente
-GraphCCurrent - Seta novo corrente, finalizacao
-GraphNewNode - Inicio
-GraphNewNode - Nao existe data a ser inserida
-GraphNewNode - Alocacao de no
-GraphNewNode - Nao alocou no
-GraphNewNode - Criando Lista
-GraphNewNode - Nao criou a Lista
-GraphNewNode - Inserindo elemento apos
-GraphNewNode - Nao inseriu elemento apos
-GraphNewNode - Criando lista de Links
-GraphNewNode - Nao criou lista de Links
-GraphNewNode - Inserindo no final da lista
-GraphNewNode - Nao inseriu no final da lista
-GraphNewNode - Atribuicao, finalizacao
-267 GraphNewNode - NAO SEI O QUE ESCREVER FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIM
-GraphdelNode - Inicializacao
-GraphdelNode - Deletando no
+GRA_CCurrent - Inicio
+GRA_CCurrent - Nao existe novo corrente
+GRA_CCurrent - Nao encontrou no grafo novo corrente
+GRA_CCurrent - Seta novo corrente, finalizcaao
+GRA_NewNode - Inicio
+GRA_NewMode - Nao existe data a ser inserida
+GRA_NewMode - Alocao de no
+GRA_NewMode - Nao alocou no
+GRA_NewMode - Criando Lista
+GRA_NewMode - Nao criou a Lista
+GRA_NewMode - Inserindo elemento apos
+GRA_NewMode - Nao inseriu elemento apos
+GRA_NewMode - Criando lista de Links
+GRA_NewMode - Nao criou lista de Links
+GRA_NewMode - Inserindo no final da lista
+GRA_NewMode - Nao inseriu no final da lista
+GRA_NewMode - Atribuicao, finalizacao
+267 GRA_NewNode - Finalizacao
+GRA_delNode - Inicializao
+GRA_delNode - Deletando no
 delNode - Destruindo lista de links
 delNode - Existe g->delData
 delNode - Finalizando
@@ -48,48 +48,48 @@ linkTwoNodes - Nao inseriu link 1 na lista
 linkTwoNodes - Inserindo link 2 na lista
 linkTwoNodes - Nao inseriu link 2 na lista
 linkTwoNodes - Finalizando
-GraphAddLink - Inicio
-GraphAddLink - Nao existe n
-GraphAddLink - Nao existe g->currentNode
-GraphAddLink - Procurando no
-GraphAddLink - Nao encontrou no
-GraphAddLink - Tentando criar link de n1 pra n1
-GraphAddLink - Ligando 2 nos
-GraphAddLink - Ligou os nos
-GraphRemLink - Inicio
-GraphRemLink - Nao existe d
-GraphRemLink - Nao existe g->currentNode
-GraphRemLink - Procurando elemento
-GraphRemLink - Avancando na lista
-GraphRemLink - Deletando elemento
-GraphRemLink - Finalizando
-GraphGetData - Inicio
-GraphGetData - Obtendo valor
-GraphGetData - currentNode nao existe, finalizando
-GraphNodesStart - Nao existe currentNode
-GraphNodesStart - Finalizando
-GraphLinksStart - Nao existe currentNode
-GraphLinksStart - Finalizando
-GraphNodesGetNext - inicio
-GraphNodesGetNext - guardando g->nodes
-GraphNodesGetNext - Nao existe g->nodes
-GraphNodesGetNext - Obtendo dado
-GraphNodesGetNext - Dado repetido, fim da lista
-GraphNodesGetNext - Avancando elemento corrente
-GraphNodesGetNext - Finalizando
-GraphLinksGetNext - inicio
-GraphLinksGetNext - Inicializacao
-GraphLinksGetNext - Nao existe currentNode
-GraphLinksGetNext - Salvando lista de links
-GraphLinksGetNext - Nao acessou lista de links
-GraphLinksGetNext - Salvando dados
-GraphLinksGetNext - Dado repetido, fim da lista
-GraphLinksGetNext - Avancando elemento corrente
-GraphLinksGetNext - Finalizando
+GRA_AddLink - Inicio
+GRA_AddLink - Nao existe n
+GRA_AddLink - Nao existe g->currentNode
+GRA_AddLink - Procurando no
+GRA_AddLink - Nao encontrou no
+GRA_AddLink - Tentando criar link de n1 pra n1
+GRA_AddLink - Ligando 2 nos
+GRA_AddLink - Ligou os nos
+GRA_RemLink - Inicio
+GRA_RemLink - Nao existe d
+GRA_RemLink - Nao existe g->currentNode
+GRA_RemLink - Procurando elemento
+GRA_RemLink - Avanando na lista
+GRA_RemLink - Deletando elemento
+GRA_RemLink - Finalizando
+GRA_GetData - Inicio
+GRA_GetData - Obtendo valor
+GRA_GetData - currentNode nao existe, finalizando
+GRA_NodesStart - Nao existe currentNode
+GRA_NodesStart - Finalizando
+GRA_LinksStart - Nao existe currentNode
+GRA_LinksStart - Finalizando
+GRA_NodesGetNext - inicio
+GRA_NodesGetNext - guardando g->nodes
+GRA_NodesGetNext - Nao existe g->nodes
+GRA_NodesGetNext - Obtendo dado
+GRA_NodesGetNext - Dado repetido, fim da lista
+GRA_NodesGetNext - Avanando elemento corrente
+GRA_NodesGetNext - Finalizando
+GRA_LinksGetNext - inicio
+GRA_LinksGetNext - Inicializao
+GRA_LinksGetNext - Nao existe currentNode
+GRA_LinksGetNext - Salvando lista de links
+GRA_LinksGetNext - Nao acessou lista de links
+GRA_LinksGetNext - Salvando dados
+GRA_LinksGetNext - Dado repetido, fim da lista
+GRA_LinksGetNext - Avanando elemento corrente
+GRA_LinksGetNext - Finalizando
 AssertLink - Verificando assertivas
 AssertNode - Verificando assertivas
 AssertNode - Procurando valor
 AssertNode - Valor encontrado
 AssertGraph - Verificando assertivas
-AssertGraph - Avancando elemento corrente
+AssertGraph - Avanando elemento corrente
 AssertGraph - Verificando assertivas, finalizando
