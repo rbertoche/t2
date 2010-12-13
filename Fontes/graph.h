@@ -38,18 +38,18 @@ typedef struct graph *pGraph;
 
 
 /***********************************************************************
-*	$TC Tipo de Dados: graphRet
+*	$TC Tipo de Dados: GRA_Ret
 *	$ED Descrição do tipo
 *		Condicoes de retorno das funcoes Graph
 ***********************************************************************/
-enum graphRet {
-	graphOk,
-	graphInvalidGraph,
-	graphInvalidCurrentNode,
-	graphInvalidArgNode,
-	graphInvalidLink,
-	graphNullData,
-	graphMemoryError
+enum GRA_Ret {
+	GRA_Ok,
+	GRA_InvalidGraph,
+	GRA_InvalidCurrentNode,
+	GRA_InvalidArgNode,
+	GRA_InvalidLink,
+	GRA_NullData,
+	GRA_MemoryError
 };
 
 /***********************************************************************
@@ -70,7 +70,7 @@ enum graphRet {
 *
 ***********************************************************************/
 typedef void (*FDelData)(void *data);
-pGraph GraphNew (FDelData fdd);
+pGraph GRA_New (FDelData fdd);
 
 /***********************************************************************
 *
@@ -80,12 +80,12 @@ pGraph GraphNew (FDelData fdd);
 *		$P g - Ponteiro para o 'Graph' a ser manipulado
 *
 *	$ED Descricao da funcao
-*		Se foi passada uma funcao em GraphNew(), esta e' chamada
+*		Se foi passada uma funcao em GRA_New(), esta e' chamada
 *		para excluir 'data'.
 *		g deve ser um ponteiro pra um Graph valido
 *
 ***********************************************************************/
-void GraphDel (pGraph g);
+void GRA_Del (pGraph g);
 
 /***********************************************************************
 *
@@ -96,13 +96,13 @@ void GraphDel (pGraph g);
 *		'Node' que sera' current
 *
 *	$FV Valor retornado
-*		graphOk
-*		graphInvalidGraph
-*		graphInvalidArgNode - Caso newCurrentData for nulo ou
+*		GRA_Ok
+*		GRA_InvalidGraph
+*		GRA_InvalidArgNode - Caso newCurrentData for nulo ou
 *			nenhum 'Node' contendo newCurretData exista.
 *
 ***********************************************************************/
-enum graphRet GraphCCurrent (pGraph g, void *newCurrentData);
+enum GRA_Ret GraphCCurrent (pGraph g, void *newCurrentData);
 
 /***********************************************************************
 *
@@ -115,12 +115,12 @@ enum graphRet GraphCCurrent (pGraph g, void *newCurrentData);
 *		Aloca novo 'Node'; 'currentNode' vira esse novo 'Node'.
 *
 *	$FV Valor retornado
-*		graphOk
-*		graphInvalidGraph
-*		graphNullData
+*		GRA_Ok
+*		GRA_InvalidGraph
+*		GRA_NullData
 *
 ***********************************************************************/
-enum graphRet GraphNewNode (pGraph g, void *data);
+enum GRA_Ret GRA_NewNode (pGraph g, void *data);
 
 /***********************************************************************
 *		As proximas funcoes manipulam sempre o 'currentNode'
@@ -136,16 +136,16 @@ enum graphRet GraphNewNode (pGraph g, void *data);
 *
 *	$ED Descricao da funcao
 *		Deleta 'currentNode'. 'currentNode' se torna'Null'.
-*		Se foi passada uma funcao em GraphNew(), esta e' chamada
+*		Se foi passada uma funcao em GRA_New(), esta e' chamada
 *		para excluir 'currentNode->data'.
 *
 *	$FV Valor retornado
-*		graphOk
-*		graphInvalidGraph
-*		graphInvalidCurrentNode
+*		GRA_Ok
+*		GRA_InvalidGraph
+*		GRA_InvalidCurrentNode
 *
 ***********************************************************************/
-void GraphDelNode (pGraph g);
+void GRA_DelNode (pGraph g);
 
 /***********************************************************************
 *
@@ -160,13 +160,13 @@ void GraphDelNode (pGraph g);
 *		Cria um link entre 'currentNode' e o 'Node' que contem 'd'
 *
 *	$FV Valor retornado
-*		graphOk
-*		graphInvalidGraph
-*		graphInvalidCurrentNode
-*		graphInvalidArgNode
+*		GRA_Ok
+*		GRA_InvalidGraph
+*		GRA_InvalidCurrentNode
+*		GRA_InvalidArgNode
 *
 ***********************************************************************/
-enum graphRet GraphAddLink (pGraph g, void *d);
+enum GRA_Ret GraphAddLink (pGraph g, void *d);
 
 /***********************************************************************
 *
@@ -180,14 +180,14 @@ enum graphRet GraphAddLink (pGraph g, void *d);
 *		Apaga um link entre 'currentNode' e o 'Node' contendo 'd'
 *
 *	$FV Valor retornado
-*		graphOk
-*		graphInvalidGraph
-*		graphInvalidCurrentNode
-*		graphInvalidArgNode
-*		graphInvalidLink
+*		GRA_Ok
+*		GRA_InvalidGraph
+*		GRA_InvalidCurrentNode
+*		GRA_InvalidArgNode
+*		GRA_InvalidLink
 *
 ***********************************************************************/
-enum graphRet GraphRemLink (pGraph g, void *d);
+enum GRA_Ret GraphRemLink (pGraph g, void *d);
 
 /***********************************************************************
 *
@@ -200,7 +200,7 @@ enum graphRet GraphRemLink (pGraph g, void *d);
 *		Ponteiro 'currentNode->data'
 *
 ***********************************************************************/
-void *GraphGetData (pGraph g);
+void *GRA_GetData (pGraph g);
 
 /***********************************************************************
 *
@@ -210,11 +210,11 @@ void *GraphGetData (pGraph g);
 *		$P g - Ponteiro para o 'Graph' a ser manipulado
 *
 *	$ED Descricao da Funcao
-*		Garante que o proximo elemento lido por GraphNodesGetNext
+*		Garante que o proximo elemento lido por GRA_NodesGetNext
 *		e' o primeiro da lista de nodes do grafo.
 *
 ***********************************************************************/
-void GraphNodesStart(pGraph g);
+void GRA_NodesStart(pGraph g);
 
 /***********************************************************************
 *
@@ -224,11 +224,11 @@ void GraphNodesStart(pGraph g);
 *		$P g - Ponteiro para o 'Graph' a ser manipulado
 *
 *	$ED Descricao da Funcao
-*		Garante que o proximo elemento lido por GraphLinksGetNext
+*		Garante que o proximo elemento lido por GRA_LinksGetNext
 *		e' o primeiro da lista de links do 'currentNode' do grafo.
 *
 ***********************************************************************/
-void GraphLinksStart (pGraph g);
+void GRA_LinksStart (pGraph g);
 
 /***********************************************************************
 *
@@ -246,7 +246,7 @@ void GraphLinksStart (pGraph g);
 *		Caso a lista tenha terminado.
 *
 ***********************************************************************/
-void *GraphNodesGetNext (pGraph g);
+void *GRA_NodesGetNext (pGraph g);
 
 /***********************************************************************
 *
@@ -264,7 +264,7 @@ void *GraphNodesGetNext (pGraph g);
 *		Caso a lista tenha terminado.
 *
 ***********************************************************************/
-void *GraphLinksGetNext (pGraph g);
+void *GRA_LinksGetNext (pGraph g);
 
 
 #endif /* GRA_ */

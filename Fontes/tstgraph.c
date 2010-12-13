@@ -24,19 +24,19 @@ static char * vData[ MAXDATAS ];
 
 static int DataAlocCount = 0;
 
-static const char GRAPHNEW_CMD            [ ] = "=GraphNew"           ;
-static const char GRAPHDEL_CMD            [ ] = "=GraphDel"           ;
-static const char GRAPHCCUR_CMD           [ ] = "=GraphCCurrent"      ;
-static const char GRAPHNEWNODE_CMD        [ ] = "=GraphNewNode"       ;
-static const char GRAPHDELNODE_CMD        [ ] = "=GraphDelNode"       ;
-static const char GRAPHADDLINK_CMD        [ ] = "=GraphAddLink"       ;
-static const char GRAPHREMLINK_CMD        [ ] = "=GraphRemLink"       ;
-static const char GRAPHGETDATA_CMD        [ ] = "=GraphGetData"       ;
+static const char GRAPHNEW_CMD            [ ] = "=GRA_New"           ;
+static const char GRAPHDEL_CMD            [ ] = "=GRA_Del"           ;
+static const char GRAPHCCUR_CMD           [ ] = "=GRA_CCurrent"      ;
+static const char GRAPHNEWNODE_CMD        [ ] = "=GRA_NewNode"       ;
+static const char GRAPHDELNODE_CMD        [ ] = "=GRA_DelNode"       ;
+static const char GRAPHADDLINK_CMD        [ ] = "=GRA_AddLink"       ;
+static const char GRAPHREMLINK_CMD        [ ] = "=GRA_RemLink"       ;
+static const char GRAPHGETDATA_CMD        [ ] = "=GRA_GetData"       ;
 
-static const char GRAPHNODESSTART_CMD     [ ] = "=GraphNodesStart"    ;
-static const char GRAPHLINKSSTART_CMD     [ ] = "=GraphLinksStart"    ;
-static const char GRAPHNODESGETNEXT_CMD   [ ] = "=GraphNodesGetNext"  ;
-static const char GRAPHLINKSGETNEXT_CMD   [ ] = "=GraphLinksGetNext"  ;
+static const char GRAPHNODESSTART_CMD     [ ] = "=GRA_NodesStart"    ;
+static const char GRAPHLINKSSTART_CMD     [ ] = "=GRA_LinksStart"    ;
+static const char GRAPHNODESGETNEXT_CMD   [ ] = "=GRA_NodesGetNext"  ;
+static const char GRAPHLINKSGETNEXT_CMD   [ ] = "=GRA_LinksGetNext"  ;
 
 static const char NEWDATA_CMD             [ ] = "=NewData"            ;
 static const char CMPDATA_CMD             [ ] = "=CmpData"            ;
@@ -73,7 +73,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if ( argc != 1 
 			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
-		vGraph[iGraph] = GraphNew ( DelData );
+		vGraph[iGraph] = GRA_New ( DelData );
             	return TST_CompararPonteiroNulo( 1 , vGraph[iGraph],
 			"Erro: Ponteiro para novo grafo e' nulo." );
 
@@ -96,7 +96,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if ( argc != 1 
 			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
-		GraphDel ( vGraph[iGraph] );
+		GRA_Del ( vGraph[iGraph] );
 		vGraph[iGraph] = NULL;
 
             	return TST_CondRetOK;
@@ -112,7 +112,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		Ret = GraphCCurrent ( vGraph[iGraph],  vData[iData] );
+		Ret = GRA_CCurrent ( vGraph[iGraph],  vData[iData] );
 
 		
 		return TST_CompararInt( ExpectedRet , Ret ,
@@ -129,7 +129,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		Ret = GraphNewNode ( vGraph[iGraph],  vData[iData] );
+		Ret = GRA_NewNode ( vGraph[iGraph],  vData[iData] );
 
 		
 		return TST_CompararInt( ExpectedRet , Ret ,
@@ -143,7 +143,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if ( argc != 1
 			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
-		GraphDelNode ( vGraph[iGraph] );
+		GRA_DelNode ( vGraph[iGraph] );
 
 		
 		return TST_CondRetOK;
@@ -159,7 +159,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		Ret = GraphAddLink ( vGraph[iGraph],  vData[iData] );
+		Ret = GRA_AddLink ( vGraph[iGraph],  vData[iData] );
 
 		
 		return TST_CompararInt( ExpectedRet , Ret ,
@@ -176,7 +176,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		Ret = GraphRemLink ( vGraph[iGraph],  vData[iData] );
+		Ret = GRA_RemLink ( vGraph[iGraph],  vData[iData] );
 
 		
 		return TST_CompararInt( ExpectedRet , Ret ,
@@ -191,7 +191,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		vData[iData] = GraphGetData ( vGraph[iGraph]);
+		vData[iData] = GRA_GetData ( vGraph[iGraph]);
 
 		return TST_CompararPonteiroNulo( 1 , vData[iData],
 			"Erro: GetData retornou NULL. Ainda assim, NULL\
@@ -205,7 +205,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if ( argc != 1
 			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
-		GraphNodesStart ( vGraph[iGraph] );
+		GRA_NodesStart ( vGraph[iGraph] );
 
             	return TST_CondRetOK;
 		
@@ -216,7 +216,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		if ( argc != 1
 			|| iGraph < 0 || iGraph > MAXGRAPHS)
 			return TST_CondRetParm;
-		GraphLinksStart ( vGraph[iGraph] );
+		GRA_LinksStart ( vGraph[iGraph] );
 
             	return TST_CondRetOK;
 
@@ -228,10 +228,10 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		vData[iData] = GraphNodesGetNext ( vGraph[iGraph] );
+		vData[iData] = GRA_NodesGetNext ( vGraph[iGraph] );
 
 		return TST_CompararPonteiroNulo( 1 , vData[iData],
-			"Erro: GraphNodesGetNext retornou NULL. Ainda assim, NULL\
+			"Erro: GRA_NodesGetNext retornou NULL. Ainda assim, NULL\
 			foi armazenado" );
 
 	}else if (! strcmp( CmdTeste ,		GRAPHLINKSGETNEXT_CMD) ){
@@ -242,10 +242,10 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 			|| iGraph < 0 || iGraph > MAXGRAPHS
 			|| iData  < 0 || iData  > MAXDATAS )
 			return TST_CondRetParm;
-		vData[iData] = GraphLinksGetNext ( vGraph[iGraph] );
+		vData[iData] = GRA_LinksGetNext ( vGraph[iGraph] );
 
 		return TST_CompararPonteiroNulo( 1 , vData[iData],
-			"Erro: GraphLinksGetNext retornou NULL. Ainda assim, NULL\
+			"Erro: GRA_LinksGetNext retornou NULL. Ainda assim, NULL\
 			foi armazenado" );
 
 	}else if (! strcmp( CmdTeste ,		NEWDATA_CMD) ){
