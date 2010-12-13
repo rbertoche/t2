@@ -450,7 +450,10 @@ enum graphRet GraphAddLink (Graph *g, void *n)
 		return graphInvalidArgNode;
     }
 	n2 = LIS_ObterValor(LIS_ObterValor(g->nodes));
-
+	if (n2 == n1){
+        CNT_CONTAR("GraphAddLink - Tentando criar link de n1 pra n1");
+		return graphInvalidArgNode;
+	}
 #ifdef _DEBUG
 	AssertNode(n1,g);
 	AssertNode(n2,g);
