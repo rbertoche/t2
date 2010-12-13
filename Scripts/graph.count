@@ -32,6 +32,7 @@ GraphNewMode - N?o inseriu no final da lista
 GraphNewMode - Atribui??o, finaliza??o
 267 GraphNewNode - N?O SEI O QUE ESCREVER FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIM
 GraphdelNode - Inicializa??o
+GraphdelNode - InvalidCurrentNode
 GraphdelNode - Deletando no
 delNode - Destruindo lista de links
 delNode - Existe g->delData
@@ -53,6 +54,7 @@ GraphAddLink - N?o existe n
 GraphAddLink - N?o existe g->currentNode
 GraphAddLink - Procurando no
 GraphAddLink - N?o encontrou no
+GraphAddLink - Tentando criar link de n1 pra n1
 GraphAddLink - Ligando 2 nos
 GraphAddLink - Ligou os nos
 GraphRemLink - Inicio
