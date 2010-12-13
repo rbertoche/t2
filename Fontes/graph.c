@@ -385,7 +385,17 @@ enum graphRet linkTwoNodes(Node *node1, Node *node2)
 
     CNT_CONTAR("linkTwoNodes - Compondo Links");
 	link1 = (Link*) malloc (sizeof(Link));
+	if (!link1){
+	CNT_CONTAR("linkTwoNodes - Alocacao de link1 falhou");
+		return graphMemoryError;
+	}
 	link2 = (Link*) malloc (sizeof(Link));
+	if (!link2){
+		/* Muito improvavel de cair aqui num teste
+	CNT_CNTAR("linkTwoNodes - Alocacao de link2 falhou"); */
+		free (link1);
+		return graphMemoryError;
+	}
 
 	/* Compoe os dois links */
 	link1->n1 = node1;
