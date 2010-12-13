@@ -15,6 +15,11 @@ pushd .
 nmake /F..\composicao\testgraph.make
 popd
 
+REM compila graphdbg
+pushd .
+nmake /F..\composicao\testgraphdbg.make
+popd
+
 REM compila usr
 pushd .
 nmake /F..\composicao\testusr.make

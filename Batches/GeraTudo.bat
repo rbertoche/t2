@@ -11,6 +11,7 @@ mkdir ..\Tabelas
 
 gmake  /b..\composicao  /cTesteLista
 gmake  /b..\composicao  /cTestGraph
+gmake  /b..\composicao  /cTestGraphDbg
 gmake  /b..\composicao  /cTestUsr
 gmake  /b..\composicao  /cTestCli
 gmake  /b..\composicao  /cTestNetMgr
