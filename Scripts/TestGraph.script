@@ -105,6 +105,11 @@
 =NewData		d3	c3
 =GraphNewNode		g0	d3	Ok
 
+== Cria e deleta node c4
+=NewData			d4	c4
+=GraphNewNode		g0	d3	Ok
+=GraphDelNode		g0	Ok
+
 == Cria link entre c3 e c1
 =GraphAddLink		g0	d1	Ok
 
@@ -152,7 +157,7 @@
 =GraphRemLink		g0	dNulo NullData
 =GraphNew			g3	Ok
 =GraphRemLink		g3	dNulo NullData
-//=GraphDel			g3
+=GraphDel			g3
 
 =GraphCCurrent		g0	d1	Ok
 
@@ -264,6 +269,9 @@
 =GraphDel		g0
 == Deleta grafo 1
 =GraphDel		g1
+// grafo 3 ja foi deletado
+== Deleta grafo 4
+=GraphDel		g4
 
 //==Mostra campos alocados depois de deletar os grafos
 //=ShowMem
