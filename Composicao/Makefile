@@ -37,7 +37,7 @@ $(OBJ)/tstcli.o
 
 GRAPHDBGOBJ=\
 $(OBJ)/libArcaboucoTeste.a\
-$(OBJ)/lista.o\
+$(OBJ)/lista.dbg.o\
 $(OBJ)/graph.dbg.o\
 $(OBJ)/tstgraph.dbg.o
 

@@ -30,6 +30,11 @@
 #include "lista.h"
 #undef LISTA_OWN
 
+
+#ifdef _DEBUG
+#include "cespdin.h"
+#endif /* _DEBUG */
+
 /***********************************************************************
 *
 *  $TC Tipo de dados: LIS Elemento da lista
