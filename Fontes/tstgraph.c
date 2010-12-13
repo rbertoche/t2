@@ -231,7 +231,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		vData[iData] = GRA_NodesGetNext ( vGraph[iGraph] );
 
 		return TST_CompararPonteiroNulo( 1 , vData[iData],
-			"Erro: GraphNodesGetNext retornou NULL. Ainda assim, NULL\
+			"Erro: GRA_NodesGetNext retornou NULL. Ainda assim, NULL\
 			foi armazenado" );
 
 	}else if (! strcmp( CmdTeste ,		GRAPHLINKSGETNEXT_CMD) ){
@@ -245,7 +245,7 @@ TST_tpCondRet TST_EfetuarComando( char * CmdTeste )
 		vData[iData] = GRA_LinksGetNext ( vGraph[iGraph] );
 
 		return TST_CompararPonteiroNulo( 1 , vData[iData],
-			"Erro: GraphLinksGetNext retornou NULL. Ainda assim, NULL\
+			"Erro: GRA_LinksGetNext retornou NULL. Ainda assim, NULL\
 			foi armazenado" );
 
 	}else if (! strcmp( CmdTeste ,		NEWDATA_CMD) ){
