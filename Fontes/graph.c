@@ -274,13 +274,13 @@ enum GRA_Ret GRA_NewNode (Graph *g, void *data)
 
 void GRA_DelNode (Graph *g)
 {
+	Node *n;
 #ifdef _DEBUG
 	int nOfNodesAntigo = g->nOfNodes;
 	AssertGraph(g);
 #endif /* _DEBUG */
 
     CNT_CONTAR("GRA_delNode - Inicializao");
-	Node *n;
 	assert(g->currentNode);
 	n = (Node *) LIS_ObterValor(g->currentNode);
 	assert( n!=NULL );
@@ -433,12 +433,12 @@ enum GRA_Ret linkTwoNodes(Node *node1, Node *node2)
 
 enum GRA_Ret GRA_AddLink (Graph *g, void *n)
 {
+	Node *n1, *n2;
+	enum GRA_Ret ret;
     CNT_CONTAR("GRA_AddLink - Inicio");
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
-	Node *n1, *n2;
-	enum GRA_Ret ret;
 	if (!n){
 	    CNT_CONTAR("GRA_AddLink - Nao existe n");
 		return GRA_NullData;
@@ -480,9 +480,9 @@ enum GRA_Ret GRA_AddLink (Graph *g, void *n)
 
 enum GRA_Ret GRA_RemLink (Graph *g, void *d)
 {
-    CNT_CONTAR("GRA_RemLink - Inicio");
 	Node *curr;
 	Link *l;
+    CNT_CONTAR("GRA_RemLink - Inicio");
 	if (!d){
         CNT_CONTAR("GRA_RemLink - Nao existe d");
 		return GRA_NullData;
@@ -573,12 +573,12 @@ void GRA_LinksStart (Graph *g)
 
 void *GRA_NodesGetNext (Graph *g)
 {
+	void *ret;
+	LIS_tppLista l;
     CNT_CONTAR("GRA_NodesGetNext - inicio");
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
-	void *ret;
-	LIS_tppLista l;
 	if (!g->currentNode){
 		return NULL;
     }
@@ -606,12 +606,12 @@ void *GRA_NodesGetNext (Graph *g)
 
 void *GRA_LinksGetNext (Graph *g)
 {
+	void *ret;
+	LIS_tppLista l;
     CNT_CONTAR("GRA_LinksGetNext - inicio");
 #ifdef _DEBUG
 	AssertGraph(g);
 #endif /* _DEBUG */
-	void *ret;
-	LIS_tppLista l;
 	CNT_CONTAR("GRA_LinksGetNext - Inicializao");
 
 	if (!g->currentNode){
