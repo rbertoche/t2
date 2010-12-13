@@ -101,13 +101,14 @@ Graph *GRA_New (FDelData fdd)
 	CNT_CONTAR("GRA_New - Inicializao");
 	g = (Graph *) malloc(sizeof(Graph));
 	if (!g){
-	CNT_CONTAR("GRA_New - Nao alocou g");
+		CNT_CONTAR("GRA_New - Nao alocou g");
 		return NULL;
-    }
+	}
 	g->nodes = LIS_CriarLista((FDelData) LIS_DestruirLista );
 	CNT_CONTAR("GRA_New - Alocando nodes");
 	if (!g->nodes){
-        CNT_CONTAR("GRA_New - Nao alocou nodes");
+		CNT_CONTAR("GRA_New - Nao alocou nodes");
+		free (g);
 		return NULL;
 	}
 	g->delData = fdd;
@@ -129,7 +130,7 @@ void GRA_Del (Graph *g)
 #endif /* _DEBUG */
     CNT_CONTAR("GRA_Del - Inicializao");
 	IrInicioLista ( g->nodes );
-	if ( g->currentNode || !LIS_AvancarElementoCorrente ( g->nodes , 1)){
+	if ( !g->currentNode || !LIS_AvancarElementoCorrente ( g->nodes , 1)){
 	CNT_CONTAR("GRA_Del - Grafo vazio");
 		return;
 	}
