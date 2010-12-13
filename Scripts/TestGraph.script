@@ -107,7 +107,7 @@
 
 == Cria e deleta node c4
 =NewData			d4	c4
-=GraphNewNode		g0	d3	Ok
+=GraphNewNode		g0	d4	Ok
 =GraphDelNode		g0	Ok
 
 == Cria link entre c3 e c1
